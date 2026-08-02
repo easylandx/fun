@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦄 Easyland Fun Zone</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    p.subtitle {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: white;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+    .emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 15px;
+    }
+    .card h2 {
+      margin: 0 0 10px 0;
+      font-size: 1.6rem;
+    }
+    .card p {
+      margin: 0;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>🦄 Easyland Fun Zone</h1>
+  <p class="subtitle">Pick your adventure!</p>
+
+  <div class="container">
+
+    <a href="https://easylandx.github.io/fun/elevator.html" class="card" target="_blank">
+      <span class="emoji">🛗</span>
+      <h2>Elevator</h2>
+      <p>Endless elevator ride. How far can you go?</p>
+    </a>
+
+    <a href="https://easylandx.github.io/fun/index.html" class="card" target="_blank">
+      <span class="emoji">🌌</span>
+      <h2>Silence</h2>
+      <p>A peaceful, calming experience.</p>
+    </a>
+
+    <a href="https://easylandx.github.io/fun/silence.html" class="card" target="_blank">
+      <span class="emoji">🤫</span>
+      <h2>Deep Silence</h2>
+      <p>Minimalist quiet space. Just breathe.</p>
+    </a>
+
+    <a href="https://easylandx.github.io/fun/suerte.html" class="card" target="_blank">
+      <span class="emoji">🍀</span>
+      <h2>Suerte</h2>
+      <p>Try your luck! Fortune & randomness.</p>
+    </a>
+
+    <a href="https://easylandx.github.io/fun/vacation.html" class="card" target="_blank">
+      <span class="emoji">🏖️</span>
+      <h2>Vacation Mode</h2>
+      <p>Escape to a relaxing virtual getaway.</p>
+    </a>
+
+    <a href="https://easylandx.github.io/fun/zoom.html" class="card" target="_blank">
+      <span class="emoji">🔍</span>
+      <h2>Zoom</h2>
+      <p>Zoom in. Zoom out. Mind-bending visuals.</p>
+    </a>
+
+  </div>
+</body>
+</html>
