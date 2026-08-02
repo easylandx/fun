@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Out of Office Airport — Vacation Email Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16302B;
+    --cream:#FBF1DD;
+    --cream-2:#F3E6C6;
+    --coral:#FF6849;
+    --mustard:#F4A93B;
+    --teal:#0F6B62;
+    --teal-dark:#0A4B44;
+    --sky:#CFE8E2;
+    --board-black:#0D1B18;
+    --board-amber:#F4A93B;
+    --line: rgba(22,48,43,0.16);
+    --shadow: 0 12px 30px rgba(13,27,24,0.18);
+    --radius: 4px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Instrument Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:"✈"; font-size:13px;}
+  a{color:inherit;}
+  :focus-visible{outline:3px solid var(--coral); outline-offset:3px;}
+
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+
+  /* ===== TOPBAR ===== */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--cream); border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1120px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:'Space Mono', monospace; font-weight:700; font-size:14px;
+    letter-spacing:0.05em; display:flex; align-items:center; gap:10px;
+  }
+  .logo-badge{
+    width:28px;height:28px;border-radius:50%;
+    background:var(--coral); color:var(--cream);
+    display:flex;align-items:center;justify-content:center;font-size:14px;
+    border:2px solid var(--ink);
+  }
+  .cta-small{
+    font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.06em;
+    background:var(--ink); color:var(--cream); padding:10px 18px;
+    border-radius:999px; text-decoration:none; white-space:nowrap;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .cta-small:hover{ transform:translateY(-2px); background:var(--teal-dark); }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:76px 0 60px;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(15,107,98,0.08) 0, transparent 45%),
+      radial-gradient(circle at 90% 10%, rgba(255,104,73,0.10) 0, transparent 40%);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:center;
+  }
+  .postmark{
+    position:absolute; top:52px; right:40px;
+    width:150px; height:150px;
+    border:3px solid var(--ink); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; text-align:center;
+    transform:rotate(-14deg);
+    opacity:0; animation:stamp-in .5s cubic-bezier(.2,1.4,.4,1) .35s forwards;
+  }
+  .postmark::before,.postmark::after{
+    content:""; position:absolute; inset:8px;
+    border:1px solid var(--ink); border-radius:50%;
+  }
+  .postmark-text{ font-size:10px; line-height:1.5; letter-spacing:0.08em; color:var(--ink);}
+  .postmark-text b{ display:block; font-size:15px; letter-spacing:0.02em;}
+  @keyframes stamp-in{
+    0%{ opacity:0; transform:rotate(-40deg) scale(1.8); }
+    100%{ opacity:1; transform:rotate(-14deg) scale(1); }
+  }
+
+  .hero h1{
+    font-size:clamp(42px, 6vw, 74px);
+    line-height:0.98;
+    color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--coral); font-weight:500;
+  }
+  .hero p.lede{
+    margin-top:22px; font-size:19px; line-height:1.55; max-width:46ch; color:#2C433D;
+  }
+  .hero-ctas{ margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-primary{
+    font-family:'Space Mono', monospace; font-size:13px; letter-spacing:0.05em;
+    background:var(--coral); color:var(--cream); padding:16px 26px;
+    border-radius:999px; text-decoration:none; border:2px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
+  .btn-ghost{
+    font-family:'Space Mono', monospace; font-size:13px; letter-spacing:0.05em;
+    background:transparent; color:var(--ink); padding:16px 26px;
+    border-radius:999px; text-decoration:none; border:2px solid var(--ink);
+    transition:background .15s ease;
+  }
+  .btn-ghost:hover{ background:var(--sky); }
+
+  .ticket-stub{
+    background:var(--teal); color:var(--cream);
+    border-radius:14px; padding:26px 26px 22px;
+    position:relative; box-shadow:var(--shadow);
+    transform:rotate(2.5deg);
+  }
+  .ticket-stub::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:78px;
+    border-top:2px dashed rgba(251,241,221,0.4);
+  }
+  .ticket-row{ display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.85;}
+  .ticket-main{ margin-top:14px; display:flex; justify-content:space-between; align-items:flex-end;}
+  .ticket-city{ font-family:'Fraunces', serif; font-size:34px; }
+  .ticket-arrow{ font-size:22px; opacity:0.7; margin:0 10px;}
+  .ticket-footer{ margin-top:30px; display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em;}
+  .ticket-footer div b{display:block; font-size:14px; font-family:'Fraunces',serif; font-weight:600; margin-top:2px;}
+
+  /* ===== SECTION LABELS ===== */
+  .section{ padding:88px 0; }
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(30px,4vw,44px); margin-top:10px; }
+  .section-head p{ margin-top:14px; font-size:17px; color:#38534C; line-height:1.55;}
+
+  .section.alt{ background:var(--teal); color:var(--cream); }
+  .section.alt .eyebrow{ color:var(--sky); }
+  .section.alt .eyebrow::before{ filter:brightness(1.4); }
+  .section.alt .section-head p{ color:rgba(251,241,221,0.82); }
+
+  /* ===== WHY STRIP ===== */
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; margin-top:8px;
+  }
+  .stat-cell{ background:var(--cream); padding:28px 24px; }
+  .stat-cell .num{ font-family:'Fraunces',serif; font-size:38px; color:var(--coral); }
+  .stat-cell .lbl{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; margin-top:6px; color:#38534C;}
+  blockquote.callout{
+    font-family:'Fraunces', serif; font-style:italic; font-size:22px;
+    border-left:3px solid var(--coral); padding-left:20px; margin:36px 0 0; color:#2C433D;
+  }
+
+  /* ===== BOARDING PASSES (personalities) ===== */
+  .pass-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;
+  }
+  .pass{
+    background:var(--cream); border:2px solid var(--ink); border-radius:10px;
+    padding:20px 20px 18px; position:relative;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 0 0 var(--ink);
+  }
+  .pass:hover{ transform:translateY(-6px) rotate(-0.6deg); box-shadow:6px 8px 0 var(--ink);}
+  .pass-top{ display:flex; justify-content:space-between; align-items:center; }
+  .pass-emoji{ font-size:26px; }
+  .pass-code{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--teal-dark); }
+  .pass-name{ font-family:'Fraunces',serif; font-weight:600; font-size:20px; margin-top:12px;}
+  .pass-punch{ margin:14px 0; border-top:1px dashed var(--line); position:relative;}
+  .pass-punch::before,.pass-punch::after{
+    content:""; position:absolute; top:-8px; width:16px; height:16px; border-radius:50%;
+    background:var(--teal);
+  }
+  .pass-punch::before{ left:-32px; }
+  .pass-punch::after{ right:-32px; }
+  .pass-quote{ font-size:14.5px; line-height:1.55; color:#2C433D; min-height:66px; }
+  .pass-bottom{ margin-top:14px; font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#7A8F87; display:flex; justify-content:space-between;}
+
+  /* ===== FEATURES ===== */
+  .feature-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2px; background:rgba(251,241,221,0.15); border-radius:12px; overflow:hidden;}
+  .feature{
+    background:var(--teal-dark); padding:28px 26px;
+  }
+  .feature .fi{ font-size:24px; }
+  .feature h3{ font-size:19px; margin-top:14px; color:var(--cream);}
+  .feature p{ margin-top:8px; font-size:14.5px; line-height:1.55; color:rgba(251,241,221,0.78);}
+  .translate-box{
+    margin-top:14px; background:rgba(0,0,0,0.18); border-radius:8px; padding:12px 14px;
+    font-family:'Space Mono',monospace; font-size:12.5px; line-height:1.7;
+  }
+  .translate-box .from{ color:#F4A93B; }
+  .translate-box .to{ color:var(--sky); }
+
+  /* ===== DEPARTURES BOARD (stats) ===== */
+  .board{
+    background:var(--board-black); border-radius:12px; padding:28px 10px;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.5), var(--shadow);
+    overflow-x:auto;
+  }
+  .board-title{
+    font-family:'Space Mono',monospace; color:var(--board-amber); font-size:12px;
+    letter-spacing:0.16em; text-transform:uppercase; padding:0 18px 14px; display:flex; justify-content:space-between;
+    border-bottom:1px solid rgba(244,169,59,0.25); margin-bottom:6px;
+  }
+  .board-row{
+    display:grid; grid-template-columns: 90px 1.4fr 90px 1fr;
+    font-family:'Space Mono',monospace; color:var(--board-amber);
+    padding:11px 18px; font-size:13px; letter-spacing:0.04em;
+    border-bottom:1px dashed rgba(244,169,59,0.12);
+    min-width:520px;
+  }
+  .board-row span.flicker{ animation:flicker 3.6s infinite; animation-delay: var(--d,0s); }
+  @keyframes flicker{
+    0%,92%,100%{ opacity:1; }
+    94%{ opacity:0.35; }
+    96%{ opacity:1; }
+  }
+  .board-status.delayed{ color:var(--coral); }
+  .board-status.boarding{ color:#8FE3B8; }
+  .board-status.onhold{ color:var(--sky); }
+
+  /* ===== LUGGAGE TAGS (pricing) ===== */
+  .tag-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; }
+  .tag{
+    background:var(--cream); border:2px solid var(--ink); border-radius:16px 16px 4px 4px;
+    padding:30px 26px 26px; position:relative;
+  }
+  .tag.featured{ background:var(--mustard); }
+  .tag-hole{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    width:26px; height:26px; border-radius:50%; background:var(--cream);
+    border:2px solid var(--ink);
+  }
+  .tag.featured .tag-hole{ background:var(--mustard); }
+  .tag-hole::after{
+    content:""; position:absolute; inset:8px; border-radius:50%; background:var(--cream);
+  }
+  .tag-plan{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal-dark); }
+  .tag-name{ font-family:'Fraunces',serif; font-size:26px; margin-top:6px; }
+  .tag-price{ font-family:'Fraunces',serif; font-size:38px; margin-top:14px; }
+  .tag-price span{ font-family:'Space Mono',monospace; font-size:13px; color:#5B6F68; }
+  .tag ul{ list-style:none; margin:20px 0 0; padding:0; font-size:14px; line-height:2; color:#2C433D;}
+  .tag ul li::before{ content:"✂ "; opacity:0.5; }
+  .tag-cta{
+    margin-top:22px; display:inline-block; width:100%; text-align:center;
+    font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:0.06em;
+    padding:13px; border-radius:999px; border:2px solid var(--ink); text-decoration:none;
+    transition:background .15s ease;
+  }
+  .tag-cta:hover{ background:var(--ink); color:var(--cream); }
+
+  /* ===== ADD-ONS ===== */
+  .addon-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 4px; border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .addon-row span.price{ font-family:'Space Mono',monospace; color:var(--coral); font-size:14px;}
+
+  /* ===== FAQ ===== */
+  details.faq{ border-bottom:1px solid var(--line); padding:18px 0; }
+  details.faq summary{
+    cursor:pointer; font-family:'Fraunces',serif; font-size:19px; list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq summary::after{ content:"+"; font-family:'Space Mono',monospace; font-size:20px; color:var(--coral); transition:transform .2s ease;}
+  details.faq[open] summary::after{ transform:rotate(45deg); }
+  details.faq p{ margin-top:12px; color:#38534C; font-size:15px; line-height:1.6; max-width:60ch;}
+
+  /* ===== FINAL CTA ===== */
+  .final{
+    background:var(--coral); color:var(--ink); border-radius:20px; padding:64px 44px;
+    text-align:center; position:relative; overflow:hidden; margin:0 auto;
+  }
+  .final h2{ font-size:clamp(30px,4.4vw,48px); color:var(--ink); }
+  .final p{ margin-top:14px; font-size:17px; max-width:50ch; margin-left:auto; margin-right:auto; }
+  .final .btn-primary{ margin-top:28px; background:var(--ink); color:var(--cream); box-shadow:4px 4px 0 var(--teal-dark);}
+  .final .btn-primary:hover{ box-shadow:6px 6px 0 var(--teal-dark); }
+
+  footer{ padding:44px 0 60px; }
+  .disclaimer{
+    font-family:'Space Mono',monospace; font-size:11.5px; line-height:1.8; color:#5B6F68;
+    max-width:70ch;
+  }
+
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (max-width:860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .postmark{ display:none; }
+    .ticket-stub{ transform:none; }
+    .stat-strip{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo"><span class="logo-badge">✈</span> OUT OF OFFICE AIRPORT</div>
+    <a class="cta-small" href="#generate">Generate my email</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="postmark">
+      <div class="postmark-text">EST. NEVER<br><b>OOO</b>AIRPORT<br>GATE 45</div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Now boarding · vacation.exe</div>
+        <h1>Escape work.<br><em>We'll handle</em><br>the emails.</h1>
+        <p class="lede">Going on vacation shouldn't mean spending 45 minutes writing the perfect out-of-office message. Our AI drafts it in under 10 seconds — professionally polite to delightfully passive-aggressive, your choice.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#generate">Generate my vacation email →</a>
+          <a class="btn-ghost" href="#modes">I'm already mentally out of office</a>
+        </div>
+      </div>
+      <div class="ticket-stub reveal">
+        <div class="ticket-row"><span>Boarding pass</span><span>Class: Away</span></div>
+        <div class="ticket-main">
+          <span class="ticket-city">DESK</span>
+          <span class="ticket-arrow">✈</span>
+          <span class="ticket-city">BEACH</span>
+        </div>
+        <div class="ticket-footer">
+          <div>Gate<b>OOO-1</b></div>
+          <div>Seat<b>Hammock</b></div>
+          <div>Status<b>Delayed reply</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why this exists</div>
+      <h2>94 million hours a year, gone.</h2>
+      <p>That's how long employees spend writing some version of "Thank you for your email, I am currently out of the office." We trained on 14 billion auto-replies so you never have to write another one from scratch.</p>
+    </div>
+    <div class="stat-strip reveal">
+      <div class="stat-cell"><div class="num">14B</div><div class="lbl">Auto-replies analyzed</div></div>
+      <div class="stat-cell"><div class="num">&lt;10s</div><div class="lbl">Time to generate</div></div>
+      <div class="stat-cell"><div class="num">127</div><div class="lbl">Countries, one excuse each</div></div>
+    </div>
+    <blockquote class="callout reveal">"Thank you for your email. I am currently out of the office and will respond upon my return." Boring. Reliable. Your manager approves. We can do better.</blockquote>
+  </div>
+</section>
+
+<section class="section alt" id="modes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Pick your vacation personality</div>
+      <h2>Every gate has a different departure.</h2>
+      <p>Eight boarding passes, eight ways to disappear. Punch one in and let it fly.</p>
+    </div>
+    <div class="pass-grid">
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">😇</span><span class="pass-code">GATE 01</span></div>
+        <div class="pass-name">The Professional</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"Thank you for your email. I am currently out of the office and will respond upon my return."</div>
+        <div class="pass-bottom"><span>Boring</span><span>Approved</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">😎</span><span class="pass-code">GATE 02</span></div>
+        <div class="pass-name">The Honest One</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"I'm on vacation doing absolutely nothing, and it's glorious. Back when I remember what spreadsheets are."</div>
+        <div class="pass-bottom"><span>Risky</span><span>Beloved</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">🏖️</span><span class="pass-code">GATE 03</span></div>
+        <div class="pass-name">Beach Mode</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"Currently testing whether coconuts make acceptable office supplies. Delays likely until sunscreen wears off."</div>
+        <div class="pass-bottom"><span>Sunny</span><span>Sticky</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">🏔️</span><span class="pass-code">GATE 04</span></div>
+        <div class="pass-name">Mountain Mode</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"Somewhere with terrible Wi-Fi and excellent life choices."</div>
+        <div class="pass-bottom"><span>Quiet</span><span>Elevated</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">🏴‍☠️</span><span class="pass-code">GATE 05</span></div>
+        <div class="pass-name">Pirate Mode</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"Ahoy! Sailed beyond the reach of inboxes. Your message rests in the captain's treasure chest."</div>
+        <div class="pass-bottom"><span>Bold</span><span>Unhinged</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">🤖</span><span class="pass-code">GATE 06</span></div>
+        <div class="pass-name">Robot Mode</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"Human unavailable. Recharging happiness. Please retry after vacation.exe completes."</div>
+        <div class="pass-bottom"><span>Literal</span><span>Efficient</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">🏕️</span><span class="pass-code">GATE 07</span></div>
+        <div class="pass-name">Camping Mode</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"If this email reaches me, civilization has expanded farther than expected."</div>
+        <div class="pass-bottom"><span>Remote</span><span>Feral</span></div>
+      </div>
+      <div class="pass reveal">
+        <div class="pass-top"><span class="pass-emoji">👻</span><span class="pass-code">GATE 08</span></div>
+        <div class="pass-name">Ghost Mode</div>
+        <div class="pass-punch"></div>
+        <div class="pass-quote">"The employee you are trying to reach has temporarily vanished."</div>
+        <div class="pass-bottom"><span>Spooky</span><span>Final</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">On-board amenities</div>
+      <h2>The AI does more than write "I'm away."</h2>
+      <p>Every reply gets run through translation, filtering, and a return date engineered to disappoint no one.</p>
+    </div>
+    <div class="feature-list reveal">
+      <div class="feature">
+        <div class="fi">🌴</div>
+        <h3>Auto excuse generator</h3>
+        <p>Visiting family, digital detox, dolphin training, searching for Atlantis, or fighting dragons — pick a reason nobody will question.</p>
+      </div>
+      <div class="feature">
+        <div class="fi">📅</div>
+        <h3>Return date optimizer™</h3>
+        <p>Selects the return date that causes the least disappointment to the most people, automatically.</p>
+      </div>
+      <div class="feature">
+        <div class="fi">📧</div>
+        <h3>Auto-reply translator</h3>
+        <p>Converts what you actually mean into what you're allowed to say.</p>
+        <div class="translate-box"><span class="from">"Please leave me alone."</span><br>↓<br><span class="to">"I appreciate your patience while I am away."</span></div>
+      </div>
+      <div class="feature">
+        <div class="fi">😴</div>
+        <h3>Urgency filter</h3>
+        <p>Recalibrates every inbound "URGENT!!!!" to what it actually is.</p>
+        <div class="translate-box"><span class="from">"URGENT!!!!"</span><br>↓<br><span class="to">"Can probably wait until Tuesday."</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="stats">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Departures</div>
+      <h2>Live board, since launch.</h2>
+      <p>Every generated reply logged, timestamped, and mildly exaggerated.</p>
+    </div>
+    <div class="board reveal">
+      <div class="board-title"><span>Flight</span><span>Status</span></div>
+      <div class="board-row"><span>OOO-119</span><span class="flicker" style="--d:0.2s">84,291,119 vacation emails generated</span><span>On time</span><span class="board-status boarding">BOARDING</span></div>
+      <div class="board-row"><span>ATL-002</span><span class="flicker" style="--d:0.6s">19,000,000 fake tropical adventures</span><span>Delayed</span><span class="board-status delayed">DELAYED</span></div>
+      <div class="board-row"><span>RPY-330</span><span class="flicker" style="--d:1.1s">7 billion delayed replies, and counting</span><span>Ongoing</span><span class="board-status onhold">HOLDING</span></div>
+      <div class="board-row"><span>DLP-004</span><span class="flicker" style="--d:1.6s">43,000 dolphin-training excuses filed</span><span>On time</span><span class="board-status boarding">BOARDING</span></div>
+      <div class="board-row"><span>SEA-001</span><span class="flicker" style="--d:2s">1 laptop, genuinely dropped in the sea</span><span>Confirmed</span><span class="board-status delayed">GROUNDED</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Baggage tags</div>
+      <h2>Choose how far you're checking out.</h2>
+      <p>Free for a weekend away. Paid plans for people who take disappearing seriously.</p>
+    </div>
+    <div class="tag-grid">
+      <div class="tag reveal"><div class="tag-hole"></div>
+        <div class="tag-plan">Carry-on</div>
+        <div class="tag-name">Weekend Escape</div>
+        <div class="tag-price">Free</div>
+        <ul>
+          <li>5 email templates</li>
+          <li>One fake beach photo</li>
+          <li>"Sent from my hammock" signature</li>
+        </ul>
+        <a class="tag-cta" href="#generate">Check this bag</a>
+      </div>
+      <div class="tag featured reveal"><div class="tag-hole"></div>
+        <div class="tag-plan">Checked</div>
+        <div class="tag-name">Vacation Pro</div>
+        <div class="tag-price">$9<span>/mo</span></div>
+        <ul>
+          <li>Unlimited replies</li>
+          <li>AI humor tuning</li>
+          <li>Calendar integration</li>
+          <li>Fake island names</li>
+          <li>Weather-based excuses</li>
+        </ul>
+        <a class="tag-cta" href="#generate">Check this bag</a>
+      </div>
+      <div class="tag reveal"><div class="tag-hole"></div>
+        <div class="tag-plan">Oversized</div>
+        <div class="tag-name">Executive Escape</div>
+        <div class="tag-price">$49<span>/mo</span></div>
+        <ul>
+          <li>Luxury auto-replies</li>
+          <li>AI assistant pretending to be you</li>
+          <li>Scheduled "working on it" emails</li>
+          <li>Automatic meeting delays</li>
+          <li>Emergency time-zone excuse</li>
+        </ul>
+        <a class="tag-cta" href="#generate">Check this bag</a>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;" class="reveal">
+      <div class="eyebrow">Duty-free add-ons</div>
+      <div class="addon-row"><span>🏖️ Fake beach background generator, for video calls</span><span class="price">+$5</span></div>
+      <div class="addon-row"><span>🌅 Sunset timestamp on every send</span><span class="price">+$3</span></div>
+      <div class="addon-row"><span>🐠 Underwater signature line</span><span class="price">+$2</span></div>
+      <div class="addon-row"><span>🤫 "Read but spiritually ignored" mode</span><span class="price">+$8</span></div>
+      <div class="addon-row"><span>🍹 Cocktail auto-responder, one recommendation per reply</span><span class="price">+$4</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Passenger reviews</div>
+      <h2>What people say after landing.</h2>
+    </div>
+    <div class="pass-grid">
+      <div class="pass reveal" style="background:var(--cream);">
+        <div class="pass-top"><span class="pass-emoji">⭐️⭐️⭐️⭐️⭐️</span><span class="pass-code">PM</span></div>
+        <div class="pass-quote" style="min-height:auto;">"My coworkers thought I was hiking in Switzerland. I was actually on my couch."</div>
+        <div class="pass-bottom"><span>Project Manager</span><span></span></div>
+      </div>
+      <div class="pass reveal" style="background:var(--cream);">
+        <div class="pass-top"><span class="pass-emoji">⭐️⭐️⭐️⭐️⭐️</span><span class="pass-code">SWE</span></div>
+        <div class="pass-quote" style="min-height:auto;">"The AI wrote a reply so convincing I believed I was in Greece."</div>
+        <div class="pass-bottom"><span>Software Engineer</span><span></span></div>
+      </div>
+      <div class="pass reveal" style="background:var(--cream);">
+        <div class="pass-top"><span class="pass-emoji">⭐️⭐️⭐️⭐️⭐️</span><span class="pass-code">ACC</span></div>
+        <div class="pass-quote" style="min-height:auto;">"It added 'limited internet access.' I was sitting next to my router."</div>
+        <div class="pass-bottom"><span>Accountant</span><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head reveal">
+      <div class="eyebrow">Customs & questions</div>
+      <h2>Before you fly.</h2>
+    </div>
+    <div class="reveal">
+      <details class="faq" open>
+        <summary>Will my boss know it's AI?</summary>
+        <p>Only if your usual emails don't already include phrases like "currently negotiating peace between seagulls."</p>
+      </details>
+      <details class="faq">
+        <summary>Can it sound professional?</summary>
+        <p>Absolutely. It can also sound mysterious, adventurous, poetic, pirate-like, medieval, Shakespearean, cowboy-themed, or like your most enthusiastic HR representative.</p>
+      </details>
+      <details class="faq">
+        <summary>Does it work in multiple languages?</summary>
+        <p>Yes — even in Corporate.</p>
+      </details>
+      <details class="faq">
+        <summary>Can it generate believable excuses?</summary>
+        <p>Very. Some customers accidentally became office legend after claiming they were volunteering to teach meditation to penguins.</p>
+      </details>
+      <details class="faq">
+        <summary>What if I don't actually have a vacation?</summary>
+        <p>No problem. We offer an "Emotionally Out of Office" mode for exactly that.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="generate">
+  <div class="wrap">
+    <div class="final reveal">
+      <div class="eyebrow" style="justify-content:center; color:var(--teal-dark);">Final boarding call</div>
+      <h2>Your vacation starts the moment<br>you stop writing this email.</h2>
+      <p>Let the AI draft the auto-reply. You focus on relaxing, recharging, and not thinking about work.</p>
+      <a class="btn-primary" href="#top">🌴 Generate my vacation email now</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">Vacation Email Generator is not responsible for: coworkers becoming jealous of your fictional adventures; managers asking for photos from your "volcano retreat"; accidentally inspiring three teammates to book the same week off; or the emotional shock of opening your inbox when you return. ✈️📬</p>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  document.querySelectorAll('details.faq').forEach(d=>{
+    d.addEventListener('toggle', ()=>{
+      if(d.open){
+        document.querySelectorAll('details.faq').forEach(o=>{ if(o!==d) o.open=false; });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

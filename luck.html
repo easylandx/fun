@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Luck Courier — Same-Day Luck Delivery</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --green-deep:#132C22;
+  --green-mid:#24513C;
+  --green-line:#3B7256;
+  --gold:#C9A24B;
+  --gold-bright:#E4C874;
+  --cream:#F6F0DF;
+  --cream-dim:#EAE1C8;
+  --rust:#A83E2E;
+  --ink:#181510;
+  --shadow: 0 18px 40px -18px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Public Sans', sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+
+h1,h2,h3,.display{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  letter-spacing:-0.01em;
+  margin:0;
+}
+
+.mono{
+  font-family:'IBM Plex Mono', monospace;
+  letter-spacing:.04em;
+}
+
+a{color:inherit;}
+
+.wrap{
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 28px;
+}
+
+/* ---------- perforation & ticket utilities ---------- */
+.perf-top{
+  position:relative;
+}
+.perf-top::before{
+  content:"";
+  position:absolute;
+  top:-1px; left:0; right:0;
+  height:1px;
+  background-image: radial-gradient(circle, var(--cream) 3px, transparent 3.2px);
+  background-size: 18px 18px;
+  background-position: center;
+}
+
+.stamp-circle{
+  width:96px;height:96px;border-radius:50%;
+  border:2px dashed var(--rust);
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-9deg);
+  color:var(--rust);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  line-height:1.3;
+  flex-shrink:0;
+  background:rgba(168,62,46,0.03);
+}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:var(--green-deep);
+  border-bottom:1px solid var(--green-line);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+  max-width:1120px;margin:0 auto;
+}
+.brand{
+  color:var(--cream);
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:19px;
+  display:flex; align-items:center; gap:9px;
+}
+.brand .clover{font-size:20px;}
+.nav-cta{
+  background:var(--gold);
+  color:var(--ink);
+  border:none;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:10px 18px;
+  border-radius:2px;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.nav-cta:hover{background:var(--gold-bright); transform:translateY(-1px);}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--green-deep);
+  color:var(--cream);
+  padding:96px 0 120px;
+  position:relative;
+  overflow:hidden;
+  background-image:
+    radial-gradient(ellipse 700px 400px at 85% -10%, rgba(201,162,75,0.16), transparent),
+    radial-gradient(ellipse 500px 400px at 5% 110%, rgba(59,114,86,0.35), transparent);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap:56px;
+  align-items:center;
+}
+.eyebrow-row{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--gold-bright);
+}
+.eyebrow-line{flex:1;height:1px;background:linear-gradient(90deg, var(--gold), transparent);}
+
+.hero h1{
+  font-size:clamp(40px, 6vw, 68px);
+  line-height:1.03;
+  color:var(--cream);
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--gold-bright);
+  font-weight:600;
+}
+.hero-sub{
+  margin-top:22px;
+  font-size:18px;
+  color:#CFE0D3;
+  max-width:480px;
+}
+.hero-questions{
+  margin-top:26px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:17px;
+  color:var(--cream-dim);
+}
+.hero-stat{
+  margin-top:32px;
+  display:inline-flex;
+  align-items:baseline;
+  gap:10px;
+  border-top:1px solid var(--green-line);
+  padding-top:16px;
+}
+.hero-stat .num{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:26px;
+  color:var(--gold-bright);
+}
+.hero-stat .lab{
+  font-size:13px;
+  color:#B9CBBE;
+}
+.hero-ctas{
+  margin-top:34px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.btn-primary{
+  background:var(--gold);
+  color:var(--ink);
+  border:none;
+  padding:15px 26px;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  cursor:pointer;
+  border-radius:2px;
+  transition:transform .15s ease, background .15s ease;
+}
+.btn-primary:hover{background:var(--gold-bright); transform:translateY(-2px);}
+.btn-ghost{
+  background:transparent;
+  border:1px solid var(--green-line);
+  color:var(--cream);
+  padding:15px 26px;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  cursor:pointer;
+  border-radius:2px;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.btn-ghost:hover{border-color:var(--gold); transform:translateY(-2px);}
+
+/* the hanging luck tag - signature element */
+.tag{
+  background:var(--cream);
+  color:var(--ink);
+  border-radius:6px;
+  padding:30px 26px 26px;
+  position:relative;
+  transform:rotate(3.5deg);
+  box-shadow:var(--shadow);
+  border:1px solid #D8CBA5;
+}
+.tag::before{
+  content:"";
+  position:absolute;
+  top:-46px; left:50%;
+  width:2px; height:46px;
+  background: repeating-linear-gradient(180deg, var(--gold-bright) 0 6px, transparent 6px 11px);
+  transform: translateX(-50%) rotate(6deg);
+  transform-origin: bottom;
+}
+.tag::after{
+  content:"";
+  position:absolute;
+  top:8px; left:50%;
+  transform:translateX(-50%);
+  width:16px; height:16px;
+  border-radius:50%;
+  border:2px solid var(--ink);
+  background:var(--cream);
+}
+.tag-head{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-top:6px;
+  padding-bottom:16px;
+  border-bottom:1px dashed #C9BB93;
+}
+.tag-head .tt{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#7A6B44;
+}
+.tag-head .tv{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:15px;
+}
+.tag-body{
+  padding-top:16px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.tag-row{display:flex; justify-content:space-between; gap:10px; font-size:13.5px;}
+.tag-row .k{color:#7A6B44; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em;}
+.tag-row .v{font-weight:600;}
+.tag-seal{
+  margin-top:8px;
+  display:flex; align-items:center; gap:14px;
+  padding-top:16px;
+  border-top:1px dashed #C9BB93;
+}
+.tag-seal .stamp-circle{width:64px;height:64px;font-size:8.5px;}
+.tag-seal p{margin:0; font-size:12.5px; color:#544928; font-style:italic; font-family:'Fraunces',serif;}
+
+/* ---------- section shell ---------- */
+section{padding:88px 0;}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:48px;
+  flex-wrap:wrap;
+}
+.section-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--rust);
+  margin-bottom:10px;
+  display:block;
+}
+.section-head h2{
+  font-size:clamp(28px, 3.4vw, 40px);
+  color:var(--ink);
+}
+.section-head .desc{
+  max-width:340px;
+  color:#5C5546;
+  font-size:15px;
+}
+
+.on-dark{background:var(--green-deep); color:var(--cream);}
+.on-dark .section-head h2{color:var(--cream);}
+.on-dark .section-head .desc{color:#B9CBBE;}
+.on-dark .section-eyebrow{color:var(--gold-bright);}
+
+/* ---------- ingredients ---------- */
+.ingredient-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:#D8CBA5;
+  border:1px solid #D8CBA5;
+}
+.ingredient{
+  background:var(--cream);
+  padding:26px 22px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.ingredient .ic{font-size:22px; flex-shrink:0;}
+.ingredient .txt{font-size:14.5px; font-weight:600;}
+
+/* ---------- pricing tickets ---------- */
+.ticket-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+.ticket{
+  background:var(--cream);
+  border:1px solid #D8CBA5;
+  border-radius:6px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 10px 26px -18px rgba(0,0,0,.35);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.ticket:hover{transform:translateY(-5px); box-shadow:0 18px 34px -16px rgba(0,0,0,.4);}
+.ticket.featured{border-color:var(--gold); position:relative;}
+.ticket.featured::before{
+  content:"MOST BOOKED";
+  position:absolute; top:14px; right:-30px;
+  background:var(--rust); color:var(--cream);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px; letter-spacing:.08em;
+  padding:4px 34px;
+  transform:rotate(38deg);
+}
+.ticket-top{
+  padding:24px 22px 20px;
+  border-bottom:1px dashed #C9BB93;
+  position:relative;
+}
+.ticket-top::after{
+  content:"";
+  position:absolute; bottom:-9px; left:-9px;
+  width:18px;height:18px; border-radius:50%;
+  background:var(--green-mid);
+}
+.ticket-top::before{
+  content:"";
+  position:absolute; bottom:-9px; right:-9px;
+  width:18px;height:18px; border-radius:50%;
+  background:var(--green-mid);
+}
+.ticket-eta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--rust);
+}
+.ticket-name{font-size:20px; margin-top:8px;}
+.ticket-price{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:30px;
+  margin-top:10px;
+}
+.ticket-price span{font-size:13px; font-weight:500; font-family:'Public Sans',sans-serif; color:#7A6B44;}
+.ticket-body{padding:20px 22px 26px; flex:1; display:flex; flex-direction:column;}
+.ticket-body ul{list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:9px;}
+.ticket-body li{font-size:13.5px; display:flex; gap:8px; align-items:flex-start;}
+.ticket-body li::before{content:"✦"; color:var(--gold); font-size:11px; margin-top:3px;}
+.ticket-note{font-size:11px; color:#8a7f60; font-style:italic; margin-bottom:14px;}
+.ticket-btn{
+  margin-top:auto;
+  background:var(--ink);
+  color:var(--cream);
+  border:none;
+  padding:12px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  border-radius:2px;
+  cursor:pointer;
+}
+.ticket.featured .ticket-btn{background:var(--rust);}
+
+/* ---------- couriers ---------- */
+.courier-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:1px solid var(--green-line);
+}
+.courier{
+  padding:28px 20px;
+  border-right:1px solid var(--green-line);
+  border-bottom:1px solid var(--green-line);
+}
+.courier:last-child{border-right:none;}
+.courier .ic{font-size:26px;}
+.courier h3{font-size:16px; margin-top:12px; color:var(--gold-bright);}
+.courier p{font-size:13.5px; color:#B9CBBE; margin-top:6px;}
+
+/* ---------- packages ---------- */
+.package-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+.package{
+  background:var(--cream);
+  border:1px solid #D8CBA5;
+  border-radius:6px;
+  padding:24px 20px;
+}
+.package .ic{font-size:22px;}
+.package h3{font-size:16px; margin-top:12px;}
+.package ul{list-style:none; padding:0; margin:14px 0 0; display:flex; flex-direction:column; gap:7px;}
+.package li{font-size:13px; color:#5C5546; padding-left:14px; position:relative;}
+.package li::before{content:"–"; position:absolute; left:0; color:var(--rust);}
+
+/* ---------- process ---------- */
+.process-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  position:relative;
+}
+.process-strip::before{
+  content:"";
+  position:absolute; top:19px; left:5%; right:5%;
+  height:1px;
+  background:repeating-linear-gradient(90deg, var(--green-line) 0 8px, transparent 8px 14px);
+  z-index:0;
+}
+.pstep{position:relative; z-index:1; padding-right:16px;}
+.pnum{
+  width:38px;height:38px;
+  border-radius:50%;
+  background:var(--green-deep);
+  border:2px solid var(--gold);
+  color:var(--gold-bright);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  margin-bottom:14px;
+}
+.pstep h3{font-size:15.5px;}
+.pstep p{font-size:13.5px; color:#5C5546; margin-top:6px;}
+
+/* ---------- reviews ---------- */
+.review-scroll{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding-bottom:10px;
+  scrollbar-width:thin;
+}
+.review{
+  flex:0 0 270px;
+  background:var(--cream);
+  border:1px solid #D8CBA5;
+  border-radius:6px;
+  padding:22px;
+}
+.review .stars{color:var(--gold); font-size:13px; letter-spacing:2px;}
+.review p{font-family:'Fraunces',serif; font-style:italic; font-size:15px; margin:14px 0 0;}
+.review .who{
+  margin-top:16px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:#8a7f60;
+}
+
+/* ---------- live tracker ---------- */
+.tracker-board{
+  background:var(--ink);
+  border-radius:8px;
+  padding:34px 30px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
+.tick{border-left:2px solid var(--gold); padding-left:16px;}
+.tick .val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:30px;
+  font-weight:600;
+  color:var(--gold-bright);
+  font-variant-numeric:tabular-nums;
+}
+.tick .lab{font-size:12.5px; color:#C7BA97; margin-top:4px;}
+
+/* ---------- faq ---------- */
+.faq-item{
+  border-bottom:1px solid #D8CBA5;
+}
+.faq-q{
+  width:100%;
+  text-align:left;
+  background:none;
+  border:none;
+  padding:22px 4px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  font-family:'Fraunces',serif;
+  font-size:17px;
+  font-weight:600;
+  color:var(--ink);
+}
+.faq-q .plus{
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--rust);
+  font-size:18px;
+  transition:transform .2s ease;
+  flex-shrink:0;
+  margin-left:14px;
+}
+.faq-item.open .plus{transform:rotate(45deg);}
+.faq-a{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .25s ease;
+  font-size:14.5px;
+  color:#5C5546;
+}
+.faq-item.open .faq-a{max-height:200px;}
+.faq-a-inner{padding:0 4px 22px;}
+
+/* ---------- addons ---------- */
+.addon-row{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.addon{
+  flex:1 1 180px;
+  background:var(--cream);
+  border:1px dashed #C9A24B;
+  border-radius:6px;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+.addon .ic{font-size:20px;}
+.addon h3{font-size:14px; margin-top:8px;}
+.addon .price{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  color:var(--rust);
+  font-weight:600;
+  white-space:nowrap;
+}
+
+/* ---------- hall of fame ---------- */
+.hof-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+.hof{
+  border:1px solid var(--green-line);
+  border-radius:6px;
+  padding:24px 20px;
+  background:var(--green-mid);
+}
+.hof .trophy{font-size:22px;}
+.hof h3{font-size:14px; margin-top:10px; color:var(--gold-bright);}
+.hof p{font-size:13px; color:#DCE6DE; margin-top:8px;}
+
+/* ---------- final cta ---------- */
+.final{
+  background:var(--rust);
+  color:var(--cream);
+  text-align:center;
+  padding:96px 0;
+}
+.final h2{font-size:clamp(30px,4.6vw,50px); color:var(--cream);}
+.final .em{font-style:italic; color:var(--cream);}
+.final p{max-width:520px; margin:20px auto 0; color:#F1D9CF; font-size:16px;}
+.final .btn-primary{margin-top:32px; background:var(--cream); color:var(--rust);}
+.final .btn-primary:hover{background:#fff;}
+
+/* ---------- fine print / footer ---------- */
+footer{background:var(--ink); color:#8a8272; padding:48px 0 60px; font-size:12.5px;}
+footer .fine ul{padding-left:18px; margin:12px 0 0;}
+footer .fine li{margin-bottom:6px;}
+footer .tag-line{
+  margin-top:34px;
+  padding-top:24px;
+  border-top:1px solid #33301f;
+  color:#C7BA97;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:14.5px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 880px){
+  .hero-grid{grid-template-columns:1fr;}
+  .tag{transform:rotate(1.5deg); max-width:340px; margin:0 auto;}
+  .ingredient-grid{grid-template-columns:repeat(2,1fr);}
+  .ticket-grid{grid-template-columns:repeat(2,1fr);}
+  .courier-row{grid-template-columns:repeat(2,1fr);}
+  .package-grid{grid-template-columns:repeat(2,1fr);}
+  .process-strip{grid-template-columns:repeat(2,1fr); gap:28px;}
+  .process-strip::before{display:none;}
+  .tracker-board{grid-template-columns:1fr; gap:20px;}
+  .hof-grid{grid-template-columns:1fr;}
+}
+@media (max-width: 560px){
+  .ingredient-grid{grid-template-columns:1fr;}
+  .ticket-grid{grid-template-columns:1fr;}
+  .courier-row{grid-template-columns:1fr;}
+  .package-grid{grid-template-columns:1fr;}
+  .process-strip{grid-template-columns:1fr;}
+  .section-head{flex-direction:column; align-items:flex-start;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{transition:none !important;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="clover">🍀</span> Good Luck Courier</div>
+    <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView()">Order Luck</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-row">
+        <span class="eyebrow">Same-Day Fortune Dispatch</span>
+        <span class="eyebrow-line"></span>
+      </div>
+      <h1>Running low<br>on luck? <em>We'll<br>deliver more.</em></h1>
+      <div class="hero-questions">
+        <span>Missed your train?</span>
+        <span>Interview tomorrow?</span>
+        <span>Need your team to finally stop replying "per my last email"?</span>
+      </div>
+      <p class="hero-sub">Our couriers specialize in same-day luck delivery, carefully packaged and scientifically unverified.</p>
+      <div class="hero-stat">
+        <span class="num">47M+</span>
+        <span class="lab">lucky moments delivered worldwide</span>
+      </div>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView()">🍀 Order My Luck</button>
+        <button class="btn-ghost" onclick="document.getElementById('emergency').scrollIntoView()">🎲 I'm Feeling Unlucky</button>
+      </div>
+    </div>
+
+    <div class="tag">
+      <div class="tag-head">
+        <span class="tt">Parcel Tag</span>
+        <span class="tv">No. 004417</span>
+      </div>
+      <div class="tag-body">
+        <div class="tag-row"><span class="k">Contents</span><span class="v">1x Good Fortune</span></div>
+        <div class="tag-row"><span class="k">Origin</span><span class="v">Fortune Factory</span></div>
+        <div class="tag-row"><span class="k">Handling</span><span class="v">Extremely Lucky</span></div>
+        <div class="tag-row"><span class="k">Route</span><span class="v">Direct to You</span></div>
+        <div class="tag-seal">
+          <div class="stamp-circle">Luck<br>QA<br>Passed</div>
+          <p>"Inspected by our Luck Quality Assurance Department."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="ingredients">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">The Formula</span>
+        <h2>What is good luck, exactly?</h2>
+      </div>
+      <p class="desc">Good luck isn't random. It's professionally delivered — a carefully balanced mixture, every time.</p>
+    </div>
+    <div class="ingredient-grid">
+      <div class="ingredient"><span class="ic">🍀</span><span class="txt">Fresh four-leaf clovers</span></div>
+      <div class="ingredient"><span class="ic">⭐</span><span class="txt">Positive cosmic vibrations</span></div>
+      <div class="ingredient"><span class="ic">🐞</span><span class="txt">Ladybug-approved optimism</span></div>
+      <div class="ingredient"><span class="ic">🌈</span><span class="txt">Rainbow residue</span></div>
+      <div class="ingredient"><span class="ic">🧲</span><span class="txt">Opportunity magnets</span></div>
+      <div class="ingredient"><span class="ic">✨</span><span class="txt">Premium-grade coincidence</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background:var(--cream-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Delivery Options</span>
+        <h2>Pick your delivery speed.</h2>
+      </div>
+      <p class="desc">From routine parallel-parking luck to full-blown miracles — every tier ships same day.</p>
+    </div>
+
+    <div class="ticket-grid">
+      <div class="ticket">
+        <div class="ticket-top">
+          <span class="ticket-eta">Within 24 hours</span>
+          <div class="ticket-name">🚴 Standard Luck</div>
+          <div class="ticket-price">$9.99</div>
+        </div>
+        <div class="ticket-body">
+          <ul>
+            <li>Exams</li>
+            <li>Blind dates</li>
+            <li>Job interviews</li>
+            <li>Parallel parking</li>
+          </ul>
+          <button class="ticket-btn">Select Standard</button>
+        </div>
+      </div>
+
+      <div class="ticket featured">
+        <div class="ticket-top">
+          <span class="ticket-eta">Within 1 hour</span>
+          <div class="ticket-name">🚀 Express Luck</div>
+          <div class="ticket-price">$29</div>
+        </div>
+        <div class="ticket-body">
+          <ul>
+            <li>Casino visits*</li>
+            <li>First impressions</li>
+            <li>Last-minute presentations</li>
+            <li>Meeting your partner's parents</li>
+          </ul>
+          <div class="ticket-note">*Results may vary dramatically.</div>
+          <button class="ticket-btn">Select Express</button>
+        </div>
+      </div>
+
+      <div class="ticket">
+        <div class="ticket-top">
+          <span class="ticket-eta">Priority allocation</span>
+          <div class="ticket-name">👑 Executive Fortune</div>
+          <div class="ticket-price">$149</div>
+        </div>
+        <div class="ticket-body">
+          <ul>
+            <li>VIP luck allocation</li>
+            <li>Queue-jumping karma</li>
+            <li>Perfect green traffic lights</li>
+            <li>Elevator arriving instantly</li>
+            <li>USB plugged in correctly, first try</li>
+          </ul>
+          <button class="ticket-btn">Select Executive</button>
+        </div>
+      </div>
+
+      <div class="ticket" id="emergency">
+        <div class="ticket-top">
+          <span class="ticket-eta">Immediate dispatch</span>
+          <div class="ticket-name">🚨 Emergency Miracle</div>
+          <div class="ticket-price">$499<span> starting</span></div>
+        </div>
+        <div class="ticket-body">
+          <ul>
+            <li>Laptop battery at 1%</li>
+            <li>Accidentally hit "Reply All"</li>
+            <li>Texted the wrong person</li>
+            <li>Presentation starts in 2 minutes</li>
+            <li>Said "Love you" to your boss</li>
+          </ul>
+          <button class="ticket-btn">Request Miracle</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="on-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">The Fleet</span>
+        <h2>Meet the couriers.</h2>
+      </div>
+      <p class="desc">The world's luckiest delivery team, hand-selected for consistently improbable outcomes.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="courier-row">
+      <div class="courier">
+        <span class="ic">🍀</span>
+        <h3>Lucky Larry</h3>
+        <p>Has won 19 raffles without buying tickets.</p>
+      </div>
+      <div class="courier">
+        <span class="ic">🌈</span>
+        <h3>Penny Fortune</h3>
+        <p>Always finds the closest parking spot.</p>
+      </div>
+      <div class="courier">
+        <span class="ic">🎯</span>
+        <h3>Max Chance</h3>
+        <p>Flips a coin. Gets both sides.</p>
+      </div>
+      <div class="courier">
+        <span class="ic">🐞</span>
+        <h3>Bella Clover</h3>
+        <p>Has never broken a phone screen. Not once.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Curated Bundles</span>
+        <h2>Lucky packages.</h2>
+      </div>
+      <p class="desc">Themed fortune, bundled for the moments that matter most.</p>
+    </div>
+    <div class="package-grid">
+      <div class="package">
+        <span class="ic">💼</span>
+        <h3>Career Boost</h3>
+        <ul>
+          <li>Interview confidence</li>
+          <li>Smooth introductions</li>
+          <li>Printer cooperation</li>
+          <li>Coffee that doesn't spill</li>
+        </ul>
+      </div>
+      <div class="package">
+        <span class="ic">❤️</span>
+        <h3>Romance Bundle</h3>
+        <ul>
+          <li>Better timing</li>
+          <li>Clever jokes</li>
+          <li>No spinach in your teeth</li>
+          <li>Correct restaurant reservation</li>
+        </ul>
+      </div>
+      <div class="package">
+        <span class="ic">🎓</span>
+        <h3>Student Edition</h3>
+        <ul>
+          <li>Questions you actually studied</li>
+          <li>Working calculator</li>
+          <li>Remembering your student ID</li>
+          <li>Pen that never runs out</li>
+        </ul>
+      </div>
+      <div class="package">
+        <span class="ic">✈️</span>
+        <h3>Travel Pack</h3>
+        <ul>
+          <li>No delayed flights*</li>
+          <li>Short security lines</li>
+          <li>Luggage arrives first</li>
+          <li>Seat next to empty row</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--cream-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Inside The Factory</span>
+        <h2>How we make luck.</h2>
+      </div>
+      <p class="desc">Four steps, one certified unicorn, zero shortcuts.</p>
+    </div>
+    <div class="process-strip">
+      <div class="pstep">
+        <div class="pnum">01</div>
+        <h3>Collect</h3>
+        <p>We gather lucky pennies from fountains.</p>
+      </div>
+      <div class="pstep">
+        <div class="pnum">02</div>
+        <h3>Polish</h3>
+        <p>Our specialists gently polish four-leaf clovers.</p>
+      </div>
+      <div class="pstep">
+        <div class="pnum">03</div>
+        <h3>Compress</h3>
+        <p>Rainbows are compressed into portable packets.</p>
+      </div>
+      <div class="pstep">
+        <div class="pnum">04</div>
+        <h3>Approve</h3>
+        <p>A certified unicorn gives final approval.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Word On The Street</span>
+        <h2>Customer reviews.</h2>
+      </div>
+    </div>
+    <div class="review-scroll">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Ordered interview luck. Got the job and free donuts.</p>
+        <div class="who">Emma R.</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>I finally plugged the USB cable in correctly... first try.</p>
+        <div class="who">IT Manager</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>My toast landed butter-side up. I almost cried.</p>
+        <div class="who">Kevin</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Found money in an old jacket five minutes after delivery.</p>
+        <div class="who">Sarah</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>My toddler willingly ate broccoli. Whatever's in the package... keep making it.</p>
+        <div class="who">Parent Of Two</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="on-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Right Now</span>
+        <h2>Live luck tracker.</h2>
+      </div>
+      <p class="desc">Today's dispatch, counted as it ships.</p>
+    </div>
+    <div class="tracker-board">
+      <div class="tick"><div class="val mono" data-target="82431">0</div><div class="lab">🍀 Lucky charms delivered</div></div>
+      <div class="tick"><div class="val mono" data-target="9442">0</div><div class="lab">🚗 Impossible parking spaces found</div></div>
+      <div class="tick"><div class="val mono" data-target="117000">0</div><div class="lab">🟢 Consecutive green traffic lights</div></div>
+      <div class="tick"><div class="val mono" data-target="18903">0</div><div class="lab">📞 Calls answered on the first ring</div></div>
+      <div class="tick"><div class="val mono" data-target="3204">0</div><div class="lab">🧦 Reunited sock pairs</div></div>
+      <div class="tick"><div class="val mono" data-target="1">0</div><div class="lab">🎉 Suspiciously successful office raffle</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--cream-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Extras</span>
+        <h2>Add-on services.</h2>
+      </div>
+      <p class="desc">Small upgrades. Disproportionate outcomes.</p>
+    </div>
+    <div class="addon-row">
+      <div class="addon"><div><span class="ic">🍀</span><h3>Pocket Luck</h3></div><span class="price">+$3</span></div>
+      <div class="addon"><div><span class="ic">🎲</span><h3>Lottery Booster</h3></div><span class="price">+$8</span></div>
+      <div class="addon"><div><span class="ic">🐈</span><h3>Black Cat Immunity</h3></div><span class="price">+$5</span></div>
+      <div class="addon"><div><span class="ic">☂️</span><h3>Never Forget Your Umbrella</h3></div><span class="price">+$4</span></div>
+      <div class="addon"><div><span class="ic">🎁</span><h3>Gift Wrap Your Luck</h3></div><span class="price">+$6</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">B2B</span>
+        <h2>Enterprise Luck™</h2>
+      </div>
+      <p class="desc">Trusted by Fortune 500-ish companies.</p>
+    </div>
+    <div class="package-grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="package">
+        <ul>
+          <li>Fewer "Can everyone hear me?" moments</li>
+          <li>Working conference room projectors</li>
+        </ul>
+      </div>
+      <div class="package">
+        <ul>
+          <li>Coffee machine uptime guarantees</li>
+          <li>Meetings that actually end on time</li>
+          <li>The intern finds the missing HDMI cable immediately</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="on-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Records</span>
+        <h2>Hall of fame.</h2>
+      </div>
+    </div>
+    <div class="hof-grid">
+      <div class="hof">
+        <span class="trophy">🏆</span>
+        <h3>Longest Lucky Streak</h3>
+        <p>14 years without a cracked phone screen.</p>
+      </div>
+      <div class="hof">
+        <span class="trophy">🏆</span>
+        <h3>Luckiest Delivery</h3>
+        <p>A package arrived exactly when the customer sneezed, preventing a spilled coffee.</p>
+      </div>
+      <div class="hof">
+        <span class="trophy">🏆</span>
+        <h3>Most Impressive Coincidence</h3>
+        <p>Two strangers ordered luck at the same moment, met in the elevator, and launched a business together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Questions</span>
+        <h2>Frequently asked.</h2>
+      </div>
+    </div>
+    <div id="faq-list">
+      <div class="faq-item">
+        <button class="faq-q"><span>Is the luck organic?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Free-range and ethically harvested.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can I order bad luck for my enemies?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely not. We simply redirect your order to our Character Building Department.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>How long does the luck last?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Anywhere from five minutes to several years. One customer has been lucky since 1998. We're monitoring the situation.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can I subscribe?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! Receive fresh luck every Monday before the workweek begins.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Is this scientifically proven?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Our legal department has requested that we answer: "Define scientifically."</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Don't leave your future<br>to <span class="em">chance.</span></h2>
+    <p>Have chance delivered instead. Whether you're chasing a dream, taking a risk, or simply hoping today goes a little better, our couriers are standing by with freshly packaged fortune.</p>
+    <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView()">🍀 Deliver My Luck Today</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fine">
+    <strong style="color:#C7BA97;">Fine Print</strong>
+    <p style="margin-top:8px;">Good Luck Courier is not responsible for:</p>
+    <ul>
+      <li>accidentally becoming your family's "lucky charm,"</li>
+      <li>winning office bingo three weeks in a row,</li>
+      <li>finding forgotten cash in old jeans,</li>
+      <li>or suddenly believing every parking spot with your name on it was destined all along.</li>
+    </ul>
+    <div class="tag-line">Good things happen. We just like to take the credit. 🍀🚚</div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Count-up tracker, triggered on scroll into view
+  const ticks = document.querySelectorAll('.tick .val');
+  let counted = false;
+  function countUp(){
+    if(counted) return;
+    const board = document.querySelector('.tracker-board');
+    if(!board) return;
+    const rect = board.getBoundingClientRect();
+    if(rect.top > window.innerHeight * 0.85) return;
+    counted = true;
+    ticks.forEach(el=>{
+      const target = parseInt(el.getAttribute('data-target'),10);
+      const duration = 1200;
+      const start = performance.now();
+      function step(now){
+        const p = Math.min((now-start)/duration,1);
+        const eased = 1 - Math.pow(1-p,3);
+        el.textContent = Math.floor(eased*target).toLocaleString();
+        if(p<1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  window.addEventListener('scroll', countUp);
+  window.addEventListener('load', countUp);
+</script>
+
+</body>
+</html>
