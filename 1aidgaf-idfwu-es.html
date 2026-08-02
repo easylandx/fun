@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDGAF / IDFWU — Dos Actitudes, Una Misma Energía</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root{
+    --bg:#0d0d0d;
+    --paper:#141414;
+    --ink:#ede9e0;
+    --dim:#8a8680;
+    --fire:#ff4d2e;
+    --fire-dim:#3a1a12;
+    --ice:#7c5cff;
+    --ice-dim:#191533;
+    --line:#2a2a2a;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;}
+
+  .mono{font-family:'JetBrains Mono', monospace;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 5vw;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--dim);
+    mix-blend-mode:difference;
+  }
+  nav .brand{color:var(--ink); font-weight:600;}
+  nav .links{display:flex; gap:28px;}
+  nav .links a{opacity:0.75; text-decoration:none; transition:opacity .2s;}
+  nav .links a:hover{opacity:1;}
+
+  /* ---------- HERO — SPLIT TEMPERATURE ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:stretch;
+  }
+  .split{
+    flex:1;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 6vw;
+    overflow:hidden;
+  }
+  .split.left{
+    background:radial-gradient(120% 140% at 15% 100%, var(--fire-dim) 0%, var(--bg) 60%);
+    border-right:1px solid var(--line);
+  }
+  .split.right{
+    background:radial-gradient(120% 140% at 85% 0%, var(--ice-dim) 0%, var(--bg) 60%);
+  }
+  .split .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--dim);
+    margin-bottom:18px;
+  }
+  .split.left .eyebrow{color:var(--fire);}
+  .split.right .eyebrow{color:var(--ice);}
+  .split h1{
+    font-family:'Archivo Black', sans-serif;
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    line-height:0.92;
+    letter-spacing:-0.02em;
+    margin-bottom:22px;
+  }
+  .split.left h1{color:var(--ink);}
+  .split.right h1{color:var(--ink); text-align:right;}
+  .split .sub{
+    max-width:360px;
+    font-size:1.02rem;
+    line-height:1.55;
+    color:#c9c5bc;
+  }
+  .split.right .sub{margin-left:auto; text-align:right;}
+  .split .full{
+    margin-top:26px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--dim);
+  }
+  .split.left .full span{color:var(--fire);}
+  .split.right .full{text-align:right;}
+  .split.right .full span{color:var(--ice);}
+
+  .seam{
+    position:absolute; top:0; bottom:0; left:50%;
+    width:1px; background:var(--line);
+    z-index:2;
+  }
+  .seam-badge{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:64px; height:64px; border-radius:50%;
+    background:var(--paper); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; color:var(--dim);
+    z-index:3;
+  }
+
+  @media (max-width: 760px){
+    .hero{flex-direction:column;}
+    .split.right h1, .split.right .sub, .split.right .full{text-align:left; margin-left:0;}
+    .seam{left:0; right:0; top:50%; bottom:auto; width:100%; height:1px;}
+    .seam-badge{top:50%; left:50%;}
+  }
+
+  /* ---------- SCROLL CUE ---------- */
+  .scrollcue{
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--dim);
+    z-index:4;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.card{
+    padding:110px 8vw;
+    max-width:1100px;
+    margin:0 auto;
+    border-top:1px solid var(--line);
+  }
+  .label-row{
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:36px;
+  }
+  .label-row .dot{width:9px; height:9px; border-radius:50%;}
+  .dot.fire{background:var(--fire);}
+  .dot.ice{background:var(--ice);}
+  .label-row .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.15em; text-transform:uppercase;
+    color:var(--dim);
+  }
+  h2{
+    font-family:'Archivo Black', sans-serif;
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    letter-spacing:-0.01em;
+    margin-bottom:28px;
+    max-width:720px;
+  }
+  .grid-2{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px;
+  }
+  @media (max-width:760px){ .grid-2{grid-template-columns:1fr; gap:36px;} }
+
+  .field{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--dim); margin-bottom:8px;
+  }
+  p{
+    font-size:1rem; line-height:1.75; color:#cfcbc2; max-width:56ch;
+  }
+  p + p{margin-top:14px;}
+
+  .glossary-item{margin-bottom:34px;}
+  .glossary-item h3{
+    font-family:'Space Grotesk', sans-serif; font-weight:700;
+    font-size:1.15rem; margin-bottom:8px; color:var(--ink);
+  }
+
+  /* ---------- COMPARISON TABLE ---------- */
+  .compare{
+    width:100%; border-collapse:collapse; margin-top:10px;
+  }
+  .compare th{
+    text-align:left; padding:14px 16px;
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--dim);
+    border-bottom:1px solid var(--line);
+  }
+  .compare td{
+    padding:18px 16px; border-bottom:1px solid var(--line);
+    font-size:0.95rem; color:#d6d2c9; vertical-align:top;
+  }
+  .compare tr td:first-child, .compare tr th:first-child{
+    color:var(--dim); font-family:'JetBrains Mono', monospace; font-size:12px;
+    white-space:nowrap;
+  }
+  .compare .fireword{color:var(--fire); font-weight:600;}
+  .compare .iceword{color:var(--ice); font-weight:600;}
+
+  /* ---------- VIBE CHECK SLIDER ---------- */
+  .vibecheck{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:44px;
+    margin-top:20px;
+  }
+  .vibecheck .prompt{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    color:var(--dim); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .vibecheck .scenario{
+    font-size:1.2rem; line-height:1.5; margin-bottom:30px; min-height:64px;
+  }
+  .vibecheck .buttons{display:flex; gap:16px; flex-wrap:wrap;}
+  button.choice{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:14px 22px; border-radius:2px; cursor:pointer;
+    background:transparent; transition:all .2s;
+  }
+  button.choice.fire{border:1px solid var(--fire); color:var(--fire);}
+  button.choice.fire:hover{background:var(--fire); color:#111;}
+  button.choice.ice{border:1px solid var(--ice); color:var(--ice);}
+  button.choice.ice:hover{background:var(--ice); color:#111;}
+  button.choice.neutral{border:1px solid var(--line); color:var(--dim);}
+  button.choice.neutral:hover{border-color:var(--dim); color:var(--ink);}
+  .result{
+    margin-top:24px; padding-top:20px; border-top:1px dashed var(--line);
+    font-size:0.95rem; color:#c9c5bc; display:none;
+  }
+  .result.show{display:block;}
+  .result .verdict{font-weight:700; margin-bottom:6px;}
+  .result .verdict.fire{color:var(--fire);}
+  .result .verdict.ice{color:var(--ice);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:60px 8vw 80px;
+    border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:20px;
+  }
+  footer .mark{
+    font-family:'Archivo Black', sans-serif;
+    font-size:1.4rem;
+  }
+  footer .mark span{color:var(--fire);}
+  footer .mark span.b{color:var(--ice);}
+  footer .note{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color:var(--dim); max-width:340px; line-height:1.6;
+  }
+
+  ::selection{background:var(--fire); color:#111;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">ACTITUD / ÍNDICE</div>
+  <div class="links">
+    <a href="#glossary">Glosario</a>
+    <a href="#compare">Comparar</a>
+    <a href="#vibecheck">Test de Actitud</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="split left">
+    <div class="eyebrow">// el fuego</div>
+    <h1>IDGAF</h1>
+    <p class="sub">La indiferencia como armadura. No va dirigida a nadie: es un muro que construyes alrededor tuyo para que nada te toque.</p>
+    <div class="full"><span>I</span> Don't <span>G</span>ive <span>A</span> <span>F</span>*ck — "me vale madres"</div>
+  </div>
+
+  <div class="seam"></div>
+  <div class="seam-badge">VS</div>
+
+  <div class="split right">
+    <div class="eyebrow">el hielo //</div>
+    <h1>IDFWU</h1>
+    <p class="sub">La indiferencia como veredicto. Va dirigida directamente a alguien: una puerta que se cierra, a propósito, con tu nombre en ella.</p>
+    <div class="full"><span>I</span> Don't <span>F</span>*ck <span>W</span>ith <span>U</span>ou — "contigo ya no cuento"</div>
+  </div>
+
+  <div class="scrollcue">desliza ↓</div>
+</div>
+
+<!-- GLOSSARY -->
+<section class="card" id="glossary">
+  <div class="label-row"><span class="dot fire"></span><span class="tag">Notas de Campo</span></div>
+  <h2>El mismo gesto de indiferencia, distinto blanco.</h2>
+  <div class="grid-2">
+    <div>
+      <div class="field">Origen</div>
+      <div class="glossary-item">
+        <h3>IDGAF</h3>
+        <p>Una actitud de uso general que ha circulado en el argot durante décadas, mucho antes de que internet le pusiera siglas. Explotó como abreviatura en mensajes de texto y pies de foto en redes sociales durante la década de 2010, y después tuvo su propio pico en la cultura pop cuando varios artistas construyeron canciones y estribillos enteros alrededor de la frase.</p>
+      </div>
+    </div>
+    <div>
+      <div class="field">Origen</div>
+      <div class="glossary-item">
+        <h3>IDFWU</h3>
+        <p>Más específica y más reciente. Se popularizó rápidamente en el vocabulario del hip-hop y el R&B a mediados de la década de 2010, en gran parte gracias a un sencillo exitoso que usó la frase como título y estribillo, consolidándola como la forma habitual de anunciar que ya no quieres saber nada de una persona en concreto.</p>
+      </div>
+    </div>
+    <div>
+      <div class="field">Lo que realmente significa</div>
+      <div class="glossary-item">
+        <h3>Sin blanco fijo</h3>
+        <p>IDGAF es una postura, no un mensaje dirigido a nadie en particular. Describe cómo eliges moverte por una situación: sin que nada te afecte, sin inmutarte, renunciando a preocuparte por los resultados o las opiniones ajenas.</p>
+      </div>
+    </div>
+    <div>
+      <div class="field">Lo que realmente significa</div>
+      <div class="glossary-item">
+        <h3>Con blanco fijo</h3>
+        <p>IDFWU es relacional. Es una declaración sobre una persona o grupo específico: un anuncio de que estás cortando el contacto, la confianza o la lealtad. Es menos "me siento libre" y más "aquí se acabó".</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="card" id="compare">
+  <div class="label-row"><span class="dot ice"></span><span class="tag">Lado a Lado</span></div>
+  <h2>Dos maneras de no importarte, comparadas.</h2>
+  <table class="compare">
+    <thead>
+      <tr><th></th><th class="fireword">IDGAF</th><th class="iceword">IDFWU</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dirección</td>
+        <td>Hacia adentro — sobre tu propio estado de ánimo</td>
+        <td>Hacia afuera — dirigida a una persona concreta</td>
+      </tr>
+      <tr>
+        <td>Tono</td>
+        <td>Temerario, liberador, algo caótico</td>
+        <td>Frío, definitivo, deliberado</td>
+      </tr>
+      <tr>
+        <td>Uso típico</td>
+        <td>Biografías, pies de foto, postura general</td>
+        <td>Señalar a alguien, rupturas, cortar el contacto en público</td>
+      </tr>
+      <tr>
+        <td>Registro emocional</td>
+        <td>"Nada me afecta"</td>
+        <td>"Tú ya no me afectas"</td>
+      </tr>
+      <tr>
+        <td>¿Reversible?</td>
+        <td>A menudo es solo un estado de ánimo — puede cambiar en cualquier momento</td>
+        <td>Normalmente se plantea como una decisión, no como un estado de ánimo</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- VIBE CHECK -->
+<section class="card" id="vibecheck">
+  <div class="label-row"><span class="dot fire"></span><span class="tag">Test de Actitud</span></div>
+  <h2>Elige la energía que te va.</h2>
+  <div class="vibecheck">
+    <div class="prompt">Escenario 01</div>
+    <div class="scenario" id="scenarioText">Alguien habla mal de tu ropa en una fiesta.</div>
+    <div class="buttons">
+      <button class="choice fire" onclick="showResult('fire')">Encogerte de hombros — no es mi problema</button>
+      <button class="choice ice" onclick="showResult('ice')">Cortar por lo sano — se acabó con esa persona</button>
+      <button class="choice neutral" onclick="nextScenario()">Siguiente escenario →</button>
+    </div>
+    <div class="result" id="resultBox">
+      <div class="verdict" id="verdictText"></div>
+      <div id="verdictBody"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="mark"><span>IDGAF</span> / <span class="b">IDFWU</span></div>
+  <div class="note mono">Una guía de campo sobre dos actitudes que la gente trata como si fueran lo mismo. No lo son: una es un estado de ánimo, la otra es una decisión.</div>
+</footer>
+
+<script>
+  const scenarios = [
+    "Alguien habla mal de tu ropa en una fiesta.",
+    "Un amigo te cancela planes otra vez.",
+    "Tu grupo de chat está discutiendo por una tontería.",
+    "Alguien en quien confiabas empieza a tirarte indirectas.",
+    "Sacas una mala nota en algo que ni te esforzaste."
+  ];
+  let idx = 0;
+
+  function nextScenario(){
+    idx = (idx + 1) % scenarios.length;
+    document.getElementById('scenarioText').textContent = scenarios[idx];
+    document.getElementById('resultBox').classList.remove('show');
+    document.querySelector('.prompt').textContent = 'Escenario ' + String(idx + 1).padStart(2, '0');
+  }
+
+  function showResult(kind){
+    const box = document.getElementById('resultBox');
+    const verdict = document.getElementById('verdictText');
+    const body = document.getElementById('verdictBody');
+    box.classList.add('show');
+    if(kind === 'fire'){
+      verdict.textContent = "Esa es energía IDGAF.";
+      verdict.className = 'verdict fire';
+      body.textContent = "No estás cortando el contacto con nadie — simplemente te niegas a dejar que te afecte. La situación sigue ahí, tú solo dejas de cargar con ella.";
+    } else {
+      verdict.textContent = "Esa es energía IDFWU.";
+      verdict.className = 'verdict ice';
+      body.textContent = "Esta tiene nombre y apellido. No solo lo estás dejando pasar — estás cerrando la puerta a esa persona en concreto.";
+    }
+  }
+</script>
+
+</body>
+</html>
