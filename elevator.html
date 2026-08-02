@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bureau of Awkward Elevator Conversations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --shaft: #17181A;
+    --steel: #B7BAB5;
+    --steel-dark: #8B8F89;
+    --manila: #E7E0C9;
+    --manila-deep: #D8CFA9;
+    --hazard: #F0B429;
+    --stamp-red: #A3382F;
+    --ink: #1C1B17;
+    --paper: #F4F0E3;
+    --line: rgba(28,27,23,0.18);
+    --font-display: 'Special Elite', 'Courier New', monospace;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'IBM Plex Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer;}
+  :focus-visible{outline:3px solid var(--hazard); outline-offset:3px;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- eyebrow / form-field labels ---------- */
+  .form-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--stamp-red);
+    border:1px solid var(--stamp-red);
+    padding:4px 10px;
+    transform:rotate(-1deg);
+  }
+
+  /* ================= HEADER / ELEVATOR SHAFT ================= */
+  .shaft{
+    position:relative;
+    background:var(--shaft);
+    color:var(--manila);
+    overflow:hidden;
+    padding-bottom:64px;
+  }
+  .shaft-texture{
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 64px);
+    pointer-events:none;
+  }
+
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 24px;
+    position:relative; z-index:5;
+    max-width:1080px; margin:0 auto;
+  }
+  .brand{
+    font-family:var(--font-display);
+    font-size:15px;
+    letter-spacing:0.02em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .bolt{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--hazard);
+    box-shadow:0 0 8px var(--hazard);
+  }
+  .navbar .agency-no{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--steel-dark);
+    letter-spacing:0.1em;
+  }
+
+  .hero{
+    position:relative; z-index:3;
+    max-width:1080px; margin:0 auto;
+    padding:40px 24px 0;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+  }
+  @media (max-width:860px){ .hero{grid-template-columns:1fr;} }
+
+  .hero-copy .form-tag{margin-bottom:22px;}
+  .hero h1{
+    font-family:var(--font-display);
+    font-size:clamp(34px, 5.4vw, 58px);
+    line-height:1.06;
+    letter-spacing:-0.01em;
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--hazard);
+  }
+  .hero .sub{
+    font-family:var(--font-mono);
+    font-size:15px;
+    color:var(--steel);
+    margin-bottom:8px;
+  }
+  .hero p.lede{
+    font-size:17px;
+    color:var(--steel);
+    max-width:46ch;
+    margin-bottom:30px;
+  }
+  .hero-ctas{display:flex; flex-wrap:wrap; gap:14px;}
+  .btn{
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:14px 22px;
+    border:2px solid var(--manila);
+    background:transparent;
+    color:var(--manila);
+    transition:transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.primary{
+    background:var(--hazard);
+    border-color:var(--hazard);
+    color:var(--shaft);
+    font-weight:600;
+  }
+  .btn.primary:hover{background:#ffc94d;}
+  .btn.ghost:hover{background:rgba(231,224,201,0.08);}
+
+  /* ---------- SIGNATURE ELEMENT: elevator panel ---------- */
+  .panel-unit{
+    background:linear-gradient(180deg, #C7CAC4, #9EA29A);
+    border:6px solid #6E726B;
+    border-radius:10px;
+    padding:18px 18px 22px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.25), 0 20px 40px rgba(0,0,0,0.45);
+    position:relative;
+    z-index:4;
+  }
+  .panel-screen{
+    background:#111611;
+    border:3px solid #0a0d0a;
+    border-radius:4px;
+    padding:14px 16px;
+    margin-bottom:16px;
+    min-height:64px;
+    display:flex;
+    align-items:center;
+  }
+  .panel-screen p{
+    font-family:var(--font-mono);
+    color:#7CF29C;
+    font-size:13.5px;
+    letter-spacing:0.02em;
+    text-shadow:0 0 6px rgba(124,242,156,0.5);
+  }
+  .panel-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:0.14em;
+    color:#4A4E48;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .btn-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:9px;
+  }
+  .floor-btn{
+    aspect-ratio:1;
+    border-radius:50%;
+    border:2px solid #6E726B;
+    background:radial-gradient(circle at 35% 30%, #E8EAE5, #B9BDB6 70%);
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:15px;
+    color:#2B2E29;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform 0.08s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .floor-btn:active{transform:scale(0.92);}
+  .floor-btn.lit{
+    background:radial-gradient(circle at 35% 30%, #FFE9A8, var(--hazard) 70%);
+    box-shadow:0 0 14px rgba(240,180,41,0.8);
+    color:#3a2a00;
+  }
+  .panel-foot{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:14px;
+  }
+  .panel-foot .hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:#4A4E48;
+    letter-spacing:0.06em;
+  }
+
+  /* ================= STATS TICKER ================= */
+  .ticker-band{
+    background:var(--hazard);
+    color:var(--ink);
+    overflow:hidden;
+    white-space:nowrap;
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+  }
+  .ticker-track{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    padding:10px 0;
+    animation:ticker 32s linear infinite;
+  }
+  .ticker-track span{margin-right:40px;}
+  @keyframes ticker{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ================= SECTIONS GENERAL ================= */
+  section{padding:80px 0;}
+  section.tight{padding:64px 0;}
+  .section-head{max-width:640px; margin-bottom:46px;}
+  .section-head .form-tag{margin-bottom:16px;}
+  .section-head h2{
+    font-family:var(--font-display);
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.15;
+    margin-bottom:12px;
+  }
+  .section-head p{color:#4c4a40; font-size:16px; max-width:52ch;}
+
+  hr.divider{
+    border:none;
+    border-top:1px dashed var(--line);
+    margin:0;
+  }
+
+  /* ================= CRISIS STAT GRID ================= */
+  .crisis-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--ink);
+    border:1px solid var(--ink);
+  }
+  @media (max-width:760px){ .crisis-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:480px){ .crisis-grid{grid-template-columns:1fr;} }
+  .crisis-item{
+    background:var(--manila);
+    padding:26px 22px;
+  }
+  .crisis-item .num{
+    font-family:var(--font-mono);
+    font-size:26px;
+    font-weight:700;
+    display:block;
+    margin-bottom:6px;
+  }
+  .crisis-item .desc{font-size:13.5px; color:#4c4a40;}
+
+  /* ================= SERVICES ================= */
+  .service-list{display:flex; flex-direction:column;}
+  .service-row{
+    display:grid;
+    grid-template-columns:70px 1fr 220px;
+    gap:28px;
+    padding:30px 0;
+    border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .service-list .service-row:last-child{border-bottom:1px solid var(--line);}
+  @media (max-width:760px){
+    .service-row{grid-template-columns:1fr; gap:10px;}
+  }
+  .service-icon{font-size:32px; line-height:1;}
+  .service-body h3{
+    font-family:var(--font-display);
+    font-size:20px;
+    margin-bottom:8px;
+  }
+  .service-body p{color:#4c4a40; font-size:15px; margin-bottom:10px;}
+  .service-body ul{
+    list-style:none;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .service-body li{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:#3a3830;
+    padding-left:18px;
+    position:relative;
+  }
+  .service-body li::before{
+    content:"—";
+    position:absolute; left:0; color:var(--stamp-red);
+  }
+  .service-meta{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:#7a7768;
+  }
+  .service-meta .rate{
+    display:flex; flex-direction:column; gap:4px; margin-top:10px;
+  }
+  .rate-bar{height:6px; background:var(--manila-deep); position:relative; border:1px solid var(--ink);}
+  .rate-bar > span{position:absolute; inset:0; background:var(--hazard); width:var(--w,61%);}
+
+  /* ================= MEMBERSHIP ================= */
+  .plans{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  @media (max-width:860px){ .plans{grid-template-columns:1fr;} }
+  .plan-card{
+    background:var(--manila);
+    border:1px solid var(--ink);
+    padding:28px 24px;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .plan-card.featured{
+    background:var(--ink);
+    color:var(--manila);
+    transform:translateY(-10px);
+  }
+  .plan-card .tier{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--stamp-red);
+    margin-bottom:6px;
+  }
+  .plan-card.featured .tier{color:var(--hazard);}
+  .plan-card h3{
+    font-family:var(--font-display);
+    font-size:24px;
+    margin-bottom:14px;
+  }
+  .plan-card ul{list-style:none; margin-bottom:24px; flex:1;}
+  .plan-card li{
+    font-size:14px;
+    padding:7px 0;
+    border-top:1px dashed var(--line);
+  }
+  .plan-card.featured li{border-top:1px dashed rgba(231,224,201,0.25);}
+  .plan-card .price{
+    font-family:var(--font-mono);
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .plan-card .price small{font-size:13px; font-weight:400;}
+  .plan-card .fine{font-family:var(--font-mono); font-size:10px; color:#8a8878; margin-top:-8px; margin-bottom:14px;}
+  .plan-card.featured .fine{color:#9a9788;}
+
+  /* ================= SPECIALISTS ================= */
+  .staff-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  @media (max-width:760px){ .staff-grid{grid-template-columns:1fr;} }
+  .staff-card{
+    border:1px solid var(--ink);
+    background:var(--paper);
+  }
+  .staff-photo{
+    height:130px;
+    background:
+      repeating-linear-gradient(135deg, var(--steel) 0 10px, var(--steel-dark) 10px 20px);
+    border-bottom:1px solid var(--ink);
+    position:relative;
+  }
+  .staff-photo .badge{
+    position:absolute; bottom:10px; left:10px;
+    background:var(--stamp-red);
+    color:var(--paper);
+    font-family:var(--font-mono);
+    font-size:10px;
+    padding:3px 8px;
+    letter-spacing:0.08em;
+  }
+  .staff-info{padding:18px 20px;}
+  .staff-info h3{font-family:var(--font-display); font-size:18px; margin-bottom:2px;}
+  .staff-info .role{font-family:var(--font-mono); font-size:11.5px; color:var(--stamp-red); margin-bottom:10px;}
+  .staff-info p{font-size:14px; color:#4c4a40;}
+
+  /* ================= REVIEWS ================= */
+  .review-strip{
+    display:flex;
+    gap:0;
+    overflow-x:auto;
+    scrollbar-width:thin;
+    padding-bottom:4px;
+  }
+  .review-card{
+    min-width:280px;
+    flex:0 0 auto;
+    background:var(--manila);
+    border:1px solid var(--ink);
+    padding:22px 20px;
+    margin-right:16px;
+  }
+  .review-card .stars{color:var(--hazard); font-size:14px; letter-spacing:2px; margin-bottom:10px;}
+  .review-card p.quote{font-size:15px; margin-bottom:14px; font-style:italic;}
+  .review-card .who{font-family:var(--font-mono); font-size:11.5px; color:#7a7768; text-transform:uppercase; letter-spacing:0.06em;}
+
+  /* ================= CERTIFICATION LADDER ================= */
+  .ladder{border-left:2px solid var(--ink); margin-left:8px;}
+  .rung{
+    position:relative;
+    padding:20px 0 20px 32px;
+    border-bottom:1px dashed var(--line);
+  }
+  .rung:last-child{border-bottom:none;}
+  .rung::before{
+    content:"";
+    position:absolute; left:-7px; top:26px;
+    width:12px;height:12px;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    border-radius:50%;
+  }
+  .rung .lvl{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--stamp-red);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .rung h3{font-family:var(--font-display); font-size:19px; margin-bottom:4px;}
+  .rung p{font-size:13.5px; color:#7a7768;}
+
+  /* ================= GOV STATS ================= */
+  .gov-panel{
+    background:var(--ink);
+    color:var(--manila);
+    padding:44px 40px;
+    border:1px solid var(--ink);
+  }
+  .gov-panel h2{font-family:var(--font-display); font-size:24px; margin-bottom:22px;}
+  .gov-list{list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:14px 30px;}
+  @media (max-width:640px){ .gov-list{grid-template-columns:1fr;} }
+  .gov-list li{
+    font-family:var(--font-mono);
+    font-size:13.5px;
+    display:flex; justify-content:space-between; gap:16px;
+    border-bottom:1px dotted rgba(231,224,201,0.25);
+    padding-bottom:8px;
+  }
+  .gov-list li .n{color:var(--hazard); font-weight:700;}
+
+  /* ================= FAQ ================= */
+  .faq-item{border-top:1px solid var(--ink);}
+  .faq-item:last-child{border-bottom:1px solid var(--ink);}
+  .faq-q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:20px 4px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-display);
+    font-size:17px;
+    color:var(--ink);
+  }
+  .faq-q .plus{font-family:var(--font-mono); font-size:20px; transition:transform 0.2s ease; color:var(--stamp-red);}
+  .faq-item[open] .plus{transform:rotate(45deg);}
+  .faq-a{padding:0 4px 22px; font-size:15px; color:#4c4a40; max-width:60ch;}
+
+  /* ================= ADD-ONS ================= */
+  .addon-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  @media (max-width:760px){ .addon-grid{grid-template-columns:repeat(2,1fr);} }
+  .addon-card{
+    background:var(--manila);
+    border:1px solid var(--ink);
+    padding:20px 16px;
+    text-align:center;
+  }
+  .addon-card .emoji{font-size:26px; margin-bottom:10px;}
+  .addon-card h4{font-family:var(--font-display); font-size:14.5px; margin-bottom:6px;}
+  .addon-card .price{font-family:var(--font-mono); font-size:13px; color:var(--stamp-red); font-weight:600;}
+
+  /* ================= AWARDS ================= */
+  .award-strip{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+  }
+  @media (max-width:640px){ .award-strip{grid-template-columns:1fr;} }
+  .award-item{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:16px 0;
+    border-top:1px dashed var(--line);
+  }
+  .award-item .trophy{font-size:22px;}
+  .award-item p{font-size:14.5px;}
+
+  /* ================= FINAL CTA ================= */
+  .cta-final{
+    background:var(--stamp-red);
+    color:var(--paper);
+    text-align:center;
+    padding:90px 24px;
+  }
+  .cta-final .form-tag{border-color:var(--paper); color:var(--paper); margin-bottom:20px;}
+  .cta-final h2{
+    font-family:var(--font-display);
+    font-size:clamp(28px,5vw,44px);
+    margin-bottom:14px;
+  }
+  .cta-final p{font-size:16px; opacity:0.9; margin-bottom:30px;}
+  .cta-final .btn{border-color:var(--paper); color:var(--paper);}
+  .cta-final .btn.primary{background:var(--paper); color:var(--stamp-red); border-color:var(--paper);}
+
+  /* ================= FOOTER ================= */
+  footer{
+    background:var(--ink);
+    color:#9a9788;
+    padding:44px 24px 30px;
+    font-size:12.5px;
+  }
+  footer .foot-wrap{max-width:1080px; margin:0 auto;}
+  footer h4{
+    font-family:var(--font-mono);
+    color:var(--manila);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  footer ul{list-style:none; margin-bottom:24px;}
+  footer li{padding:4px 0; max-width:60ch;}
+  footer .bottom{
+    border-top:1px solid rgba(231,224,201,0.15);
+    padding-top:18px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER / SHAFT ============ -->
+<header class="shaft">
+  <div class="shaft-texture" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="brand"><span class="bolt"></span> B.A.E.C.</div>
+    <div class="agency-no">EST. 1987 (PROBABLY) · FORM 22-EL</div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="form-tag">Public Notice · Effective Immediately</span>
+      <p class="sub">FLOOR: LOBBY → YOUR DIGNITY</p>
+      <h1>Never be trapped<br>in <em>silence</em> again.</h1>
+      <p class="lede">Or worse — forced to discuss the weather. The Bureau of Awkward Elevator Conversations turns uncomfortable 17-second rides into slightly less uncomfortable 17-second rides.</p>
+      <div class="hero-ctas">
+        <a href="#services" class="btn primary">Get Conversation Assistance</a>
+        <a href="#faq" class="btn ghost">Avoid Eye Contact Instead</a>
+      </div>
+    </div>
+
+    <div class="panel-unit" id="elevatorPanel">
+      <div class="panel-label">Icebreaker Deployment Console — Press a Floor</div>
+      <div class="panel-screen">
+        <p id="panelScreenText">Awaiting selection...</p>
+      </div>
+      <div class="btn-grid" id="floorButtons"></div>
+      <div class="panel-foot">
+        <span class="hint">61% conversation / 39% confused silence</span>
+        <span class="hint">DOOR ▲▼</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker-band" aria-hidden="true">
+  <div class="ticker-track">
+    <span>8.2 BILLION FORCED SMILES ANNUALLY</span>
+    <span>27 BILLION ACCIDENTAL EYE CONTACTS</span>
+    <span>93% OF CONVERSATIONS BEGIN WITH "LOOKS LIKE RAIN"</span>
+    <span>AVERAGE RIDE: 23 SECONDS, FEELS LIKE 3 BUSINESS DAYS</span>
+    <span>8.2 BILLION FORCED SMILES ANNUALLY</span>
+    <span>27 BILLION ACCIDENTAL EYE CONTACTS</span>
+    <span>93% OF CONVERSATIONS BEGIN WITH "LOOKS LIKE RAIN"</span>
+    <span>AVERAGE RIDE: 23 SECONDS, FEELS LIKE 3 BUSINESS DAYS</span>
+  </div>
+</div>
+
+<!-- ============ CRISIS ============ -->
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Exhibit A</span>
+      <h2>The National Elevator Crisis</h2>
+      <p>Every year, millions of people enter elevators with complete strangers and immediately forget how to be human. The data is, frankly, alarming.</p>
+    </div>
+    <div class="crisis-grid">
+      <div class="crisis-item"><span class="num">8.2B</span><span class="desc">Forced smiles exchanged nationwide</span></div>
+      <div class="crisis-item"><span class="num">27B</span><span class="desc">Accidental eye contacts logged</span></div>
+      <div class="crisis-item"><span class="num">93%</span><span class="desc">Conversations opening with "looks like rain"</span></div>
+      <div class="crisis-item"><span class="num">14M</span><span class="desc">People studying floor numbers like quantum physics</span></div>
+      <div class="crisis-item"><span class="num">100%</span><span class="desc">Phones suddenly fascinating, even upside down</span></div>
+      <div class="crisis-item"><span class="num">23s</span><span class="desc">Average ride, feels like three business days</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Schedule B · Services Rendered</span>
+      <h2>Our Services</h2>
+      <p>Four divisions, one mission: making the ride between floors marginally less painful.</p>
+    </div>
+
+    <div class="service-list">
+      <div class="service-row">
+        <div class="service-icon">🧊</div>
+        <div class="service-body">
+          <h3>Icebreaker Deployment</h3>
+          <p>Our AI instantly generates the perfect elevator conversation, on demand.</p>
+          <ul>
+            <li>"If this elevator had a playlist, what would be Track 1?"</li>
+            <li>"Do you think pigeons have meetings?"</li>
+            <li>"Which floor has the best snacks?"</li>
+          </ul>
+        </div>
+        <div class="service-meta">
+          Success rate
+          <div class="rate">
+            <div class="rate-bar" style="--w:61%"><span></span></div>
+            <span>61% conversation / 39% confused silence</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon">👀</div>
+        <div class="service-body">
+          <h3>Eye Contact Coaching</h3>
+          <p>Advanced avoidance techniques, certified by professionals who've survived worse.</p>
+          <ul>
+            <li>The Polite Ceiling Glance™</li>
+            <li>Button Appreciation</li>
+            <li>Strategic Shoe Observation</li>
+          </ul>
+        </div>
+        <div class="service-meta">
+          Graduate outcomes
+          <div class="rate">
+            <div class="rate-bar" style="--w:97%"><span></span></div>
+            <span>97% reduction in panic blinking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon">🚪</div>
+        <div class="service-body">
+          <h3>Emergency Conversation Exit</h3>
+          <p>One tap on our app and we remotely announce a maintenance check, freeing you from any exchange in progress.</p>
+          <ul>
+            <li>"Maintenance check. Everyone please exit."</li>
+            <li>Works almost every time.</li>
+          </ul>
+        </div>
+        <div class="service-meta">
+          Reliability
+          <div class="rate">
+            <div class="rate-bar" style="--w:80%"><span></span></div>
+            <span>Almost every time*</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon">🌦️</div>
+        <div class="service-body">
+          <h3>Weather Conversation Replacement</h3>
+          <p>Our experts eliminate boring weather talk forever, replacing it with questions no one is prepared for.</p>
+          <ul>
+            <li>Instead of "Hot today," try: "If elevators could dream, what would they dream about?"</li>
+          </ul>
+        </div>
+        <div class="service-meta">
+          Weather mentions
+          <div class="rate">
+            <div class="rate-bar" style="--w:4%"><span></span></div>
+            <span>Reduced to near zero</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ MEMBERSHIP ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Schedule C · Rate Card</span>
+      <h2>Membership Plans</h2>
+      <p>Every tier gets you further from small talk purgatory.</p>
+    </div>
+    <div class="plans">
+      <div class="plan-card">
+        <span class="tier">Tier I</span>
+        <h3>Introvert</h3>
+        <ul>
+          <li>Conversation escape phrases</li>
+          <li>Pocket emergency excuses</li>
+          <li>Fake phone call generator</li>
+        </ul>
+        <div class="price">$4<small>/month</small></div>
+      </div>
+      <div class="plan-card featured">
+        <span class="tier">Tier II · Most Popular</span>
+        <h3>Social Survivor</h3>
+        <ul>
+          <li>AI conversation suggestions</li>
+          <li>Smile calibration</li>
+          <li>Eye contact simulator</li>
+          <li>Awkward silence detector</li>
+        </ul>
+        <div class="price">$12<small>/month</small></div>
+      </div>
+      <div class="plan-card">
+        <span class="tier">Tier III · CEO Grade</span>
+        <h3>Executive Elevator Elite</h3>
+        <ul>
+          <li>Reserved solo elevator rides*</li>
+          <li>Professional button presser</li>
+          <li>Elevator DJ</li>
+          <li>Personalized floor announcements</li>
+        </ul>
+        <div class="price">$99<small>/month</small></div>
+        <div class="fine">*Subject to elevator availability and the laws of physics.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ SPECIALISTS ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Personnel File</span>
+      <h2>Meet Our Specialists</h2>
+      <p>Career civil servants of the vertical commute.</p>
+    </div>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="staff-photo"><span class="badge">STAFF NO. 0451</span></div>
+        <div class="staff-info">
+          <h3>Karen</h3>
+          <div class="role">Senior Small Talk Engineer</div>
+          <p>Can discuss absolutely nothing for 45 minutes.</p>
+        </div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-photo"><span class="badge">STAFF NO. 0452</span></div>
+        <div class="staff-info">
+          <h3>Miguel</h3>
+          <div class="role">Chief Silence Negotiator</div>
+          <p>Once survived an elevator ride with his boss without mentioning the weather.</p>
+        </div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-photo"><span class="badge">STAFF NO. 0453</span></div>
+        <div class="staff-info">
+          <h3>Kevin</h3>
+          <div class="role">Director of Button Press Optimization</div>
+          <p>Has pressed over 2 million elevator buttons. Never the wrong one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ REVIEWS ============ -->
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Testimonial Log</span>
+      <h2>Customer Reviews</h2>
+    </div>
+    <div class="review-strip">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">I survived an elevator ride with my CEO and didn't mention the weather once.</p>
+        <div class="who">Financial Analyst</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">Their Emergency Exit feature accidentally evacuated the whole building. Five stars.</p>
+        <div class="who">Office Worker</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">I now confidently compliment elevator music.</p>
+        <div class="who">Marketing Manager</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">My elevator rides now include meaningful discussions about whether cereal is soup.</p>
+        <div class="who">Accountant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ CERTIFICATION ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Continuing Education</span>
+      <h2>Elevator Conversation Academy™</h2>
+      <p>Earn prestigious certifications. Advancement is not guaranteed, or even likely.</p>
+    </div>
+    <div class="ladder">
+      <div class="rung">
+        <div class="lvl">Level 1</div>
+        <h3>The Nod</h3>
+        <p>Entry-level acknowledgment of another human's presence.</p>
+      </div>
+      <div class="rung">
+        <div class="lvl">Level 2</div>
+        <h3>The Half Smile</h3>
+        <p>Commitment without vulnerability.</p>
+      </div>
+      <div class="rung">
+        <div class="lvl">Level 3</div>
+        <h3>Successful Joke Landing</h3>
+        <p>Only 2% pass.</p>
+      </div>
+      <div class="rung">
+        <div class="lvl">Level 4</div>
+        <h3>Starts Conversation Without Mentioning Weather</h3>
+        <p>Legendary.</p>
+      </div>
+      <div class="rung">
+        <div class="lvl">Level 5</div>
+        <h3>Gets Everyone Laughing Before Floor 8</h3>
+        <p>No verified graduates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ GOV STATS ============ -->
+<section class="tight">
+  <div class="wrap">
+    <div class="gov-panel">
+      <h2>Official Bureau Statistics</h2>
+      <ul class="gov-list">
+        <li><span>Uncomfortable silences recorded</span><span class="n">14,562,119</span></li>
+        <li><span>Accidental hugs</span><span class="n">2,317</span></li>
+        <li><span>Wrong-elevator entries while pretending to text</span><span class="n">87</span></li>
+        <li><span>Executives who complimented the handrail</span><span class="n">9</span></li>
+        <li><span>Persons who exited on every floor</span><span class="n">1</span></li>
+        <li><span>Certified Level 5 graduates</span><span class="n">0</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADD-ONS ============ -->
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Schedule D · Optional Riders</span>
+      <h2>Add-On Services</h2>
+    </div>
+    <div class="addon-grid">
+      <div class="addon-card"><div class="emoji">🎵</div><h4>Elevator Karaoke Mode</h4><div class="price">+$8</div></div>
+      <div class="addon-card"><div class="emoji">🤖</div><h4>AI Laugh Generator</h4><div class="price">+$5</div></div>
+      <div class="addon-card"><div class="emoji">🧀</div><h4>Emergency Cheese Facts</h4><div class="price">+$2</div></div>
+      <div class="addon-card"><div class="emoji">🕶️</div><h4>Sunglasses Indoors Pass</h4><div class="price">+$6</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ AWARDS ============ -->
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Annual Ceremony</span>
+      <h2>Annual Awards</h2>
+    </div>
+    <div class="award-strip">
+      <div class="award-item"><span class="trophy">🏆</span><p>Longest Conversation Without Mentioning the Weather</p></div>
+      <div class="award-item"><span class="trophy">🏆</span><p>Best Recovery After Pressing the Wrong Floor</p></div>
+      <div class="award-item"><span class="trophy">🏆</span><p>Outstanding Achievement in Pretending to Read Inspection Certificates</p></div>
+      <div class="award-item"><span class="trophy">🏆</span><p>Lifetime Achievement in Holding the Door for Someone Too Far Away</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="form-tag">Public Inquiries</span>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div>
+      <details class="faq-item">
+        <summary class="faq-q">Do I have to talk? <span class="plus">+</span></summary>
+        <div class="faq-a">Absolutely not. We also offer premium silence packages.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can you help with elevators that have mirrors? <span class="plus">+</span></summary>
+        <div class="faq-a">Yes. Our Mirror Survival Division specializes in pretending you aren't staring at yourself.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What if someone starts talking politics? <span class="plus">+</span></summary>
+        <div class="faq-a">Our Emergency Button instantly changes the topic to dogs.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What if the elevator gets stuck? <span class="plus">+</span></summary>
+        <div class="faq-a">Congratulations. You've unlocked the Advanced Conversation DLC.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Is this a real government agency? <span class="plus">+</span></summary>
+        <div class="faq-a">We can neither confirm nor deny our funding.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<div class="cta-final">
+  <span class="form-tag">Final Notice</span>
+  <h2>Stop surviving elevator rides.<br>Start mastering them.</h2>
+  <p>Join over 12 million professionals who have conquered awkward elevator moments with help from the Bureau.</p>
+  <a href="#services" class="btn primary">Become Elevator Certified</a>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="foot-wrap">
+    <h4>Fine Print</h4>
+    <ul>
+      <li>The Bureau of Awkward Elevator Conversations is not responsible for lifelong friendships that begin on Floor 3.</li>
+      <li>Nor for accidentally getting into someone else's elevator.</li>
+      <li>Nor for spontaneous debates about pineapple on pizza.</li>
+      <li>Nor for discovering your neighbor has 14 pet ferrets.</li>
+    </ul>
+    <div class="bottom">
+      <span>© B.A.E.C. — Officially Making Elevator Rides Less Painful Since 1987 (Probably)</span>
+      <span>FORM 22-EL / REV. C</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const icebreakers = [
+    "If this elevator had a playlist, what would be Track 1?",
+    "Do you think pigeons have meetings?",
+    "Would you rather fight one horse-sized pigeon or one hundred pigeon-sized horses?",
+    "Which floor has the best snacks?",
+    "If elevators could dream, what do you think they'd dream about?",
+    "Is cereal soup? Discuss.",
+    "On a scale of 1 to 10, how weird is this silence right now?",
+    "Quick poll: stairs or elevator, and why are we both wrong?",
+    "What's the most exciting thing that's happened on Floor 4?",
+    "If you had to live in this elevator, what would you name it?"
+  ];
+
+  const panelScreen = document.getElementById('panelScreenText');
+  const floorButtonsEl = document.getElementById('floorButtons');
+  const labels = ['1','2','3','4','5','6','7','8','9'];
+
+  labels.forEach((label, i) => {
+    const b = document.createElement('button');
+    b.className = 'floor-btn';
+    b.type = 'button';
+    b.textContent = label;
+    b.setAttribute('aria-label', 'Deploy icebreaker for floor ' + label);
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.floor-btn').forEach(el => el.classList.remove('lit'));
+      b.classList.add('lit');
+      panelScreen.textContent = icebreakers[i % icebreakers.length];
+    });
+    floorButtonsEl.appendChild(b);
+  });
+</script>
+
+</body>
+</html>
