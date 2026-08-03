@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Mood Express — Happiness, Delivered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --cream: #FFF3DC;
+    --paper: #FFFBF2;
+    --ink: #241A2E;
+    --ink-soft: #4A3F57;
+    --tangerine: #FF6B35;
+    --tangerine-dark: #E14F1C;
+    --sky: #3EB8E5;
+    --leaf: #4CAF7D;
+    --bubblegum: #FF9ECD;
+    --kraft: #E8C99B;
+    --kraft-dark: #C9A870;
+    --kraft-line: #B8934F;
+    --stamp-red: #D94848;
+
+    --display: 'Fredoka', sans-serif;
+    --body: 'DM Sans', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before{
+    content:"";
+    position: fixed;
+    inset:0;
+    pointer-events:none;
+    z-index: 0;
+    opacity: .5;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36,26,46,0.06) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1,h2,h3{
+    font-family: var(--display);
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--tangerine-dark);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background: var(--tangerine);
+    border-radius: 50%;
+    display:inline-block;
+  }
+
+  .btn{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 17px;
+    border: none;
+    border-radius: 999px;
+    padding: 15px 30px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items:center;
+    gap: 10px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+  }
+  .btn-primary{
+    background: var(--tangerine);
+    color: #fff;
+    box-shadow: 0 6px 0 var(--tangerine-dark);
+  }
+  .btn-primary:hover{ transform: translateY(-2px); }
+  .btn-primary:active{ transform: translateY(4px); box-shadow: 0 2px 0 var(--tangerine-dark); }
+
+  .btn-ghost{
+    background: transparent;
+    color: var(--ink);
+    border: 2px dashed var(--ink);
+  }
+  .btn-ghost:hover{ background: rgba(36,26,46,0.06); }
+
+  /* ---------- NAV / LABEL HEADER ---------- */
+  .topbar{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: var(--cream);
+    border-bottom: 2px dashed var(--kraft-line);
+  }
+  .topbar-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand{
+    font-family: var(--display);
+    font-size: 21px;
+    font-weight: 700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand-mark{
+    width: 34px; height:34px;
+    background: var(--tangerine);
+    border-radius: 8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform: rotate(-6deg);
+    box-shadow: 0 3px 0 var(--tangerine-dark);
+  }
+  .nav-links{
+    display:flex; gap: 26px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-links a{ text-decoration:none; opacity:.8; }
+  .nav-links a:hover{ opacity:1; text-decoration: underline wavy var(--tangerine); text-underline-offset:4px; }
+  .nav-cta{ display:none; }
+
+  @media (min-width: 760px){ .nav-cta{ display:inline-flex; } }
+  @media (max-width: 759px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO: SHIPPING LABEL ---------- */
+  .hero{
+    padding: 64px 0 40px;
+  }
+  .label{
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    padding: 40px 40px 34px;
+    position: relative;
+    box-shadow: 10px 10px 0 rgba(36,26,46,0.9);
+  }
+  .label::after{
+    content:"";
+    position:absolute;
+    left: 40px; right:40px; top: 128px;
+    border-top: 2px dashed var(--kraft-line);
+  }
+  .label-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 22px;
+  }
+  .barcode{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .05em;
+    color: var(--ink-soft);
+    text-align:right;
+  }
+  .barcode-bars{
+    height: 30px;
+    width: 130px;
+    margin-left:auto;
+    margin-bottom: 6px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 5px, var(--ink) 5px 6px, transparent 6px 11px);
+  }
+  .hero-title{
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1.02;
+    padding-top: 26px;
+    letter-spacing: -0.01em;
+  }
+  .hero-title .accent{ color: var(--tangerine); }
+  .hero-sub{
+    font-family: var(--display);
+    font-size: clamp(18px, 2.4vw, 26px);
+    color: var(--ink-soft);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .hero-list{
+    margin: 26px 0 30px;
+    padding: 0;
+    list-style: none;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .hero-list li::before{ content:"—  "; color: var(--tangerine); font-weight:700; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap: 14px; align-items:center; }
+  .hero-stamp{
+    position:absolute;
+    top: 30px; right: 40px;
+    width: 92px; height:92px;
+    border: 3px solid var(--stamp-red);
+    border-radius: 50%;
+    color: var(--stamp-red);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight:700;
+    line-height:1.25;
+    transform: rotate(11deg);
+    opacity: .85;
+  }
+  @media (max-width: 640px){
+    .label{ padding: 30px 22px 26px; }
+    .label::after{ left:22px; right:22px; }
+    .hero-stamp{ display:none; }
+    .hero-list{ grid-template-columns: 1fr; }
+  }
+
+  .stat-strip{
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{ padding: 76px 0; }
+  .sec-head{ max-width: 640px; margin-bottom: 44px; }
+  .sec-head h2{ font-size: clamp(28px,4vw,40px); margin-top:10px; }
+  .sec-head p{ color: var(--ink-soft); margin-top: 12px; font-size: 16px; }
+
+  /* ---------- WHY / INGREDIENTS ---------- */
+  .why{ background: var(--paper); border-top: 2px dashed var(--kraft-line); border-bottom: 2px dashed var(--kraft-line); }
+  .why-grid{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 14px;
+  }
+  @media (max-width: 900px){ .why-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .why-grid{ grid-template-columns: 1fr; } }
+  .ingredient{
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 18px 16px;
+    background: var(--cream);
+    font-size: 14.5px;
+    font-weight: 500;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    transition: transform .15s ease;
+  }
+  .ingredient:hover{ transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
+  .ingredient .ico{ font-size: 22px; }
+
+  /* ---------- PACKAGES (parcel cards) ---------- */
+  .packages{ }
+  .pkg-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 1000px){ .pkg-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .pkg-grid{ grid-template-columns: 1fr; } }
+
+  .pkg{
+    position: relative;
+    background: var(--kraft);
+    border: 2.5px solid var(--ink);
+    border-radius: 16px;
+    padding: 26px 22px 24px;
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+    min-height: 340px;
+  }
+  .pkg::before, .pkg::after{
+    content:"";
+    position:absolute;
+    background: var(--kraft-dark);
+    opacity: .55;
+  }
+  .pkg::before{ top:0; left: 50%; transform: translateX(-50%) rotate(0deg); width: 34px; height: 100%; }
+  .pkg::after{ top: 46%; left:0; width: 100%; height: 30px; }
+  .pkg.featured{ background: var(--bubblegum); }
+  .pkg.featured::before,.pkg.featured::after{ background: #E87DAE; }
+  .pkg.urgent{ background: var(--tangerine); color:#fff; }
+  .pkg.urgent::before,.pkg.urgent::after{ background: var(--tangerine-dark); }
+  .pkg.urgent .pkg-price, .pkg.urgent .pkg-tag, .pkg.urgent h3{ color:#fff; }
+  .pkg.urgent .pkg-list li{ color: rgba(255,255,255,0.92); }
+  .pkg.urgent .pkg-list li::before{ color:#fff; }
+
+  .pkg-tag{
+    position: relative;
+    z-index:1;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-weight:700;
+    color: var(--ink-soft);
+  }
+  .pkg h3{
+    position:relative; z-index:1;
+    font-size: 24px;
+    margin-top: 8px;
+  }
+  .pkg-for{
+    position:relative; z-index:1;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+  .pkg.urgent .pkg-for{ color: rgba(255,255,255,0.85); }
+  .pkg-list{
+    position:relative; z-index:1;
+    list-style:none;
+    padding:0;
+    margin: 14px 0 auto;
+    font-size: 13.5px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .pkg-list li::before{ content:"✓ "; color: var(--tangerine-dark); font-weight:700; }
+  .pkg-price{
+    position:relative; z-index:1;
+    font-family: var(--display);
+    font-size: 34px;
+    font-weight:700;
+    margin-top: 18px;
+  }
+  .pkg-badge{
+    position:absolute;
+    top: 14px; right: 14px;
+    z-index:2;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    transform: rotate(4deg);
+  }
+
+  /* ---------- BOX CONTENTS ---------- */
+  .contents{ background: var(--paper); border-top: 2px dashed var(--kraft-line); border-bottom: 2px dashed var(--kraft-line); }
+  .contents-flex{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items:center;
+  }
+  @media (max-width: 800px){ .contents-flex{ grid-template-columns: 1fr; } }
+  .contents-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:16px; }
+  .contents-list li{ display:flex; gap:14px; align-items:flex-start; font-size: 15.5px; }
+  .contents-list .ico{ font-size: 22px; flex:0 0 auto; }
+  .receipt{
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    padding: 26px 24px;
+    font-family: var(--mono);
+    font-size: 13px;
+    box-shadow: 6px 6px 0 var(--kraft-dark);
+    transform: rotate(-1.5deg);
+  }
+  .receipt hr{ border:none; border-top: 1px dashed var(--ink-soft); margin: 12px 0; }
+  .receipt .title{ font-family: var(--display); font-size: 16px; font-weight:600; margin-bottom:2px; }
+  .receipt .note{ margin-top: 14px; font-style:italic; }
+
+  /* ---------- MOOD MODES ---------- */
+  .modes-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px){ .modes-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .modes-grid{ grid-template-columns: 1fr; } }
+  .mode{
+    border-radius: 16px;
+    padding: 22px;
+    color: #fff;
+    min-height: 130px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .mode h3{ color:#fff; font-size: 19px; }
+  .mode p{ margin:0; font-size: 13.5px; opacity:.92; }
+  .mode .ico{ font-size: 26px; }
+  .mode.c1{ background: linear-gradient(135deg, #3EB8E5, #2C8FB8); }
+  .mode.c2{ background: linear-gradient(135deg, #FF6B35, #E14F1C); }
+  .mode.c3{ background: linear-gradient(135deg, #4CAF7D, #38855D); }
+  .mode.c4{ background: linear-gradient(135deg, #FF9ECD, #E87DAE); }
+  .mode.c5{ background: linear-gradient(135deg, #FFB84D, #E1912C); }
+  .mode.c6{ background: linear-gradient(135deg, #8B7FD1, #6C5EB0); }
+
+  /* ---------- COURIERS ---------- */
+  .couriers-grid{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px){ .couriers-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .couriers-grid{ grid-template-columns: 1fr; } }
+  .courier{
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align:center;
+  }
+  .courier-avatar{
+    width: 64px; height:64px;
+    border-radius: 50%;
+    background: var(--sky);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 28px;
+    margin: 0 auto 14px;
+    border: 2.5px solid var(--ink);
+  }
+  .courier h3{ font-size: 17px; }
+  .courier p{ font-size: 13px; color: var(--ink-soft); margin-top:6px; }
+
+  /* ---------- BOOSTERS ---------- */
+  .boosters{ background: var(--paper); border-top: 2px dashed var(--kraft-line); border-bottom: 2px dashed var(--kraft-line); }
+  .boost-grid{
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 14px;
+  }
+  @media (max-width: 900px){ .boost-grid{ grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 560px){ .boost-grid{ grid-template-columns: repeat(2,1fr); } }
+  .boost{
+    background: var(--cream);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align:center;
+  }
+  .boost .ico{ font-size:24px; }
+  .boost h4{ font-family: var(--display); font-size:14.5px; margin: 8px 0 4px; }
+  .boost p{ font-size:12px; color:var(--ink-soft); margin:0 0 8px; }
+  .boost .price{ font-family: var(--mono); font-weight:700; color: var(--tangerine-dark); font-size:13px; }
+
+  /* ---------- PLANS ---------- */
+  .plans-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px){ .plans-grid{ grid-template-columns: 1fr; } }
+  .plan{
+    border: 2.5px solid var(--ink);
+    border-radius: 16px;
+    padding: 28px 24px;
+    background: var(--paper);
+  }
+  .plan.hi{ background: var(--ink); color: var(--cream); position:relative; }
+  .plan.hi h3, .plan.hi .plan-price{ color: var(--cream); }
+  .plan.hi .plan-list li{ color: rgba(255,251,242,0.85); }
+  .plan.hi .plan-list li::before{ color: var(--tangerine); }
+  .plan-crown{ position:absolute; top:-14px; right:24px; font-size:26px; }
+  .plan-price{ font-family: var(--display); font-size: 30px; font-weight:700; margin: 10px 0 16px; }
+  .plan-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:14px; }
+  .plan-list li::before{ content:"✓ "; color: var(--tangerine-dark); font-weight:700; }
+
+  /* ---------- CORPORATE ---------- */
+  .corp{
+    background: var(--sky);
+    border-radius: 22px;
+    padding: 46px;
+    color: #fff;
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+    align-items:center;
+  }
+  @media (max-width: 800px){ .corp{ grid-template-columns:1fr; padding: 32px 24px; } }
+  .corp h2{ color:#fff; font-size: clamp(24px,3.4vw,32px); }
+  .corp p{ color: rgba(255,255,255,0.9); }
+  .corp-list{ list-style:none; padding:0; margin:16px 0 0; display:flex; flex-direction:column; gap:8px; font-size:14.5px; }
+  .corp-list li::before{ content:"— "; }
+  .corp-badge{
+    background: rgba(255,255,255,0.14);
+    border: 2px dashed rgba(255,255,255,0.6);
+    border-radius: 14px;
+    padding: 24px;
+    text-align:center;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .corp-badge .big{ font-family: var(--display); font-size: 40px; display:block; margin-bottom:6px; }
+
+  /* ---------- DASHBOARD / TICKER ---------- */
+  .dashboard{ background: var(--ink); color: var(--cream); }
+  .dash-head{ display:flex; align-items:center; gap:12px; margin-bottom: 30px; }
+  .dash-head .dot{ width:10px; height:10px; border-radius:50%; background: var(--leaf); box-shadow: 0 0 0 4px rgba(76,175,125,0.25); }
+  .dash-head h2{ color: var(--cream); font-size: 26px; }
+  .dash-sub{ font-family: var(--mono); font-size:12px; color: rgba(255,251,242,0.6); }
+  .dash-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+  }
+  @media (max-width: 800px){ .dash-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .dash-grid{ grid-template-columns: 1fr; } }
+  .dash-item{
+    border: 1px solid rgba(255,251,242,0.18);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .dash-num{ font-family: var(--display); font-size: 26px; font-weight:700; color: var(--tangerine); }
+  .dash-label{ font-family: var(--mono); font-size:12px; color: rgba(255,251,242,0.7); margin-top:4px; }
+
+  /* ---------- REVIEWS / POSTMARKS ---------- */
+  .reviews-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px){ .reviews-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .reviews-grid{ grid-template-columns: 1fr; } }
+  .review{
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 22px;
+    position: relative;
+  }
+  .postmark{
+    position:absolute;
+    top: -14px; right: -10px;
+    width: 60px; height:60px;
+    border-radius: 50%;
+    border: 2px dashed var(--stamp-red);
+    color: var(--stamp-red);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight:700;
+    transform: rotate(-8deg);
+    background: var(--paper);
+  }
+  .review p{ font-size: 14.5px; font-style: italic; margin: 0 0 12px; }
+  .review .who{ font-family: var(--mono); font-size: 12px; color: var(--ink-soft); font-style: normal; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ display:flex; flex-direction:column; gap: 12px; max-width: 780px; }
+  .faq-item{
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .faq-q{
+    padding: 18px 20px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    cursor:pointer;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 15.5px;
+    list-style: none;
+  }
+  .faq-q::-webkit-details-marker{ display:none; }
+  .faq-q .plus{ font-family: var(--mono); font-size: 18px; transition: transform .2s ease; flex: 0 0 auto; margin-left: 14px; }
+  details[open] .plus{ transform: rotate(45deg); }
+  .faq-a{ padding: 0 20px 20px; color: var(--ink-soft); font-size: 14.5px; }
+
+  /* ---------- HALL OF FAME ---------- */
+  .fame-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+  @media (max-width: 900px){ .fame-grid{ grid-template-columns: 1fr; } }
+  .fame{
+    background: var(--kraft);
+    border: 2.5px solid var(--ink);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .fame .trophy{ font-size: 26px; }
+  .fame h3{ font-size: 16px; margin-top:8px; }
+  .fame p{ font-size: 13.5px; color: var(--ink-soft); margin-top:6px; }
+
+  /* ---------- INSURANCE STRIP ---------- */
+  .insurance{
+    border: 2px dashed var(--ink);
+    border-radius: 16px;
+    padding: 26px 30px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap:wrap;
+    background: var(--paper);
+  }
+  .insurance h3{ font-size:19px; }
+  .insurance p{ margin: 4px 0 0; color: var(--ink-soft); font-size:14px; }
+
+  /* ---------- FINAL CTA ---------- */
+  .final{
+    background: var(--tangerine);
+    border-radius: 26px;
+    padding: 64px 40px;
+    text-align:center;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .final h2{ color:#fff; font-size: clamp(28px,4.4vw,44px); }
+  .final .hero-sub{ color: rgba(255,255,255,0.92); }
+  .final .btn-primary{ background:#fff; color: var(--tangerine-dark); box-shadow: 0 6px 0 rgba(0,0,0,0.18); margin-top: 26px; }
+
+  footer{
+    padding: 40px 0 60px;
+    text-align:center;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    line-height: 1.8;
+  }
+
+  /* ---------- CONFETTI (signature interaction) ---------- */
+  .confetti-piece{
+    position: fixed;
+    top: -12px;
+    z-index: 999;
+    border-radius: 2px;
+    pointer-events: none;
+    animation: fall linear forwards;
+  }
+  @keyframes fall{
+    to{ transform: translateY(105vh) rotate(540deg); opacity: .85; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">😊</span>
+      Good Mood Express
+    </div>
+    <nav class="nav-links">
+      <a href="#packages">Packages</a>
+      <a href="#modes">Mood Modes</a>
+      <a href="#plans">Subscriptions</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="btn btn-primary nav-cta" style="padding:10px 20px; font-size:14px;" onclick="burstConfetti(event)">Order Now</button>
+  </div>
+</div>
+
+<div class="wrap hero">
+  <div class="label">
+    <div class="hero-stamp">FRAGILE<br>HANDLE<br>WITH JOY</div>
+    <div class="label-row">
+      <span class="eyebrow">Same-day mood delivery</span>
+      <div class="barcode">
+        <div class="barcode-bars"></div>
+        TRK# 148-000-GMX
+      </div>
+    </div>
+    <h1 class="hero-title">Bad day?<br>We'll deliver a <span class="accent">better one.</span></h1>
+    <p class="hero-sub">Didn't sleep well. Stepped on a LEGO. Monday happened. Don't worry — we've got a courier for that.</p>
+    <ul class="hero-list">
+      <li>Certified Happiness Engineers</li>
+      <li>30-minute emergency dispatch</li>
+      <li>Fully recyclable smiles</li>
+      <li>No questions asked, mostly</li>
+    </ul>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="burstConfetti(event)">😊 Order My Good Mood</button>
+      <a href="#packages" class="btn btn-ghost">⚡ Cheer Me Up Now</a>
+    </div>
+    <div class="stat-strip">🚚 Over 148,000,000 better days delivered worldwide.</div>
+  </div>
+</div>
+
+<section class="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why us</span>
+      <h2>Life happens. We reroute it.</h2>
+      <p>Coffee spills. Meetings multiply. Printers rebel. Weather ignores your plans. A good mood, though — that can be delivered. Every shipment is handcrafted by our certified Happiness Engineers using:</p>
+    </div>
+    <div class="why-grid">
+      <div class="ingredient"><span class="ico">☀️</span> Fresh sunshine</div>
+      <div class="ingredient"><span class="ico">🐶</span> Happy dog energy</div>
+      <div class="ingredient"><span class="ico">🍕</span> Pizza optimism</div>
+      <div class="ingredient"><span class="ico">😂</span> Genuine laughter</div>
+      <div class="ingredient"><span class="ico">🎵</span> Songs you forgot you loved</div>
+      <div class="ingredient"><span class="ico">🍪</span> Warm cookie aroma</div>
+      <div class="ingredient"><span class="ico">🫧</span> Bubble wrap satisfaction</div>
+      <div class="ingredient"><span class="ico">🌈</span> Tiny unexpected victories</div>
+    </div>
+  </div>
+</section>
+
+<section class="packages" id="packages">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Choose your parcel</span>
+      <h2>Mood packages, sized to the day</h2>
+      <p>From a Monday-morning top-up to a full emergency dispatch — pick the box that matches how bad it really is.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg">
+        <span class="pkg-tag">🌤️ Little Pick-Me-Up</span>
+        <h3>Pick-Me-Up</h3>
+        <p class="pkg-for">Monday mornings, long meetings, grocery shopping, waiting rooms.</p>
+        <ul class="pkg-list">
+          <li>One unexpected compliment</li>
+          <li>Three deep laughs</li>
+          <li>Temporary optimism boost</li>
+        </ul>
+        <div class="pkg-price">$9.99</div>
+      </div>
+      <div class="pkg featured">
+        <span class="pkg-badge">Bestseller</span>
+        <span class="pkg-tag">😄 Happy Deluxe</span>
+        <h3>Happy Deluxe</h3>
+        <p class="pkg-for">Our most-shipped box, for any day that needs a nudge.</p>
+        <ul class="pkg-list">
+          <li>Better mood, better posture</li>
+          <li>Better playlist, better coffee taste</li>
+          <li>Random urge to whistle</li>
+        </ul>
+        <div class="pkg-price">$24</div>
+      </div>
+      <div class="pkg">
+        <span class="pkg-tag">🤩 Maximum Joy</span>
+        <h3>Maximum Joy</h3>
+        <p class="pkg-for">Birthdays, vacations, Fridays, paydays, cancelling plans.</p>
+        <ul class="pkg-list">
+          <li>Dancing in the kitchen</li>
+          <li>Smiling at strangers</li>
+          <li>Laughing at your own jokes</li>
+        </ul>
+        <div class="pkg-price">$49</div>
+      </div>
+      <div class="pkg urgent">
+        <span class="pkg-badge" style="background:#fff; color:var(--tangerine-dark);">30-min dispatch</span>
+        <span class="pkg-tag">🚨 Emergency Happiness</span>
+        <h3>Emergency Happiness</h3>
+        <p class="pkg-for">Mondays before coffee, broken phones, cancelled vacations, that email to your boss.</p>
+        <ul class="pkg-list">
+          <li>Priority courier routing</li>
+          <li>Delivered within 30 minutes</li>
+          <li>No judgment, guaranteed</li>
+        </ul>
+        <div class="pkg-price">$99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contents">
+  <div class="wrap contents-flex">
+    <div>
+      <span class="eyebrow">What's inside</span>
+      <h2 style="margin-top:10px; font-size: clamp(26px,3.6vw,34px);">Every box, unpacked</h2>
+      <ul class="contents-list" style="margin-top:22px;">
+        <li><span class="ico">📦</span> One professionally inflated good mood</li>
+        <li><span class="ico">🍪</span> Fresh cookies*</li>
+        <li><span class="ico">🎵</span> One song you'll immediately play on repeat</li>
+        <li><span class="ico">🌻</span> Pocket-sized sunshine</li>
+        <li><span class="ico">🎈</span> Emergency smile balloons</li>
+      </ul>
+      <p style="font-size:12px; color:var(--ink-soft); margin-top:16px;">*Digital cookies may contain imaginary chocolate chips.</p>
+    </div>
+    <div class="receipt">
+      <div class="title">Packing slip</div>
+      GMX-148992-CHEER
+      <hr>
+      "Today might actually be okay."
+      <hr>
+      1x Good mood ................. inflated<br>
+      1x Playlist ................... queued<br>
+      1x Sunshine .................. pocket-sized<br>
+      1x Cookie aroma .............. drifting
+      <div class="note">— handwritten by your courier</div>
+    </div>
+  </div>
+</section>
+
+<section id="modes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Mood modes</span>
+      <h2>Six feelings, on demand</h2>
+      <p>Every mode is engineered to feel exactly like the moment it's named for — minus the part that usually has to happen first.</p>
+    </div>
+    <div class="modes-grid">
+      <div class="mode c1"><span class="ico">☕</span><div><h3>Coffee Mode</h3><p>Your first sip tastes exactly right. Every time.</p></div></div>
+      <div class="mode c2"><span class="ico">🎉</span><div><h3>Friday Mode</h3><p>Feels like it's 4:58pm on a Friday. All day long.</p></div></div>
+      <div class="mode c3"><span class="ico">🌴</span><div><h3>Vacation Mode</h3><p>Mentally, you're on a beach. Physically, still at your desk.</p></div></div>
+      <div class="mode c4"><span class="ico">🐶</span><div><h3>Puppy Mode</h3><p>Everything seems exciting. Even folding laundry.</p></div></div>
+      <div class="mode c5"><span class="ico">🍕</span><div><h3>Pizza Night Mode</h3><p>The feeling when the doorbell rings and it's your food.</p></div></div>
+      <div class="mode c6"><span class="ico">❄️</span><div><h3>Snow Day Mode</h3><p>Like work got cancelled. No bad weather required.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Meet the fleet</span>
+      <h2>Your couriers</h2>
+    </div>
+    <div class="couriers-grid">
+      <div class="courier"><div class="courier-avatar">😄</div><h3>Charlie</h3><p>Has never lost a game of Rock, Paper, Scissors. Mostly because nobody wants to ruin his mood.</p></div>
+      <div class="courier"><div class="courier-avatar">🌞</div><h3>Mia</h3><p>Smiles so much that flowers occasionally bloom nearby.</p></div>
+      <div class="courier"><div class="courier-avatar">🎈</div><h3>Kevin</h3><p>Can make awkward silences feel like comedy shows.</p></div>
+      <div class="courier"><div class="courier-avatar">🎵</div><h3>Olivia</h3><p>Always knows the perfect song for the moment. Even elevators become dance floors.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="boosters">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Add-ons</span>
+      <h2>Premium mood boosters</h2>
+      <p>Tack these onto any package for an extra layer of delight.</p>
+    </div>
+    <div class="boost-grid">
+      <div class="boost"><div class="ico">🍦</div><h4>Ice Cream Upgrade</h4><p>Everything feels 18% better. Scientifically delicious.</p><div class="price">+$4</div></div>
+      <div class="boost"><div class="ico">🐶</div><h4>Golden Retriever Energy™</h4><p>Unlimited enthusiasm. May cause tail-wagging.</p><div class="price">+$7</div></div>
+      <div class="boost"><div class="ico">🎶</div><h4>Personal Soundtrack</h4><p>Every entrance feels like a movie scene.</p><div class="price">+$5</div></div>
+      <div class="boost"><div class="ico">☀️</div><h4>Portable Sunshine</h4><p>Clouds politely move aside. Mostly.</p><div class="price">+$6</div></div>
+      <div class="boost"><div class="ico">😂</div><h4>Laugh Generator</h4><p>Finds everyday problems strangely funny.</p><div class="price">+$8</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Subscriptions</span>
+      <h2>Never run out of good mood</h2>
+    </div>
+    <div class="plans-grid">
+      <div class="plan">
+        <span class="pkg-tag">🙂 Daily Smile</span>
+        <div class="plan-price">Free</div>
+        <ul class="plan-list"><li>One mood refill every morning</li></ul>
+      </div>
+      <div class="plan hi">
+        <span class="plan-crown">😎</span>
+        <span class="pkg-tag" style="color:rgba(255,251,242,0.6);">Mood+</span>
+        <div class="plan-price">$12<span style="font-size:15px; font-weight:500;">/mo</span></div>
+        <ul class="plan-list">
+          <li>Unlimited deliveries</li>
+          <li>Daily positivity</li>
+          <li>Monday protection</li>
+          <li>Happy playlists</li>
+          <li>Optimism insurance</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <span class="pkg-tag">👑 Lifetime Happiness VIP</span>
+        <div class="plan-price">$49<span style="font-size:15px; font-weight:500;">/mo</span></div>
+        <ul class="plan-list">
+          <li>Everything in Mood+</li>
+          <li>Emergency deliveries</li>
+          <li>Family sharing</li>
+          <li>Unlimited Friday feelings</li>
+          <li>Birthday confetti by drone</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="corp">
+      <div>
+        <span class="eyebrow" style="color:#fff;">For teams</span>
+        <h2>Office Mood Pro™</h2>
+        <p>Designed for workplaces where someone always forgets to unmute.</p>
+        <ul class="corp-list">
+          <li>Printer forgiveness</li>
+          <li>Meeting optimism</li>
+          <li>Monday resistance</li>
+          <li>Coffee machine appreciation</li>
+        </ul>
+      </div>
+      <div class="corp-badge">
+        <span class="big">Trusted</span>
+        by teams who've muted themselves mid-sentence at least once
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dashboard">
+  <div class="wrap">
+    <div class="dash-head"><span class="dot"></span><h2>Live happiness dashboard</h2></div>
+    <div class="dash-sub" style="margin-bottom:22px;">Today's deliveries so far —</div>
+    <div class="dash-grid">
+      <div class="dash-item"><div class="dash-num">486,221</div><div class="dash-label">😊 smiles</div></div>
+      <div class="dash-item"><div class="dash-num">39,112</div><div class="dash-label">🍕 pizza cravings</div></div>
+      <div class="dash-item"><div class="dash-num">82,004</div><div class="dash-label">🎵 spontaneous dance breaks</div></div>
+      <div class="dash-item"><div class="dash-num">14,992</div><div class="dash-label">🐶 dog-petting moments</div></div>
+      <div class="dash-item"><div class="dash-num">8,334</div><div class="dash-label">😂 terrible jokes that worked</div></div>
+      <div class="dash-item"><div class="dash-num">1</div><div class="dash-label">☀️ suspiciously perfect rainbow</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Postmarked reviews</span>
+      <h2>What customers are saying</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review"><div class="postmark">★★★★★</div><p>"I ordered the Friday package on a Tuesday. Somehow... it worked."</p><div class="who">— Marketing Manager</div></div>
+      <div class="review"><div class="postmark">★★★★★</div><p>"My coffee tasted better before I even drank it."</p><div class="who">— Software Engineer</div></div>
+      <div class="review"><div class="postmark">★★★★★</div><p>"I smiled during a dentist appointment. My dentist looked concerned."</p><div class="who">— Emma</div></div>
+      <div class="review"><div class="postmark">★★★★★</div><p>"My kids cleaned their room voluntarily. I'm ordering again immediately."</p><div class="who">— Parent of Three</div></div>
+      <div class="review"><div class="postmark">★★★★★</div><p>"The courier high-fived me and suddenly everything seemed manageable."</p><div class="who">— Accountant</div></div>
+      <div class="review"><div class="postmark">★★★★★</div><p>"148 million deliveries and mine still felt hand-picked."</p><div class="who">— Repeat Customer</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Hall of fame</span>
+      <h2>Records worth bragging about</h2>
+    </div>
+    <div class="fame-grid">
+      <div class="fame"><div class="trophy">🏆</div><h3>Fastest Mood Improvement</h3><p>One customer went from "I hate Mondays" to dancing in the kitchen in 47 seconds.</p></div>
+      <div class="fame"><div class="trophy">🏆</div><h3>Biggest Smile Recorded</h3><p>Smiled so widely that facial recognition unlocked three different phones.</p></div>
+      <div class="fame"><div class="trophy">🏆</div><h3>Longest Happy Streak</h3><p>417 consecutive days — credited to Good Mood Express, tacos, and a golden retriever named Steve.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="insurance">
+      <div>
+        <h3>🛡️ Mood Insurance™</h3>
+        <p>Feeling grumpy again within 24 hours? We'll send another good mood. No questions asked. Unless you read the comments section.</p>
+      </div>
+      <a href="#packages" class="btn btn-ghost">See packages</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Before you order</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item"><summary class="faq-q">Is happiness shipped fresh?<span class="plus">+</span></summary><div class="faq-a">Always. We never freeze our moods.</div></details>
+      <details class="faq-item"><summary class="faq-q">Can I send happiness as a gift?<span class="plus">+</span></summary><div class="faq-a">Absolutely. It's more useful than another scented candle.</div></details>
+      <details class="faq-item"><summary class="faq-q">Is it environmentally friendly?<span class="plus">+</span></summary><div class="faq-a">100%. Our smiles are fully recyclable.</div></details>
+      <details class="faq-item"><summary class="faq-q">What if I'm already happy?<span class="plus">+</span></summary><div class="faq-a">Excellent. We'll upgrade you to Ridiculously Happy™.</div></details>
+      <details class="faq-item"><summary class="faq-q">Can I overdose on good moods?<span class="plus">+</span></summary><div class="faq-a">Our legal department recommends occasional naps.</div></details>
+      <details class="faq-item"><summary class="faq-q">Will this fix all my problems?<span class="plus">+</span></summary><div class="faq-a">No. But they may suddenly seem a lot less dramatic.</div></details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final">
+      <span class="eyebrow" style="color:#fff;">Ready when you are</span>
+      <h2 style="margin-top:12px;">Life doesn't have to be perfect.</h2>
+      <p class="hero-sub">It just has to feel better than five minutes ago.</p>
+      <button class="btn btn-primary" onclick="burstConfetti(event)">😊 Deliver My Good Mood Today</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Good Mood Express is not responsible for: spontaneous kitchen dancing, smiling at strangers who don't know why,<br>
+    singing loudly in the car with the windows down, complimenting random dogs, buying flowers "just because,"<br>
+    or believing that maybe... just maybe... today is going to be a pretty great day. 🌞📦
+    <br><br>
+    © 2026 Good Mood Express. All smiles reserved.
+  </div>
+</footer>
+
+<script>
+  function burstConfetti(e){
+    const colors = ['#FF6B35','#3EB8E5','#4CAF7D','#FF9ECD','#E8C99B'];
+    const originX = e.clientX, originY = e.clientY;
+    for(let i=0;i<28;i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const size = 6 + Math.random()*6;
+      piece.style.width = size + 'px';
+      piece.style.height = (size*0.4) + 'px';
+      piece.style.left = (originX + (Math.random()*160-80)) + 'px';
+      piece.style.top = (originY) + 'px';
+      piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.animationDuration = (1.4 + Math.random()*1.2) + 's';
+      document.body.appendChild(piece);
+      setTimeout(()=>piece.remove(), 3000);
+    }
+  }
+</script>
+
+</body>
+</html>
