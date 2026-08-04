@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Motivation Delivery — Motivation. Freshly Packed.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F3EA;
+    --paper-dim:#EFE8D8;
+    --kraft:#B9834F;
+    --kraft-dark:#7C4E28;
+    --kraft-darker:#5A3A1E;
+    --ink:#251C11;
+    --fresh:#3C7A45;
+    --fresh-dark:#28532F;
+    --stamp:#BE3A2B;
+    --stamp-dark:#8C2A1F;
+    --tape:#E8B33D;
+    --paper-line: rgba(37,28,17,0.12);
+    --shadow: 0 6px 18px rgba(37,28,17,0.15);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:1.05;
+    margin:0;
+  }
+
+  .mono{ font-family:'Space Mono', monospace; }
+
+  a{ color:inherit; }
+  img{ max-width:100%; }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:12px;
+    color:var(--kraft-dark);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px; height:8px;
+    background:var(--fresh);
+    border-radius:50%;
+    display:inline-block;
+  }
+
+  /* ===== Route line divider (signature motif) ===== */
+  .route{
+    position:relative;
+    height:56px;
+    margin:0 auto;
+    max-width:1080px;
+    padding:0 24px;
+  }
+  .route svg{ width:100%; height:100%; display:block; }
+  .route .truck{
+    animation: drive 7s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .route .truck{ animation:none; }
+  }
+  @keyframes drive{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(calc(100vw - 40px)); }
+  }
+
+  /* ===== Header / Nav ===== */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:3px solid var(--ink);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px;
+    max-width:1080px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Archivo Black', sans-serif;
+    font-size:18px;
+    text-transform:uppercase;
+  }
+  .brand .box-icon{ font-size:22px; }
+  .topbar .track-badge{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 12px;
+    border-radius:3px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:72px 24px 40px;
+    position:relative;
+  }
+  .hero-inner{
+    max-width:1080px; margin:0 auto;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(40px, 6vw, 76px);
+    margin:14px 0 0;
+  }
+  .hero h1 .accent{ color:var(--stamp); }
+  .hero p.lede{
+    font-size:19px;
+    max-width:480px;
+    margin:20px 0 8px;
+  }
+  .hero .stat-line{
+    margin-top:22px;
+    font-family:'Space Mono', monospace;
+    font-size:14px;
+    background:var(--paper-dim);
+    display:inline-block;
+    padding:8px 14px;
+    border:1px dashed var(--kraft-dark);
+    border-radius:4px;
+  }
+  .cta-row{
+    display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;
+  }
+
+  .tape-btn{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    font-size:14px;
+    letter-spacing:0.02em;
+    padding:16px 26px;
+    border:none;
+    cursor:pointer;
+    color:var(--paper);
+    background:var(--stamp);
+    position:relative;
+    box-shadow: var(--shadow);
+    transform: rotate(-1deg);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .tape-btn::before, .tape-btn::after{
+    content:"";
+    position:absolute;
+    width:26px; height:14px;
+    background: rgba(255,255,255,0.55);
+    top:-6px;
+  }
+  .tape-btn::before{ left:10px; transform:rotate(-8deg); }
+  .tape-btn::after{ right:10px; transform:rotate(6deg); }
+  .tape-btn:hover{ transform: rotate(0deg) translateY(-2px); box-shadow:0 10px 22px rgba(37,28,17,0.22); }
+  .tape-btn.secondary{
+    background:var(--ink); transform:rotate(1deg);
+  }
+  .tape-btn.secondary:hover{ transform: rotate(0deg) translateY(-2px); }
+
+  /* Cardboard box hero graphic */
+  .box-scene{
+    position:relative;
+    aspect-ratio: 1/1;
+    max-width:420px;
+    margin:0 auto;
+    perspective:900px;
+  }
+  .box-base{
+    position:absolute; inset:22% 8% 6% 8%;
+    background: var(--kraft);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.06) 0 2px, transparent 2px 7px);
+    border:3px solid var(--kraft-darker);
+    box-shadow: var(--shadow);
+  }
+  .box-base::before{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 40%);
+  }
+  .flap{
+    position:absolute;
+    width:44%; height:34%;
+    background:var(--kraft);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.06) 0 2px, transparent 2px 7px);
+    border:3px solid var(--kraft-darker);
+    transform-origin: bottom center;
+    animation: openFlap 1.6s cubic-bezier(.2,.9,.25,1) forwards;
+  }
+  .flap.left{ left:8%; top:8%; transform-origin: bottom left; }
+  .flap.right{ right:8%; top:8%; transform-origin: bottom right; }
+  .flap.left{ animation-name: openLeft; }
+  .flap.right{ animation-name: openRight; }
+  @keyframes openLeft{
+    0%{ transform: rotate(0deg); }
+    100%{ transform: rotate(-108deg) translate(-6px,-2px); }
+  }
+  @keyframes openRight{
+    0%{ transform: rotate(0deg); }
+    100%{ transform: rotate(108deg) translate(6px,-2px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .flap{ animation: none; }
+    .flap.left{ transform: rotate(-108deg) translate(-6px,-2px); }
+    .flap.right{ transform: rotate(108deg) translate(6px,-2px); }
+  }
+  .label{
+    position:absolute; left:50%; top:34%;
+    transform: translate(-50%,0) rotate(-2deg);
+    background:var(--paper);
+    border:2px solid var(--ink);
+    padding:10px 16px 12px;
+    width:64%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity:0;
+    animation: riseLabel .7s ease forwards;
+    animation-delay: 1.1s;
+    text-align:center;
+    z-index:5;
+  }
+  @keyframes riseLabel{
+    0%{ opacity:0; transform: translate(-50%,16px) rotate(-2deg); }
+    100%{ opacity:1; transform: translate(-50%,0) rotate(-2deg); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .label{ opacity:1; animation:none; }
+  }
+  .label .to{ font-family:'Space Mono', monospace; font-size:10px; letter-spacing:.08em; color:var(--kraft-dark); }
+  .label .title{ font-family:'Archivo Black', sans-serif; font-size:15px; margin-top:4px; }
+  .barcode{
+    margin-top:8px;
+    height:18px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 5px);
+  }
+
+  /* ===== Section shells ===== */
+  section{ padding:64px 0; }
+  .section-head{ margin-bottom:34px; text-align:center; }
+  .section-head h2{ font-size:clamp(28px,4vw,42px); margin-top:10px; }
+  .section-head p{ max-width:560px; margin:14px auto 0; color:var(--kraft-dark); }
+
+  /* ===== Symptoms (receipt) ===== */
+  .receipt-wrap{ display:flex; justify-content:center; }
+  .receipt{
+    background:#fffdf7;
+    width:100%; max-width:460px;
+    padding:28px 26px 34px;
+    box-shadow: var(--shadow);
+    font-family:'Space Mono', monospace;
+    position:relative;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 98%, 80% 100%, 76% 98%, 72% 100%, 68% 98%, 64% 100%, 60% 98%, 56% 100%, 52% 98%, 48% 100%, 44% 98%, 40% 100%, 36% 98%, 32% 100%, 28% 98%, 24% 100%, 20% 98%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100%);
+  }
+  .receipt h3{ font-family:'Archivo Black', sans-serif; font-size:16px; text-align:center; }
+  .receipt .sub{ text-align:center; font-size:11px; color:var(--kraft-dark); margin-bottom:16px;}
+  .receipt ul{ list-style:none; padding:0; margin:0; }
+  .receipt li{
+    padding:10px 0;
+    border-bottom:1px dashed var(--paper-line);
+    font-size:14px;
+    display:flex; gap:10px;
+  }
+  .receipt li::before{ content:"✓"; color:var(--fresh); font-weight:700; }
+  .receipt .verdict{
+    margin-top:18px; text-align:center; font-size:12px;
+    background:var(--paper-dim); padding:10px; border:1px dashed var(--kraft-dark);
+  }
+
+  /* ===== Why fresh (checklist) ===== */
+  .why-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap:14px;
+    max-width:820px; margin:0 auto;
+  }
+  .why-item{
+    background:var(--paper-dim);
+    border:1.5px solid var(--ink);
+    padding:14px 16px;
+    font-size:14px;
+    font-weight:500;
+  }
+
+  /* ===== Packages (crates) ===== */
+  .crate-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:20px;
+  }
+  @media (max-width: 900px){ .crate-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .crate-grid{ grid-template-columns: 1fr; } }
+  .crate{
+    background:var(--paper);
+    border:3px solid var(--ink);
+    box-shadow: var(--shadow);
+    padding:22px 20px 26px;
+    position:relative;
+    display:flex; flex-direction:column;
+  }
+  .crate.pop{ border-color:var(--stamp); }
+  .crate .stamp-pill{
+    position:absolute; top:-14px; right:16px;
+    background:var(--fresh); color:#fff;
+    font-family:'Space Mono', monospace;
+    font-size:11px; padding:4px 10px;
+    transform:rotate(-3deg);
+    border-radius:3px;
+  }
+  .crate h3{ font-size:20px; margin-top:8px; }
+  .crate .price{
+    font-family:'Space Mono', monospace;
+    font-size:26px; font-weight:700; margin:10px 0 4px;
+    color:var(--stamp-dark);
+  }
+  .crate .for-line{ font-size:12px; color:var(--kraft-dark); margin-bottom:12px; text-transform:uppercase; letter-spacing:.04em;}
+  .crate ul{ list-style:none; padding:0; margin:0 0 18px; flex:1; }
+  .crate li{ font-size:13.5px; padding:6px 0; border-bottom:1px solid var(--paper-line); }
+  .crate li::before{ content:"› "; color:var(--fresh); font-weight:700; }
+  .crate button{
+    font-family:'Archivo Black', sans-serif;
+    font-size:12px; text-transform:uppercase;
+    background:var(--ink); color:var(--paper);
+    border:none; padding:12px; cursor:pointer;
+  }
+  .crate button:hover{ background:var(--stamp); }
+
+  /* ===== Specialized kits ===== */
+  .kit-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
+  }
+  @media (max-width:900px){ .kit-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:560px){ .kit-grid{ grid-template-columns: 1fr; } }
+  .kit{
+    background:var(--kraft);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0 2px, transparent 2px 8px);
+    border:2px solid var(--kraft-darker);
+    color:#fff;
+    padding:18px 16px;
+  }
+  .kit .emoji{ font-size:26px; }
+  .kit h4{ font-family:'Archivo Black',sans-serif; font-size:14px; margin:8px 0 8px; text-transform:uppercase; }
+  .kit ul{ margin:0; padding-left:18px; font-size:13px; }
+  .kit li{ margin-bottom:4px; }
+
+  /* ===== Delivery team (ID badges) ===== */
+  .team-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); gap:18px;
+  }
+  @media (max-width:900px){ .team-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:560px){ .team-grid{ grid-template-columns: 1fr; } }
+  .badge{
+    background:#fffdf7;
+    border:1.5px solid var(--ink);
+    padding:16px;
+    text-align:center;
+    position:relative;
+  }
+  .badge::before{
+    content:"";
+    position:absolute; top:-8px; left:50%; transform:translateX(-50%);
+    width:22px; height:16px; background:var(--tape); opacity:.9;
+  }
+  .badge .avatar{
+    font-size:34px;
+    width:64px; height:64px; margin:6px auto 10px;
+    background:var(--paper-dim);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid var(--ink);
+  }
+  .badge h4{ font-size:14px; font-family:'Archivo Black',sans-serif; }
+  .badge p{ font-size:12.5px; color:var(--kraft-dark); margin:6px 0 0; }
+  .badge .id{ font-family:'Space Mono',monospace; font-size:10px; margin-top:8px; color:var(--stamp-dark); }
+
+  /* ===== Productivity meter (gauges) ===== */
+  .meter-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+    text-align:center;
+  }
+  @media (max-width:700px){ .meter-grid{ grid-template-columns:repeat(2,1fr); } }
+  .gauge{ position:relative; width:120px; height:120px; margin:0 auto 10px; }
+  .gauge svg{ width:100%; height:100%; transform:rotate(-90deg); }
+  .gauge circle{ fill:none; stroke-width:12; }
+  .gauge .bg{ stroke: var(--paper-dim); }
+  .gauge .fg{ stroke: var(--fresh); stroke-linecap:round; transition: stroke-dashoffset 1.4s ease; }
+  .gauge .num{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono',monospace; font-weight:700; font-size:20px;
+  }
+  .meter-label{ font-size:13px; color:var(--kraft-dark); }
+  .meter-note{ text-align:center; font-size:11px; margin-top:18px; color:var(--kraft-dark); font-family:'Space Mono',monospace; }
+
+  /* ===== Add-ons (stickers) ===== */
+  .addon-grid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:14px;
+  }
+  @media (max-width:900px){ .addon-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .addon-grid{ grid-template-columns:1fr; } }
+  .sticker{
+    background:var(--paper);
+    border:2.5px dashed var(--kraft-dark);
+    border-radius:50% / 18%;
+    padding:16px 12px;
+    text-align:center;
+  }
+  .sticker .emoji{ font-size:24px; }
+  .sticker h4{ font-size:12.5px; font-family:'Archivo Black',sans-serif; margin:8px 0 6px; }
+  .sticker p{ font-size:11.5px; margin:0 0 8px; color:var(--kraft-dark); }
+  .sticker .plus{ font-family:'Space Mono',monospace; font-weight:700; color:var(--stamp-dark); }
+
+  /* ===== Reviews (postcards) ===== */
+  .review-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  }
+  @media (max-width:900px){ .review-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .review-grid{ grid-template-columns:1fr; } }
+  .postcard{
+    background:#fffdf7;
+    border:2px solid var(--ink);
+    padding:18px 18px 16px;
+    position:relative;
+    box-shadow: var(--shadow);
+  }
+  .postcard .stars{ color:var(--tape); letter-spacing:2px; font-size:14px; }
+  .postcard p.quote{ font-style:italic; margin:10px 0 12px; font-size:14.5px; }
+  .postcard .from{ font-family:'Space Mono',monospace; font-size:12px; color:var(--kraft-dark); text-align:right; }
+  .postcard .stamp-corner{
+    position:absolute; top:10px; right:10px;
+    width:34px; height:40px;
+    border:2px solid var(--kraft-dark);
+    background: repeating-linear-gradient(45deg, var(--paper-dim) 0 4px, transparent 4px 8px);
+  }
+
+  /* ===== Subscriptions (crate sizes) ===== */
+  .sub-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  }
+  @media (max-width:900px){ .sub-grid{ grid-template-columns:1fr; } }
+  .sub-card{
+    border:3px solid var(--ink);
+    padding:26px 22px;
+    text-align:center;
+    background:var(--paper);
+  }
+  .sub-card.mid{ background:var(--ink); color:var(--paper); transform:scale(1.03); box-shadow:var(--shadow); }
+  .sub-card.mid .price{ color:var(--tape); }
+  .sub-card .price{ font-family:'Space Mono',monospace; font-size:30px; font-weight:700; margin:12px 0; }
+  .sub-card ul{ list-style:none; padding:0; text-align:left; margin:0 0 18px; font-size:13.5px; }
+  .sub-card li{ padding:5px 0; }
+  .sub-card li::before{ content:"✓ "; color:var(--fresh); }
+  .sub-card.mid li::before{ color:var(--tape); }
+  .sub-card button{
+    width:100%; padding:12px; border:none; cursor:pointer;
+    font-family:'Archivo Black',sans-serif; font-size:12px; text-transform:uppercase;
+    background:var(--stamp); color:#fff;
+  }
+  .sub-card.mid button{ background:var(--tape); color:var(--ink); }
+
+  /* ===== Live tracker ===== */
+  .tracker{
+    background:var(--ink); color:var(--paper);
+    padding:56px 0;
+  }
+  .tracker .section-head p{ color:#d8cdb8; }
+  .tracker .section-head .eyebrow{ color:var(--tape); }
+  .track-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  @media (max-width:700px){ .track-grid{ grid-template-columns:repeat(2,1fr); } }
+  .track-item{ text-align:center; }
+  .track-item .num{
+    font-family:'Space Mono',monospace; font-weight:700;
+    font-size:clamp(24px,4vw,34px); color:var(--tape);
+  }
+  .track-item .lbl{ font-size:13px; margin-top:4px; color:#cfc2a6; }
+
+  /* ===== FAQ (manifest) ===== */
+  .faq{ max-width:680px; margin:0 auto; }
+  .faq-item{ border-bottom:1.5px solid var(--ink); }
+  .faq-item summary{
+    cursor:pointer; padding:16px 4px;
+    font-family:'Archivo Black',sans-serif; font-size:14px;
+    list-style:none; display:flex; justify-content:space-between; align-items:center;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{ content:"+"; font-size:20px; color:var(--stamp); }
+  .faq-item[open] summary::after{ content:"–"; }
+  .faq-item p{ padding:0 4px 16px; margin:0; color:var(--kraft-dark); font-size:14.5px; }
+
+  /* ===== Corporate ===== */
+  .corp-box{
+    background:var(--kraft);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.07) 0 2px, transparent 2px 8px);
+    border:3px solid var(--kraft-darker);
+    color:#fff;
+    padding:40px 32px;
+    display:grid; grid-template-columns: 1fr 1fr; gap:28px; align-items:center;
+  }
+  @media (max-width:760px){ .corp-box{ grid-template-columns:1fr; } }
+  .corp-box ul{ margin:14px 0; padding-left:18px; font-size:14px; }
+  .corp-box li{ margin-bottom:6px; }
+  .corp-box .big{ font-family:'Space Mono',monospace; font-size:32px; font-weight:700; color:var(--tape); }
+
+  /* ===== Hall of fame ===== */
+  .hof-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:760px){ .hof-grid{ grid-template-columns:1fr; } }
+  .medal{
+    text-align:center; padding:22px 16px;
+    background:var(--paper-dim); border:2px solid var(--ink);
+  }
+  .medal .m-emoji{ font-size:30px; }
+  .medal h4{ font-family:'Archivo Black',sans-serif; font-size:13px; margin:10px 0 6px; }
+  .medal p{ font-size:13px; margin:0; color:var(--kraft-dark); }
+
+  /* ===== Final CTA ===== */
+  .final{
+    text-align:center;
+    padding:80px 0 60px;
+  }
+  .final h2{ font-size:clamp(28px,5vw,48px); }
+  .final .tape-btn{ margin-top:26px; }
+
+  footer{
+    background:var(--paper-dim);
+    border-top:3px solid var(--ink);
+    padding:30px 0 40px;
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    color:var(--kraft-dark);
+  }
+  footer ul{ padding-left:18px; margin:10px 0; }
+  footer li{ margin-bottom:4px; }
+
+  .fade-in{ opacity:0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-in.show{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{ opacity:1; transform:none; transition:none; }
+  }
+
+  @media (max-width:820px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .crate-grid{ }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <div class="brand"><span class="box-icon">📦</span> Fresh Motivation Delivery</div>
+    <div class="track-badge mono">ORDER TRACKING: ACTIVE</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Same-day dispatch, every morning</span>
+      <h1>Out of motivation? <span class="accent">We'll bring you more.</span></h1>
+      <p class="lede">That gym membership looking nervous? Your to-do list has become a historical document? Still researching instead of starting? Don't worry — our couriers deliver fresh, premium motivation directly to your door, harvested daily before procrastination has a chance to spoil it.</p>
+      <div class="stat-line">📦 OVER 93,000,000 PRODUCTIVE DAYS DELIVERED</div>
+      <div class="cta-row">
+        <button class="tape-btn">🔥 Deliver My Motivation</button>
+        <button class="tape-btn secondary">⚡ I Need It Right Now</button>
+      </div>
+    </div>
+    <div class="box-scene">
+      <div class="box-base"></div>
+      <div class="flap left"></div>
+      <div class="flap right"></div>
+      <div class="label">
+        <div class="to">SHIP TO: YOU · HANDLE WITH HYPE</div>
+        <div class="title">FRESH MOTIVATION</div>
+        <div class="barcode"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="route">
+  <svg viewBox="0 0 1000 40" preserveAspectRatio="none">
+    <line x1="0" y1="20" x2="1000" y2="20" stroke="var(--kraft-dark)" stroke-width="2" stroke-dasharray="10 10"/>
+  </svg>
+</div>
+
+<!-- WHY FRESH -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Why fresh motivation</span>
+    <h2>Motivation is like fresh bread</h2>
+    <p>Amazing when it's fresh. Terrible when it's three weeks old. That's why we deliver it daily — no artificial enthusiasm, ever.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-item">💪 Determination</div>
+    <div class="why-item">☕ Caffeine-compatible optimism</div>
+    <div class="why-item">🎯 Laser focus</div>
+    <div class="why-item">🚀 Momentum</div>
+    <div class="why-item">📈 Progress energy</div>
+    <div class="why-item">🧠 "Let's just start" mentality</div>
+    <div class="why-item">✨ Tiny wins</div>
+  </div>
+</section>
+
+<!-- SYMPTOMS -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Diagnosis</span>
+    <h2>Common symptoms</h2>
+    <p>You may need Fresh Motivation if you've recently said any of the following.</p>
+  </div>
+  <div class="receipt-wrap">
+    <div class="receipt">
+      <h3>PROCRASTINATION MANIFEST</h3>
+      <div class="sub">— customs declaration —</div>
+      <ul>
+        <li>"I'll start tomorrow."</li>
+        <li>"I just need to watch one more video first."</li>
+        <li>"First, let me reorganize my desktop."</li>
+        <li>"I'll begin after lunch."</li>
+        <li>"Monday is a better day to start."</li>
+        <li>"I'm still researching."</li>
+      </ul>
+      <div class="verdict">If you answered "yes" to any of these, we're already packing your order.</div>
+    </div>
+  </div>
+</section>
+
+<div class="route"><svg viewBox="0 0 1000 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="1000" y2="20" stroke="var(--kraft-dark)" stroke-width="2" stroke-dasharray="10 10"/></svg></div>
+
+<!-- PACKAGES -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Delivery packages</span>
+    <h2>Choose your crate</h2>
+  </div>
+  <div class="crate-grid">
+    <div class="crate">
+      <h3>🌱 Starter Boost</h3>
+      <div class="for-line">Cleaning · emails · laundry · that phone call</div>
+      <div class="price">$9.99</div>
+      <ul>
+        <li>One motivational speech</li>
+        <li>Two encouraging high-fives</li>
+        <li>Mild productivity enhancement</li>
+      </ul>
+      <button>Ship it</button>
+    </div>
+    <div class="crate pop">
+      <span class="stamp-pill">MOST POPULAR</span>
+      <h3>🚀 Productivity Pro</h3>
+      <div class="for-line">Our most popular package</div>
+      <div class="price">$24</div>
+      <ul>
+        <li>Deep focus</li>
+        <li>Fewer distractions</li>
+        <li>Strong "let's do this" energy</li>
+        <li>Reduced social media cravings</li>
+        <li>Bonus confidence</li>
+      </ul>
+      <button>Ship it</button>
+    </div>
+    <div class="crate">
+      <h3>🏆 Beast Mode</h3>
+      <div class="for-line">Entrepreneurs · students · 73 open tabs</div>
+      <div class="price">$49</div>
+      <ul>
+        <li>Maximum focus</li>
+        <li>Unlimited momentum</li>
+        <li>Temporary immunity to procrastination</li>
+        <li>Energy that lasts all day</li>
+      </ul>
+      <button>Ship it</button>
+    </div>
+    <div class="crate">
+      <h3>🚨 Emergency Rescue</h3>
+      <div class="for-line">"Wait... that's due TODAY?"</div>
+      <div class="price">$99</div>
+      <ul>
+        <li>Delivery within 15 minutes</li>
+        <li>Panic-to-productivity conversion tech</li>
+      </ul>
+      <button>Ship it</button>
+    </div>
+  </div>
+</section>
+
+<!-- FRESHLY HARVESTED -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Sourcing</span>
+    <h2>Freshly harvested every morning</h2>
+    <p>Our motivation farm opens at sunrise. Everything is organically sourced.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-item">☀️ Morning optimism</div>
+    <div class="why-item">🏃 Post-workout determination</div>
+    <div class="why-item">📚 First-day-of-school excitement</div>
+    <div class="why-item">🎉 New Year resolution energy</div>
+    <div class="why-item">💼 First-day-at-a-new-job confidence</div>
+    <div class="why-item">⚡ "I've finally had enough" momentum</div>
+  </div>
+</section>
+
+<div class="route"><svg viewBox="0 0 1000 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="1000" y2="20" stroke="var(--kraft-dark)" stroke-width="2" stroke-dasharray="10 10"/></svg></div>
+
+<!-- SPECIALIZED KITS -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Specialized kits</span>
+    <h2>Pick your edition</h2>
+  </div>
+  <div class="kit-grid">
+    <div class="kit">
+      <div class="emoji">🏋️</div>
+      <h4>Gym Edition</h4>
+      <ul>
+        <li>Willingness to exercise</li>
+        <li>Ignore leg-day excuses</li>
+        <li>One extra push-up</li>
+        <li>Gym bag memory</li>
+      </ul>
+    </div>
+    <div class="kit">
+      <div class="emoji">💻</div>
+      <h4>Work Edition</h4>
+      <ul>
+        <li>Monday mornings</li>
+        <li>Long spreadsheets</li>
+        <li>Inbox cleanup</li>
+        <li>Printer tolerance</li>
+      </ul>
+    </div>
+    <div class="kit">
+      <div class="emoji">📚</div>
+      <h4>Student Edition</h4>
+      <ul>
+        <li>Concentration</li>
+        <li>Memory boost</li>
+        <li>Less TikTok, more textbooks</li>
+        <li>Confidence before exams</li>
+      </ul>
+    </div>
+    <div class="kit">
+      <div class="emoji">🎨</div>
+      <h4>Creative Edition</h4>
+      <ul>
+        <li>For artists, designers, musicians</li>
+        <li>Content creators</li>
+        <li>Side effects: accidental brilliance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY TEAM -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Meet the crew</span>
+    <h2>Delivery team</h2>
+  </div>
+  <div class="team-grid">
+    <div class="badge">
+      <div class="avatar">🚴</div>
+      <h4>Mike</h4>
+      <p>Delivered motivation before the alarm clock rang.</p>
+      <div class="id">ID #0417 · COURIER</div>
+    </div>
+    <div class="badge">
+      <div class="avatar">☀️</div>
+      <h4>Sarah</h4>
+      <p>Has never pressed snooze. People fear her power.</p>
+      <div class="id">ID #0092 · COURIER</div>
+    </div>
+    <div class="badge">
+      <div class="avatar">🏃</div>
+      <h4>Carlos</h4>
+      <p>Treats every staircase like a victory lap.</p>
+      <div class="id">ID #0233 · COURIER</div>
+    </div>
+    <div class="badge">
+      <div class="avatar">📈</div>
+      <h4>Emma</h4>
+      <p>Can motivate plants to grow faster. Unconfirmed.</p>
+      <div class="id">ID #0501 · COURIER</div>
+    </div>
+  </div>
+</section>
+
+<div class="route"><svg viewBox="0 0 1000 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="1000" y2="20" stroke="var(--kraft-dark)" stroke-width="2" stroke-dasharray="10 10"/></svg></div>
+
+<!-- PRODUCTIVITY METER -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Results</span>
+    <h2>Productivity Meter™</h2>
+    <p>Average results after delivery.</p>
+  </div>
+  <div class="meter-grid">
+    <div>
+      <div class="gauge" data-pct="84">
+        <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg>
+        <div class="num">0%</div>
+      </div>
+      <div class="meter-label">fewer excuses</div>
+    </div>
+    <div>
+      <div class="gauge" data-pct="71">
+        <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg>
+        <div class="num">0%</div>
+      </div>
+      <div class="meter-label">more finished projects</div>
+    </div>
+    <div>
+      <div class="gauge" data-pct="52">
+        <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg>
+        <div class="num">0%</div>
+      </div>
+      <div class="meter-label">fewer naps*</div>
+    </div>
+    <div>
+      <div class="gauge" data-pct="97">
+        <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg>
+        <div class="num">0%</div>
+      </div>
+      <div class="meter-label">more "let's begin"</div>
+    </div>
+  </div>
+  <div class="meter-note">*Weekend naps excluded.</div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Premium add-ons</span>
+    <h2>Sticker pack</h2>
+  </div>
+  <div class="addon-grid">
+    <div class="sticker">
+      <div class="emoji">📵</div>
+      <h4>Anti-Distraction Shield</h4>
+      <p>Blocks doomscrolling & "one more episode"</p>
+      <div class="plus">+$8</div>
+    </div>
+    <div class="sticker">
+      <div class="emoji">☕</div>
+      <h4>Infinite Coffee Mode</h4>
+      <p>Every coffee tastes like your first</p>
+      <div class="plus">+$5</div>
+    </div>
+    <div class="sticker">
+      <div class="emoji">🎵</div>
+      <h4>Focus Playlist Generator</h4>
+      <p>Finds the perfect productivity soundtrack</p>
+      <div class="plus">+$4</div>
+    </div>
+    <div class="sticker">
+      <div class="emoji">🚪</div>
+      <h4>Door Closing Assistant</h4>
+      <p>Closes your office door dramatically</p>
+      <div class="plus">+$3</div>
+    </div>
+    <div class="sticker">
+      <div class="emoji">📱</div>
+      <h4>Phone Lockbox</h4>
+      <p>Convinces your phone you're unavailable</p>
+      <div class="plus">+$7</div>
+    </div>
+  </div>
+</section>
+
+<div class="route"><svg viewBox="0 0 1000 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="1000" y2="20" stroke="var(--kraft-dark)" stroke-width="2" stroke-dasharray="10 10"/></svg></div>
+
+<!-- REVIEWS -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Postcards from customers</span>
+    <h2>Customer reviews</h2>
+  </div>
+  <div class="review-grid">
+    <div class="postcard"><div class="stamp-corner"></div><div class="stars">★★★★★</div><p class="quote">"I cleaned my garage... willingly."</p><div class="from">— Mark</div></div>
+    <div class="postcard"><div class="stamp-corner"></div><div class="stars">★★★★★</div><p class="quote">"I finished my taxes before the deadline. My family thought I was sick."</p><div class="from">— Jennifer</div></div>
+    <div class="postcard"><div class="stamp-corner"></div><div class="stars">★★★★★</div><p class="quote">"I finally wrote Chapter One after only talking about it for three years."</p><div class="from">— Aspiring Author</div></div>
+    <div class="postcard"><div class="stamp-corner"></div><div class="stars">★★★★★</div><p class="quote">"Instead of watching productivity videos, I became productive."</p><div class="from">— Software Developer</div></div>
+    <div class="postcard"><div class="stamp-corner"></div><div class="stars">★★★★★</div><p class="quote">"My house has never been this clean. I'm slightly suspicious."</p><div class="from">— Emma</div></div>
+  </div>
+</section>
+
+<!-- SUBSCRIPTIONS -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Subscription plans</span>
+    <h2>Never run out again</h2>
+  </div>
+  <div class="sub-grid">
+    <div class="sub-card">
+      <h3>🌞 Daily Delivery</h3>
+      <div class="price">FREE</div>
+      <ul><li>One fresh motivation refill every morning</li></ul>
+      <button>Start free</button>
+    </div>
+    <div class="sub-card mid">
+      <h3>💪 Motivation+</h3>
+      <div class="price">$14/mo</div>
+      <ul>
+        <li>Unlimited deliveries</li>
+        <li>Morning energy boosts</li>
+        <li>Goal reminders</li>
+        <li>Daily encouragement</li>
+        <li>Weekend bonus packs</li>
+      </ul>
+      <button>Subscribe</button>
+    </div>
+    <div class="sub-card">
+      <h3>👑 Motivation Unlimited</h3>
+      <div class="price">$59/mo</div>
+      <ul>
+        <li>Emergency deadline rescue</li>
+        <li>Personalized pep talks</li>
+        <li>Family motivation sharing</li>
+        <li>Lifetime productivity warranty</li>
+        <li>VIP Motivation Warehouse access</li>
+      </ul>
+      <button>Go unlimited</button>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE TRACKER -->
+<section class="tracker">
+  <div class="wrap fade-in">
+    <div class="section-head">
+      <span class="eyebrow">Live tracker</span>
+      <h2 style="color:var(--paper)">Today we've helped people</h2>
+    </div>
+    <div class="track-grid">
+      <div class="track-item"><div class="num" data-count="219483">0</div><div class="lbl">🏋️ workouts completed</div></div>
+      <div class="track-item"><div class="num" data-count="1800000">0</div><div class="lbl">📖 pages read</div></div>
+      <div class="track-item"><div class="num" data-count="402000">0</div><div class="lbl">💼 projects finished</div></div>
+      <div class="track-item"><div class="num" data-count="6000000">0</div><div class="lbl">📧 emails replied to</div></div>
+      <div class="track-item"><div class="num" data-count="94000">0</div><div class="lbl">🧹 garages cleaned</div></div>
+      <div class="track-item"><div class="num" data-count="17000">0</div><div class="lbl">🚀 businesses started</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Manifest</span>
+    <h2>Frequently asked questions</h2>
+  </div>
+  <div class="faq">
+    <details class="faq-item"><summary>Is the motivation organic?</summary><p>Yes. Free-range and ethically harvested.</p></details>
+    <details class="faq-item"><summary>Does it expire?</summary><p>Usually around Wednesday afternoon. Fresh deliveries recommended.</p></details>
+    <details class="faq-item"><summary>Can I freeze it?</summary><p>You can try. Results vary.</p></details>
+    <details class="faq-item"><summary>Is it stronger than coffee?</summary><p>Together they're unstoppable.</p></details>
+    <details class="faq-item"><summary>Can I gift motivation?</summary><p>Absolutely. It's especially popular every January.</p></details>
+    <details class="faq-item"><summary>What if I lose motivation again?</summary><p>That's why subscriptions exist. Even superheroes need refills.</p></details>
+  </div>
+</section>
+
+<div class="route"><svg viewBox="0 0 1000 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="1000" y2="20" stroke="var(--kraft-dark)" stroke-width="2" stroke-dasharray="10 10"/></svg></div>
+
+<!-- CORPORATE -->
+<section class="wrap fade-in">
+  <div class="corp-box">
+    <div>
+      <span class="eyebrow" style="color:var(--tape)">Enterprise Motivation™</span>
+      <h2 style="margin-top:8px;">For teams who say "let's circle back"</h2>
+      <ul>
+        <li>Monday survival kits</li>
+        <li>Meeting endurance</li>
+        <li>Project launch boosts</li>
+        <li>Brainstorm energy</li>
+        <li>Deadline confidence</li>
+        <li>Printer forgiveness</li>
+      </ul>
+    </div>
+    <div style="text-align:center;">
+      <div class="big">12,000+</div>
+      <p style="margin-top:6px;">companies that wanted to stop scheduling meetings about scheduling meetings.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HALL OF FAME -->
+<section class="wrap fade-in">
+  <div class="section-head">
+    <span class="eyebrow">Hall of fame</span>
+    <h2>Records on the wall</h2>
+  </div>
+  <div class="hof-grid">
+    <div class="medal"><div class="m-emoji">🏆</div><h4>Fastest project started</h4><p>A customer clicked "Start" just 6 seconds after delivery.</p></div>
+    <div class="medal"><div class="m-emoji">🏆</div><h4>Most impressive achievement</h4><p>One subscriber cleaned the junk drawer and found the missing batteries.</p></div>
+    <div class="medal"><div class="m-emoji">🏆</div><h4>Longest focus session</h4><p>9 hours, 14 minutes. Phone checked once — to order more motivation.</p></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final wrap fade-in">
+  <span class="eyebrow">Ready when you are</span>
+  <h2 style="margin-top:10px;">Stop waiting for motivation to show up.<br>Have it delivered instead.</h2>
+  <p style="max-width:520px;margin:16px auto 0;color:var(--kraft-dark);">Whether you're starting a business, finishing a project, studying for an exam, or simply trying to make it through Monday — Fresh Motivation Delivery is standing by.</p>
+  <button class="tape-btn">🚀 Deliver My Motivation Today</button>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div style="font-family:'Archivo Black',sans-serif; font-size:12px; color:var(--ink); text-transform:uppercase;">Tiny disclaimer</div>
+    <div>Fresh Motivation Delivery is not responsible for:</div>
+    <ul>
+      <li>suddenly organizing your entire house at 10:47 PM,</li>
+      <li>signing up for a marathon after one motivational video,</li>
+      <li>color-coding your pantry for no practical reason,</li>
+      <li>finally launching the side project you've been "almost ready" to start since 2021,</li>
+      <li>or becoming the friend who says "let's just do it!" far more often than everyone else. 💪📦🚀</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const faders = document.querySelectorAll('.fade-in');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  faders.forEach(el=>io.observe(el));
+
+  // Gauges
+  const gauges = document.querySelectorAll('.gauge');
+  const gaugeIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const pct = parseFloat(el.dataset.pct);
+        const circle = el.querySelector('.fg');
+        const r = 42;
+        const circumference = 2 * Math.PI * r;
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = circumference;
+        requestAnimationFrame(()=>{
+          circle.style.strokeDashoffset = circumference - (pct/100)*circumference;
+        });
+        const numEl = el.querySelector('.num');
+        let start = 0;
+        const dur = 1200;
+        const t0 = performance.now();
+        function step(t){
+          const p = Math.min(1, (t-t0)/dur);
+          numEl.textContent = Math.round(p*pct) + '%';
+          if(p<1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        gaugeIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  gauges.forEach(g=>gaugeIO.observe(g));
+
+  // Live tracker count-up
+  const counters = document.querySelectorAll('.num[data-count]');
+  const countIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const dur = 1600;
+        const t0 = performance.now();
+        function step(t){
+          const p = Math.min(1, (t-t0)/dur);
+          const val = Math.floor(p*target);
+          el.textContent = val.toLocaleString();
+          if(p<1) requestAnimationFrame(step);
+          else el.textContent = target.toLocaleString();
+        }
+        requestAnimationFrame(step);
+        countIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  counters.forEach(c=>countIO.observe(c));
+</script>
+
+</body>
+</html>
