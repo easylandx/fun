@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spare Time Rentals — Need More Hours? Rent Them.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFCC00;
+    --pink:#FF4FA3;
+    --blue:#3D5AFE;
+    --cream:#FFF7E0;
+    --ink:#14151A;
+    --white:#FFFFFF;
+    --green:#00C88C;
+    --shadow: 6px 6px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Unbounded', sans-serif;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'Space Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+  section{padding:100px 24px; position:relative;}
+  .wrap{max-width:1080px; margin:0 auto;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:13px;
+    font-weight:700;
+    display:inline-block;
+    padding:6px 14px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    margin-bottom:22px;
+    background:var(--white);
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    padding:16px 28px;
+    border-radius:999px;
+    border:3px solid var(--ink);
+    background:var(--ink);
+    color:var(--white);
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink); }
+  .btn:active{ transform:translate(0,0); box-shadow:2px 2px 0 var(--ink); }
+  .btn.ghost{ background:transparent; color:var(--ink); }
+  .btn.yellow{ background:var(--yellow); color:var(--ink); }
+  .btn.pink{ background:var(--pink); color:var(--ink); }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky; top:0; z-index:200;
+    background:var(--ink);
+    border-bottom:3px solid var(--ink);
+  }
+  .navwrap{
+    max-width:1080px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .logo{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    color:var(--white);
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo span{color:var(--yellow);}
+  nav ul{display:flex; gap:30px;}
+  nav a{
+    color:var(--white);
+    font-size:14px;
+    font-weight:600;
+    opacity:.85;
+  }
+  nav a:hover{opacity:1; color:var(--yellow);}
+  #navToggle{display:none;}
+  .hamburger{
+    display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:210;
+  }
+  .hamburger span{width:26px; height:3px; background:var(--white); border-radius:2px; transition:.3s;}
+  .navCTA{display:flex; align-items:center; gap:14px;}
+  .soundBtn{
+    width:40px; height:40px; border-radius:50%;
+    border:2px solid var(--white); background:transparent; color:var(--white);
+    cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center;
+    transition:.2s;
+  }
+  .soundBtn.on{background:var(--yellow); color:var(--ink); border-color:var(--yellow);}
+
+  @media (max-width:840px){
+    nav{
+      position:fixed; inset:0 0 0 auto; width:78%; max-width:320px;
+      background:var(--ink); padding:100px 30px 30px;
+      transform:translateX(100%); transition:transform .35s ease;
+    }
+    nav ul{flex-direction:column; gap:26px;}
+    nav a{font-size:20px;}
+    #navToggle:checked ~ nav{transform:translateX(0);}
+    .hamburger{display:flex;}
+    #navToggle:checked ~ .navCTA .hamburger span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+    #navToggle:checked ~ .navCTA .hamburger span:nth-child(2){opacity:0;}
+    #navToggle:checked ~ .navCTA .hamburger span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+  }
+
+  /* ===== REVEAL ===== */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.show{opacity:1; transform:translateY(0);}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--yellow);
+    padding:140px 24px 110px;
+    text-align:center;
+    border-bottom:4px solid var(--ink);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .hero h1{
+    font-size:clamp(40px, 7vw, 84px);
+    font-weight:900;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:var(--ink);
+    color:var(--yellow);
+    padding:0 14px;
+    display:inline-block;
+    transform:rotate(-1.5deg);
+  }
+  .hero .lede{
+    font-size:19px; max-width:640px; margin:26px auto 0;
+    font-weight:500; line-height:1.6;
+  }
+  .heroBtns{display:flex; gap:16px; justify-content:center; margin-top:38px; flex-wrap:wrap;}
+  .clockFloat{
+    position:absolute; font-size:60px; opacity:.5; user-select:none; pointer-events:none;
+  }
+  .clockFloat.c1{top:8%; left:6%; animation: spin 18s linear infinite;}
+  .clockFloat.c2{bottom:10%; right:8%; animation: spin 22s linear infinite reverse; font-size:80px;}
+  .clockFloat.c3{top:20%; right:14%; font-size:36px; animation: floaty 5s ease-in-out infinite;}
+  @keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  @keyframes floaty{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+  .statBar{
+    margin-top:56px; display:flex; justify-content:center;
+  }
+  .statPill{
+    background:var(--ink); color:var(--white);
+    font-family:'Space Mono', monospace;
+    padding:12px 26px; border-radius:999px; font-size:14px; font-weight:700;
+    display:flex; align-items:center; gap:10px;
+  }
+  .statPill .dot{width:8px; height:8px; border-radius:50%; background:var(--green); animation:pulse 1.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1} 50%{opacity:.3}}
+
+  /* ===== WHY SECTION (pink) ===== */
+  .why{ background:var(--pink); border-bottom:4px solid var(--ink); }
+  .why h2{ font-size:clamp(30px,5vw,48px); max-width:680px; }
+  .whyGrid{
+    margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:18px;
+  }
+  .whyCard{
+    background:var(--white); border:3px solid var(--ink); border-radius:18px;
+    padding:22px 18px; box-shadow:var(--shadow-sm);
+  }
+  .whyCard .ic{font-size:30px; margin-bottom:10px;}
+  .whyCard h3{font-size:15px; font-family:'Space Grotesk'; font-weight:700;}
+  .whyIntro{max-width:600px; font-size:17px; line-height:1.7; margin-top:18px; font-weight:500;}
+
+  /* ===== PACKAGES (blue) — signature ticket stubs ===== */
+  .packages{ background:var(--blue); color:var(--white); border-bottom:4px solid var(--ink); }
+  .packages h2{ color:var(--white); font-size:clamp(30px,5vw,48px); text-align:center; }
+  .packages .eyebrow{background:var(--ink); color:var(--yellow); border-color:var(--ink);}
+  .pkgGrid{
+    margin-top:52px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:34px;
+  }
+  .ticket{
+    position:relative;
+    background:var(--cream);
+    color:var(--ink);
+    border:3px solid var(--ink);
+    border-radius:14px;
+    padding:26px 24px 30px;
+    box-shadow:var(--shadow);
+    transition:transform .2s ease;
+  }
+  .ticket:hover{ transform:translateY(-6px); }
+  .ticket.best{ background:var(--yellow); }
+  .ticket::before, .ticket::after{
+    content:""; position:absolute; width:26px; height:26px; background:var(--blue);
+    border:3px solid var(--ink); border-radius:50%; top:50%; transform:translateY(-50%);
+  }
+  .ticket::before{ left:-16px; }
+  .ticket::after{ right:-16px; }
+  .ticket .tag{
+    font-family:'Space Mono'; font-size:11px; text-transform:uppercase; letter-spacing:.1em;
+    font-weight:700; opacity:.6;
+  }
+  .ticket h3{ font-size:22px; margin:8px 0 12px; }
+  .ticket .price{ font-family:'Unbounded'; font-size:34px; font-weight:800; margin:14px 0; }
+  .ticket ul{ font-size:14px; line-height:1.9; margin-bottom:6px; }
+  .ticket ul li::before{ content:"— "; opacity:.5; }
+  .ticket .note{ font-size:13px; font-style:italic; opacity:.75; margin-top:10px; }
+  .perf{
+    border-top:3px dashed var(--ink); margin:16px 0 14px;
+  }
+  .bestBadge{
+    position:absolute; top:-14px; right:20px; background:var(--ink); color:var(--yellow);
+    font-family:'Space Mono'; font-size:11px; font-weight:700; padding:5px 12px; border-radius:999px;
+  }
+
+  /* ===== SPECIALTY (cream chips) ===== */
+  .specialty{ background:var(--cream); border-bottom:4px solid var(--ink); }
+  .specialty h2{ font-size:clamp(28px,4.5vw,42px); }
+  .specGrid{
+    margin-top:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:18px;
+  }
+  .specCard{
+    background:var(--white); border:3px solid var(--ink); border-radius:16px; padding:22px;
+    box-shadow:var(--shadow-sm);
+  }
+  .specCard .ic{font-size:26px;}
+  .specCard h3{font-size:16px; margin:10px 0 6px;}
+  .specCard p{font-size:13.5px; opacity:.8; line-height:1.6;}
+
+  /* ===== ACCESSORIES (yellow strip) ===== */
+  .accessories{ background:var(--yellow); border-bottom:4px solid var(--ink); }
+  .accGrid{
+    margin-top:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px;
+  }
+  .accCard{
+    background:var(--ink); color:var(--white); border-radius:16px; padding:22px;
+    display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  }
+  .accCard h3{font-size:15.5px; font-family:'Space Grotesk'; font-weight:700; margin-bottom:6px;}
+  .accCard p{font-size:13px; opacity:.75; line-height:1.55;}
+  .accCard .price{ font-family:'Space Mono'; font-weight:700; color:var(--yellow); white-space:nowrap; font-size:15px;}
+
+  /* ===== BROKERS (pink) ===== */
+  .brokers{ background:var(--pink); border-bottom:4px solid var(--ink); }
+  .brokerGrid{
+    margin-top:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;
+  }
+  .brokerCard{
+    background:var(--white); border:3px solid var(--ink); border-radius:18px; padding:24px; text-align:center;
+    box-shadow:var(--shadow-sm);
+  }
+  .avatar{
+    width:64px; height:64px; border-radius:50%; background:var(--blue); border:3px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 14px;
+  }
+  .brokerCard h3{font-size:16px; margin-bottom:6px;}
+  .brokerCard p{font-size:13.5px; opacity:.75; line-height:1.5;}
+
+  /* ===== CORPORATE (ink) ===== */
+  .corporate{ background:var(--ink); color:var(--white); border-bottom:4px solid var(--ink); }
+  .corporate .eyebrow{ background:var(--yellow); color:var(--ink); border-color:var(--yellow); }
+  .corporate h2{ font-size:clamp(28px,4.5vw,42px); max-width:600px; }
+  .corpQuote{
+    font-family:'Space Mono'; font-size:16px; margin:20px 0 30px; opacity:.85; border-left:3px solid var(--yellow);
+    padding-left:16px;
+  }
+  .corpGrid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:10px;
+  }
+  .corpItem{
+    background:#22232b; border-radius:12px; padding:16px 18px; font-size:14px; font-weight:600;
+    border:1px solid #33343e;
+  }
+  .corpFoot{margin-top:30px; font-size:14px; opacity:.7;}
+
+  /* ===== DASHBOARD (blue, counters) ===== */
+  .dashboard{ background:var(--blue); color:var(--white); border-bottom:4px solid var(--ink); text-align:center; }
+  .dashboard h2{font-size:clamp(28px,4.5vw,42px);}
+  .dashGrid{
+    margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px;
+  }
+  .dashItem{
+    background:rgba(255,255,255,.08); border:2px solid rgba(255,255,255,.25); border-radius:16px; padding:24px 12px;
+  }
+  .dashItem .num{
+    font-family:'Space Mono'; font-weight:700; font-size:clamp(24px,4vw,34px); color:var(--yellow);
+  }
+  .dashItem .lbl{font-size:12.5px; opacity:.8; margin-top:6px;}
+
+  /* ===== REVIEWS (cream) ===== */
+  .reviews{ background:var(--cream); border-bottom:4px solid var(--ink); }
+  .reviews h2{ text-align:center; font-size:clamp(28px,4.5vw,42px); }
+  .revGrid{
+    margin-top:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;
+  }
+  .revCard{
+    background:var(--white); border:3px solid var(--ink); border-radius:16px; padding:22px;
+    box-shadow:var(--shadow-sm);
+  }
+  .stars{ color:var(--yellow); font-size:14px; letter-spacing:2px; -webkit-text-stroke:.5px var(--ink); }
+  .revCard p{ font-size:14.5px; margin:12px 0; line-height:1.6; font-style:italic; }
+  .revCard .who{ font-family:'Space Mono'; font-size:12px; opacity:.6; }
+
+  /* ===== FAQ (pink accordion) ===== */
+  .faq{ background:var(--pink); border-bottom:4px solid var(--ink); }
+  .faq h2{ font-size:clamp(28px,4.5vw,42px); }
+  .faqList{ margin-top:36px; display:flex; flex-direction:column; gap:12px; }
+  .faqItem{
+    background:var(--white); border:3px solid var(--ink); border-radius:14px; overflow:hidden;
+  }
+  .faqQ{
+    padding:18px 20px; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+    font-size:15.5px;
+  }
+  .faqQ .plus{ font-size:20px; transition:transform .25s ease; }
+  .faqItem.open .plus{ transform:rotate(45deg); }
+  .faqA{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    font-size:14.5px; opacity:.85; line-height:1.6;
+  }
+  .faqA p{ padding:0 20px 18px; }
+  .faqItem.open .faqA{ max-height:200px; }
+
+  /* ===== SUBSCRIPTIONS (yellow) ===== */
+  .subs{ background:var(--yellow); border-bottom:4px solid var(--ink); }
+  .subs h2{ font-size:clamp(28px,4.5vw,42px); text-align:center; }
+  .subGrid{
+    margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:26px; max-width:760px; margin-left:auto; margin-right:auto;
+  }
+  .subCard{
+    background:var(--ink); color:var(--white); border-radius:20px; padding:32px 28px; position:relative;
+  }
+  .subCard.premium{ background:var(--blue); }
+  .subCard h3{ font-family:'Unbounded'; font-size:20px; }
+  .subCard .price{ font-family:'Space Mono'; font-size:28px; font-weight:700; color:var(--yellow); margin:14px 0 18px; }
+  .subCard ul{ font-size:14px; line-height:2; opacity:.9; margin-bottom:20px; }
+  .subCard ul li::before{ content:"✓ "; color:var(--green); }
+  .subCard .btn{ width:100%; justify-content:center; }
+
+  /* ===== HALL OF FAME (blue) ===== */
+  .fame{ background:var(--blue); color:var(--white); border-bottom:4px solid var(--ink); }
+  .fame h2{ font-size:clamp(28px,4.5vw,42px); text-align:center; }
+  .fameGrid{ margin-top:40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
+  .fameCard{
+    background:rgba(255,255,255,.08); border:2px solid rgba(255,255,255,.25); border-radius:16px; padding:24px;
+  }
+  .fameCard .trophy{ font-size:26px; margin-bottom:10px; }
+  .fameCard h3{ font-size:15px; font-family:'Space Grotesk'; font-weight:700; margin-bottom:10px; }
+  .fameCard p{ font-size:13.5px; opacity:.85; line-height:1.6; }
+  .fameCard .result{
+    margin-top:10px; font-family:'Space Mono'; font-size:12.5px; color:var(--yellow);
+  }
+
+  /* ===== INSURANCE (pink banner) ===== */
+  .insurance{
+    background:var(--pink); border-bottom:4px solid var(--ink); text-align:center;
+  }
+  .insurance .wrap{ max-width:640px; }
+  .insurance h2{ font-size:clamp(26px,4vw,36px); }
+  .insurance p{ margin-top:14px; font-size:16px; opacity:.85; line-height:1.6; }
+
+  /* ===== FINAL CTA (ink) ===== */
+  .finalCta{ background:var(--ink); color:var(--white); text-align:center; border-bottom:4px solid var(--ink); }
+  .finalCta h2{ font-size:clamp(32px,6vw,56px); }
+  .finalCta h2 .line2{ color:var(--yellow); }
+  .finalList{
+    max-width:520px; margin:30px auto; font-size:15px; line-height:2; opacity:.85; text-align:left;
+    columns:2; column-gap:30px;
+  }
+  .finalList li::before{ content:"→ "; color:var(--yellow); }
+  .finalCta .btn{ margin-top:20px; }
+
+  /* ===== FOOTER ===== */
+  footer{ background:var(--cream); padding:60px 24px 40px; }
+  .finePrint{ max-width:680px; margin:0 auto; text-align:center; }
+  .finePrint h4{ font-family:'Space Mono'; font-size:12px; text-transform:uppercase; letter-spacing:.12em; opacity:.5; margin-bottom:14px; }
+  .finePrint ul{ font-size:13.5px; line-height:2; opacity:.7; }
+  .finePrint .sign{ margin-top:24px; font-family:'Unbounded'; font-weight:700; font-size:15px; }
+  .footBottom{ text-align:center; margin-top:40px; font-size:12px; opacity:.5; font-family:'Space Mono'; }
+
+  /* ===== FLOATING CTA ===== */
+  .floatCta{
+    position:fixed; bottom:22px; right:22px; z-index:150;
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .floatCta.hide{ display:none; }
+  @media (max-width:600px){
+    .floatCta{ right:16px; bottom:16px; padding:13px 20px; font-size:13px; }
+    .finalList{ columns:1; }
+    section{ padding:70px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navwrap">
+    <div class="logo">⏳ Spare Time <span>Rentals</span></div>
+    <input type="checkbox" id="navToggle">
+    <nav>
+      <ul>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#specialty">Specialty</a></li>
+        <li><a href="#accessories">Accessories</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#subs">Subscriptions</a></li>
+      </ul>
+    </nav>
+    <div class="navCTA">
+      <button class="soundBtn" id="soundBtn" title="Toggle ambient ticking">🔈</button>
+      <label class="hamburger" for="navToggle"><span></span><span></span><span></span></label>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="clockFloat c1">⏰</span>
+  <span class="clockFloat c2">⌛</span>
+  <span class="clockFloat c3">🕰️</span>
+  <div class="wrap">
+    <span class="eyebrow">Est. whenever you need it</span>
+    <h1>Running Out of Time?<br><em>Just Rent Some More.</em></h1>
+    <p class="lede">Work, family, exercise, hobbies, sleep, and remembering to water the plants — still trying to fit it all into 24 hours? That's simply poor infrastructure. We lease professionally maintained hours, weekends, and entire lazy afternoons.</p>
+    <div class="heroBtns">
+      <a href="#packages" class="btn yellow">⏰ Rent More Time</a>
+      <a href="#faq" class="btn ghost">⚡ I'm Already Late</a>
+    </div>
+    <div class="statBar">
+      <div class="statPill"><span class="dot"></span> 4.2 billion extra hours successfully rented</div>
+    </div>
+  </div>
+</section>
+
+<section class="why reveal">
+  <div class="wrap">
+    <span class="eyebrow">The problem</span>
+    <h2>Everyone gets 24 hours. Some people also get perfect workouts, clean houses, and eight hours of sleep.</h2>
+    <p class="whyIntro">We're still investigating how. Until then, we'll rent you the difference. Every rental includes:</p>
+    <div class="whyGrid">
+      <div class="whyCard"><div class="ic">⏰</div><h3>Genuine spare time</h3></div>
+      <div class="whyCard"><div class="ic">😌</div><h3>Reduced rushing</h3></div>
+      <div class="whyCard"><div class="ic">☕</div><h3>Leisure compatibility</h3></div>
+      <div class="whyCard"><div class="ic">📅</div><h3>Schedule expansion</h3></div>
+      <div class="whyCard"><div class="ic">🧘</div><h3>Built-in breathing room</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="packages reveal" id="packages">
+  <div class="wrap">
+    <span class="eyebrow">Rental packages</span>
+    <h2>Pick your denomination of time.</h2>
+    <div class="pkgGrid">
+      <div class="ticket">
+        <div class="tag">Ticket 001</div>
+        <h3>☕ Coffee Break</h3>
+        <div class="perf"></div>
+        <ul>
+          <li>15 uninterrupted minutes</li>
+          <li>One hot coffee</li>
+          <li>Zero notifications</li>
+        </ul>
+        <div class="price">$4</div>
+        <div class="note">Perfect for surviving Mondays.</div>
+      </div>
+      <div class="ticket best">
+        <div class="bestBadge">Bestseller</div>
+        <div class="tag">Ticket 002</div>
+        <h3>🌤️ Bonus Hour</h3>
+        <div class="perf"></div>
+        <ul>
+          <li>One completely free hour</li>
+          <li>For reading, relaxing, projects</li>
+          <li>Or staring peacefully out the window</li>
+        </ul>
+        <div class="price">$19</div>
+      </div>
+      <div class="ticket">
+        <div class="tag">Ticket 003</div>
+        <h3>🌇 Lazy Afternoon</h3>
+        <div class="perf"></div>
+        <ul>
+          <li>Four uninterrupted hours</li>
+          <li>Ideal for naps, hobbies, baking</li>
+          <li>Or absolutely nothing</li>
+        </ul>
+        <div class="price">$39</div>
+        <div class="note">Highly recommended.</div>
+      </div>
+      <div class="ticket">
+        <div class="tag">Ticket 004 — Premium</div>
+        <h3>🎉 Extra Saturday</h3>
+        <div class="perf"></div>
+        <ul>
+          <li>Saturday 2.0™</li>
+          <li>No Monday afterward</li>
+        </ul>
+        <div class="price">$99</div>
+        <div class="note">Because one weekend is clearly insufficient.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="specialty reveal" id="specialty">
+  <div class="wrap">
+    <span class="eyebrow">Specialty rentals</span>
+    <h2>For very particular kinds of nothing.</h2>
+    <div class="specGrid">
+      <div class="specCard"><div class="ic">💤</div><h3>Sleep-In Sunday</h3><p>Wake up naturally. No alarms. No obligations. No guilt.</p></div>
+      <div class="specCard"><div class="ic">🎮</div><h3>Gaming Weekend</h3><p>Zero responsibilities, unlimited snacks, "I'll do it tomorrow" immunity.</p></div>
+      <div class="specCard"><div class="ic">📚</div><h3>Reading Day</h3><p>Finish the book you've been "currently reading" since 2022.</p></div>
+      <div class="specCard"><div class="ic">🧹</div><h3>Chore Hour</h3><p>One magical hour where laundry folds itself. Still in beta.</p></div>
+      <div class="specCard"><div class="ic">👨‍👩‍👧</div><h3>Family Time</h3><p>An evening where nobody has to leave early. Phones become mysteriously uninteresting.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="accessories reveal" id="accessories">
+  <div class="wrap">
+    <span class="eyebrow">Time accessories</span>
+    <h2>Add-ons for your rental.</h2>
+    <div class="accGrid">
+      <div class="accCard"><div><h3>⏸️ Pause Button™</h3><p>Freezes meetings, deadlines, group chats, and relatives asking when you're getting married.</p></div><div class="price">+$9</div></div>
+      <div class="accCard"><div><h3>🚦 Slow Motion Upgrade</h3><p>Traffic slows. Your heartbeat slows. The microwave still takes forever.</p></div><div class="price">+$5</div></div>
+      <div class="accCard"><div><h3>📱 Notification Silencer</h3><p>Converts 487 unread messages into "I'll check those tomorrow."</p></div><div class="price">+$4</div></div>
+      <div class="accCard"><div><h3>⏪ Undo Last Hour</h3><p>Didn't use your last hour wisely? We'll rewind it. Once.</p></div><div class="price">+$12</div></div>
+      <div class="accCard"><div><h3>🧺 Automatic Adulting</h3><p>Laundry quietly completes itself. Still under development.</p></div><div class="price">+$8</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="brokers reveal">
+  <div class="wrap">
+    <span class="eyebrow">Meet the team</span>
+    <h2>Your Time Brokers</h2>
+    <div class="brokerGrid">
+      <div class="brokerCard"><div class="avatar">⌚</div><h3>Oliver</h3><p>Once arrived five minutes early — to the airport, without running.</p></div>
+      <div class="brokerCard"><div class="avatar">☀️</div><h3>Mia</h3><p>Has never said "I wish there were more hours in the day." Highly suspicious.</p></div>
+      <div class="brokerCard"><div class="avatar">📅</div><h3>Daniel</h3><p>Can schedule eight meetings and still eat lunch.</p></div>
+      <div class="brokerCard"><div class="avatar">🧘</div><h3>Emma</h3><p>Owns only three calendar reminders. Lives peacefully.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="corporate reveal">
+  <div class="wrap">
+    <span class="eyebrow">For teams</span>
+    <h2>Enterprise Time™</h2>
+    <p class="corpQuote">"Can we squeeze in one more meeting?" — every company, always</p>
+    <div class="corpGrid">
+      <div class="corpItem">26-hour workdays</div>
+      <div class="corpItem">9-day weeks</div>
+      <div class="corpItem">Meetings that actually end on time</div>
+      <div class="corpItem">Email-free Fridays</div>
+      <div class="corpItem">Lunch breaks people actually take</div>
+    </div>
+    <p class="corpFoot">Trusted by organizations that finally realized: not everything needs to be marked "Urgent."</p>
+  </div>
+</section>
+
+<section class="dashboard reveal">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--ink); color:var(--yellow); border-color:var(--ink);">Right now</span>
+    <h2>Live Time Dashboard</h2>
+    <div class="dashGrid">
+      <div class="dashItem"><div class="num" data-target="9800000" data-suffix="+">0</div><div class="lbl">Extra hours rented today</div></div>
+      <div class="dashItem"><div class="num" data-target="210000" data-suffix="">0</div><div class="lbl">Books completed</div></div>
+      <div class="dashItem"><div class="num" data-target="483000" data-suffix="">0</div><div class="lbl">Successful naps</div></div>
+      <div class="dashItem"><div class="num" data-target="2300000" data-suffix="+">0</div><div class="lbl">Peaceful coffee breaks</div></div>
+      <div class="dashItem"><div class="num" data-target="118000" data-suffix="">0</div><div class="lbl">Family dinners</div></div>
+      <div class="dashItem"><div class="num" data-target="74000" data-suffix="">0</div><div class="lbl">Guilt-free gaming sessions</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews reveal">
+  <div class="wrap">
+    <span class="eyebrow">Reviews</span>
+    <h2>What renters are saying</h2>
+    <div class="revGrid">
+      <div class="revCard"><div class="stars">★★★★★</div><p>"I rented one extra hour and somehow finished everything before dinner."</p><div class="who">— Accountant</div></div>
+      <div class="revCard"><div class="stars">★★★★★</div><p>"Extra Saturday changed my life. Monday was genuinely surprised."</p><div class="who">— Teacher</div></div>
+      <div class="revCard"><div class="stars">★★★★★</div><p>"Finally had enough time to organize the junk drawer. I immediately regretted knowing what was inside."</p><div class="who">— Homeowner</div></div>
+      <div class="revCard"><div class="stars">★★★★★</div><p>"I spent my bonus hour doing absolutely nothing. Best purchase ever."</p><div class="who">— Software Engineer</div></div>
+      <div class="revCard"><div class="stars">★★★★★</div><p>"I actually ate lunch away from my desk. Five stars."</p><div class="who">— Marketing Director</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq reveal" id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faqList">
+      <div class="faqItem">
+        <div class="faqQ">Where do the extra hours come from? <span class="plus">+</span></div>
+        <div class="faqA"><p>Mostly from meetings that could have been emails.</p></div>
+      </div>
+      <div class="faqItem">
+        <div class="faqQ">Can I rent just five more minutes? <span class="plus">+</span></div>
+        <div class="faqA"><p>Absolutely. That's our most popular checkout option.</p></div>
+      </div>
+      <div class="faqItem">
+        <div class="faqQ">Can I save unused hours? <span class="plus">+</span></div>
+        <div class="faqA"><p>Yes. They roll over into your retirement.</p></div>
+      </div>
+      <div class="faqItem">
+        <div class="faqQ">Can I gift time? <span class="plus">+</span></div>
+        <div class="faqA"><p>Of course. It's significantly better than another scented candle.</p></div>
+      </div>
+      <div class="faqItem">
+        <div class="faqQ">What happens if I'm late anyway? <span class="plus">+</span></div>
+        <div class="faqA"><p>That's a separate department. They're very busy.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="subs reveal" id="subs">
+  <div class="wrap">
+    <span class="eyebrow">Subscriptions</span>
+    <h2>Never run out again.</h2>
+    <div class="subGrid">
+      <div class="subCard">
+        <h3>⏳ Time+</h3>
+        <div class="price">$14/mo</div>
+        <ul>
+          <li>One bonus hour every week</li>
+          <li>Queue-skipping privileges</li>
+          <li>Faster Mondays</li>
+          <li>Longer weekends</li>
+        </ul>
+        <a href="#" class="btn yellow">Choose Time+</a>
+      </div>
+      <div class="subCard premium">
+        <h3>👑 Unlimited Time Premium</h3>
+        <div class="price">$79/mo</div>
+        <ul>
+          <li>Everything in Time+</li>
+          <li>Emergency overtime</li>
+          <li>Two Saturdays every month</li>
+          <li>Annual bonus weekend</li>
+          <li>Lifetime coffee breaks</li>
+        </ul>
+        <a href="#" class="btn yellow">Go Premium</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fame reveal">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--ink); color:var(--yellow); border-color:var(--ink);">Hall of fame</span>
+    <h2>Rentals we're proud of</h2>
+    <div class="fameGrid">
+      <div class="fameCard"><div class="trophy">🏆</div><h3>Longest Rental</h3><p>One customer rented an entire month to finally organize 48,000 family photos.</p></div>
+      <div class="fameCard"><div class="trophy">🏆</div><h3>Best Use of Extra Time</h3><p>A subscriber spent six rented hours building a pillow fort with their children.</p><div class="result">Official verdict: "Excellent investment."</div></div>
+      <div class="fameCard"><div class="trophy">🏆</div><h3>Most Unexpected Request</h3><p>A customer rented 30 extra minutes just to finish saying goodbye after a family gathering.</p><div class="result">Approved immediately.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="insurance reveal">
+  <div class="wrap">
+    <span class="eyebrow">Peace of mind</span>
+    <h2>Time Insurance™</h2>
+    <p>Accidentally waste your rented hour scrolling social media? We'll replace it. No judgment. We've all been there.</p>
+  </div>
+</section>
+
+<section class="finalCta reveal">
+  <div class="wrap">
+    <h2>Life Isn't Too Short...<br><span class="line2">It's Just Terribly Scheduled.</span></h2>
+    <ul class="finalList">
+      <li>Finish the project</li>
+      <li>Call your parents</li>
+      <li>Cook dinner</li>
+      <li>Read a book</li>
+      <li>Take a walk</li>
+      <li>Sit quietly for ten minutes, guilt-free</li>
+    </ul>
+    <a href="#packages" class="btn yellow">⏳ Rent My Spare Time Today</a>
+  </div>
+</section>
+
+<footer>
+  <div class="finePrint">
+    <h4>Fine Print</h4>
+    <p>Spare Time Rentals is not responsible for:</p>
+    <ul>
+      <li>Finally finishing the TV series you started three years ago</li>
+      <li>Discovering hobbies you forgot you loved</li>
+      <li>Eating dinner while it's still hot</li>
+      <li>Calling your grandparents "just because"</li>
+      <li>Spending an afternoon doing absolutely nothing without apologizing for it</li>
+      <li>Realizing the most luxurious thing in the world isn't money</li>
+    </ul>
+    <div class="sign">It's having enough time. ⏳📦✨</div>
+  </div>
+  <div class="footBottom">© Spare Time Rentals — hours leased responsibly since always.</div>
+</footer>
+
+<a href="#packages" class="btn pink floatCta" id="floatCta">⏰ Rent Time</a>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  // counters
+  const counters = document.querySelectorAll('.dashItem .num');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.target,10);
+        const suffix = el.dataset.suffix || '';
+        const dur = 1400;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now-start)/dur, 1);
+          const eased = 1 - Math.pow(1-p, 3);
+          const val = Math.floor(target*eased);
+          el.textContent = val.toLocaleString() + suffix;
+          if(p<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold:0.4});
+  counters.forEach(el=>cio.observe(el));
+
+  // faq accordion
+  document.querySelectorAll('.faqItem').forEach(item=>{
+    item.querySelector('.faqQ').addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faqItem.open').forEach(o=>o.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+
+  // close mobile nav on link click
+  document.querySelectorAll('nav a').forEach(a=>{
+    a.addEventListener('click', ()=>{ document.getElementById('navToggle').checked = false; });
+  });
+
+  // floating cta hide near final cta
+  const finalCta = document.querySelector('.finalCta');
+  const floatCta = document.getElementById('floatCta');
+  const fio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=> floatCta.classList.toggle('hide', e.isIntersecting));
+  }, {threshold:0.2});
+  fio.observe(finalCta);
+
+  // ambient ticking clock sound — Web Audio synthesized
+  let audioCtx, tickInterval, playing = false;
+  const soundBtn = document.getElementById('soundBtn');
+  function tick(){
+    if(!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 1500;
+    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.04);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+  }
+  soundBtn.addEventListener('click', ()=>{
+    if(!audioCtx){ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    if(playing){
+      clearInterval(tickInterval);
+      playing = false;
+      soundBtn.classList.remove('on');
+      soundBtn.textContent = '🔈';
+    } else {
+      if(audioCtx.state === 'suspended') audioCtx.resume();
+      tick();
+      tickInterval = setInterval(tick, 1000);
+      playing = true;
+      soundBtn.classList.add('on');
+      soundBtn.textContent = '🔊';
+    }
+  });
+</script>
+</body>
+</html>
