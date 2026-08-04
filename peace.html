@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overnight Peace of Mind — Sleep Better. We've Got Tomorrow Covered.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet:#6A3DFF;
+    --yellow:#FFD531;
+    --pink:#FF4FA3;
+    --mint:#00E0B8;
+    --ink:#181229;
+    --cream:#FFF7E8;
+    --sky:#3FC1FF;
+    --line:4px solid var(--ink);
+    --shadow: 8px 8px 0 var(--ink);
+    --shadow-sm: 5px 5px 0 var(--ink);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka', sans-serif;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+  img,svg{display:block;}
+  a{color:inherit;}
+  ::selection{background:var(--yellow); color:var(--ink);}
+
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  section{padding:90px 0; position:relative; border-bottom:var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .bg-violet{background:var(--violet); color:var(--cream);}
+  .bg-yellow{background:var(--yellow); color:var(--ink);}
+  .bg-pink{background:var(--pink); color:var(--ink);}
+  .bg-mint{background:var(--mint); color:var(--ink);}
+  .bg-sky{background:var(--sky); color:var(--ink);}
+  .bg-ink{background:var(--ink); color:var(--cream);}
+  .bg-cream{background:var(--cream); color:var(--ink);}
+
+  .eyebrow{
+    display:inline-block;
+    font-weight:700;
+    font-size:0.8rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--yellow);
+    padding:6px 14px;
+    border-radius:999px;
+    transform:rotate(-2deg);
+    margin-bottom:22px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--violet);
+    color:var(--cream);
+    padding:70px 0 100px;
+    text-align:center;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .stars{position:absolute; inset:0; z-index:1; opacity:0.5;}
+  .moonwrap{display:flex; justify-content:center; margin-bottom:10px;}
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    max-width:900px;
+    margin:0 auto 18px;
+  }
+  .hero .sub{
+    font-size:clamp(1.1rem,2.4vw,1.5rem);
+    font-weight:600;
+    color:var(--yellow);
+    margin-bottom:34px;
+  }
+  .thoughts{
+    font-size:1.05rem;
+    line-height:2;
+    opacity:0.92;
+    max-width:520px;
+    margin:0 auto 30px;
+  }
+  .thoughts .time{color:var(--mint); font-weight:700;}
+  .cta-row{display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:30px;}
+  .btn{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+    padding:16px 30px;
+    border:var(--line);
+    border-radius:16px;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:transform 0.12s ease, box-shadow 0.12s ease;
+    background:var(--yellow);
+    color:var(--ink);
+  }
+  .btn:hover{transform:translate(-3px,-3px); box-shadow:11px 11px 0 var(--ink);}
+  .btn:active{transform:translate(2px,2px); box-shadow:3px 3px 0 var(--ink);}
+  .btn.alt{background:var(--cream);}
+  .btn.pink{background:var(--pink);}
+  .btn.mint{background:var(--mint);}
+  .trusted{margin-top:36px; font-weight:600; color:var(--cream); opacity:0.85;}
+
+  /* ---------- generic section heading ---------- */
+  .sec-head{max-width:720px; margin-bottom:50px;}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,2.7rem); margin-bottom:14px;}
+  .sec-head p{font-size:1.1rem; max-width:600px;}
+
+  .quote-bubble{
+    background:var(--cream);
+    color:var(--ink);
+    border:var(--line);
+    border-radius:20px;
+    padding:20px 26px;
+    max-width:480px;
+    font-weight:600;
+    font-size:1.15rem;
+    box-shadow:var(--shadow);
+    margin:20px auto 34px;
+  }
+  .ingredients{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
+    max-width:820px;
+    margin:0 auto;
+  }
+  .ingredient{
+    background:var(--ink);
+    color:var(--cream);
+    border-radius:14px;
+    padding:16px 18px;
+    font-weight:600;
+    text-align:center;
+  }
+  .fine{text-align:center; margin-top:30px; font-weight:700; opacity:0.85;}
+
+  /* ---------- signs list ---------- */
+  .signs-list{
+    list-style:none;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+    margin-top:10px;
+  }
+  .signs-list li{
+    background:var(--ink);
+    border-radius:16px;
+    padding:20px 22px;
+    font-weight:600;
+    font-size:1.05rem;
+    position:relative;
+    padding-left:52px;
+  }
+  .signs-list li::before{
+    content:"?";
+    position:absolute;
+    left:16px; top:50%; transform:translateY(-50%);
+    width:28px; height:28px;
+    background:var(--yellow);
+    color:var(--ink);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+  }
+  .verdict{
+    margin-top:30px;
+    font-family:'Fredoka',sans-serif;
+    font-size:1.4rem;
+    text-align:center;
+    background:var(--yellow);
+    color:var(--ink);
+    display:inline-block;
+    padding:14px 26px;
+    border-radius:14px;
+    border:var(--line);
+    transform:rotate(-1.5deg);
+  }
+  .verdict-wrap{text-align:center;}
+
+  /* ---------- packages ---------- */
+  .pkg-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:24px;
+  }
+  .pkg-card{
+    background:var(--cream);
+    border:var(--line);
+    border-radius:20px;
+    padding:26px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    color:var(--ink);
+  }
+  .pkg-card.featured{background:var(--yellow);}
+  .pkg-card.urgent{background:var(--pink);}
+  .pkg-card h3{font-size:1.4rem; margin-bottom:4px;}
+  .pkg-tag{font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; opacity:0.7; margin-bottom:14px;}
+  .pkg-card ul{list-style:none; margin:14px 0; flex-grow:1;}
+  .pkg-card ul li{padding:6px 0; font-weight:500; border-top:2px dashed rgba(24,18,41,0.25);}
+  .pkg-card ul li:first-child{border-top:none;}
+  .price{
+    font-family:'Fredoka',sans-serif;
+    font-size:2rem;
+    margin-top:10px;
+  }
+
+  /* ---------- specialized ---------- */
+  .special-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:22px;
+  }
+  .special-card{
+    background:rgba(255,255,255,0.12);
+    border:2px solid var(--cream);
+    border-radius:18px;
+    padding:22px;
+  }
+  .special-card h3{font-size:1.25rem; margin-bottom:10px;}
+  .special-card ul{list-style:none;}
+  .special-card li{padding:4px 0; font-weight:500;}
+  .special-card li::before{content:"— ";}
+
+  /* ---------- couriers ---------- */
+  .courier-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
+  }
+  .courier-card{
+    background:var(--ink);
+    color:var(--cream);
+    border-radius:20px;
+    padding:26px;
+    text-align:center;
+  }
+  .courier-avatar{
+    width:64px; height:64px;
+    border-radius:50%;
+    background:var(--mint);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.8rem;
+    margin:0 auto 14px;
+    border:3px solid var(--cream);
+  }
+  .courier-card h3{font-family:'Fredoka',sans-serif; font-size:1.2rem; margin-bottom:8px;}
+
+  /* ---------- addons ---------- */
+  .addon-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+  }
+  .addon-card{
+    background:var(--cream);
+    border:var(--line);
+    border-radius:16px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    box-shadow:var(--shadow-sm);
+  }
+  .addon-card .price-tag{
+    align-self:flex-start;
+    background:var(--ink);
+    color:var(--yellow);
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:999px;
+    font-size:0.9rem;
+  }
+
+  /* ---------- reviews ---------- */
+  .review-track{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+  }
+  .review-card{
+    background:var(--ink);
+    color:var(--cream);
+    border-radius:18px;
+    padding:22px;
+  }
+  .stars-row{color:var(--yellow); font-size:1.1rem; margin-bottom:10px; letter-spacing:2px;}
+  .review-card p{font-weight:500; font-style:italic; margin-bottom:14px;}
+  .review-card span{font-weight:700; color:var(--mint);}
+
+  /* ---------- subscriptions ---------- */
+  .sub-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:24px;
+  }
+  .sub-card{
+    border:var(--line);
+    border-radius:20px;
+    padding:26px;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+  }
+  .sub-card.mid{background:var(--sky); transform:scale(1.04);}
+  .sub-card.top{background:var(--pink);}
+  .sub-card h3{font-size:1.4rem; margin-bottom:6px;}
+  .sub-price{font-family:'Fredoka',sans-serif; font-size:1.8rem; margin:10px 0;}
+  .sub-card ul{list-style:none; margin-top:10px;}
+  .sub-card li{padding:4px 0; font-weight:500;}
+  .sub-card li::before{content:"✓ "; font-weight:700;}
+
+  /* ---------- dashboard ---------- */
+  .dash-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    text-align:center;
+  }
+  .dash-stat{
+    background:rgba(24,18,41,0.06);
+    border:3px solid var(--ink);
+    border-radius:18px;
+    padding:24px 14px;
+  }
+  .dash-stat .num{
+    font-family:'Fredoka',sans-serif;
+    font-size:2rem;
+    display:block;
+  }
+  .dash-stat .label{font-weight:600; font-size:0.95rem; margin-top:6px; display:block;}
+
+  /* ---------- faq ---------- */
+  .faq-item{
+    border-bottom:2px dashed rgba(255,247,232,0.35);
+    padding:20px 0;
+  }
+  .faq-item:first-child{padding-top:0;}
+  .faq-item h3{font-size:1.2rem; margin-bottom:8px; color:var(--yellow);}
+  .faq-item p{font-weight:500; opacity:0.92;}
+
+  /* ---------- hall of fame ---------- */
+  .fame-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+  }
+  .fame-card{
+    background:var(--yellow);
+    border:var(--line);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:var(--shadow-sm);
+  }
+  .fame-card h3{font-family:'Fredoka',sans-serif; font-size:1.1rem; margin-bottom:8px;}
+
+  /* ---------- promise ---------- */
+  .promise-note{
+    background:var(--cream);
+    color:var(--ink);
+    border:var(--line);
+    border-radius:18px;
+    padding:24px 28px;
+    max-width:520px;
+    margin:26px auto 0;
+    font-weight:600;
+    font-size:1.15rem;
+    box-shadow:var(--shadow);
+    transform:rotate(1deg);
+  }
+
+  /* ---------- final cta ---------- */
+  .final-cta{text-align:center;}
+  .final-cta h2{font-size:clamp(2rem,5vw,3.2rem); margin-bottom:8px;}
+  .final-cta .sub2{font-size:clamp(1.2rem,3vw,1.7rem); font-family:'Fredoka',sans-serif; margin-bottom:26px; color:var(--ink);}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--cream);
+    padding:50px 0;
+    font-size:0.95rem;
+    opacity:0.9;
+  }
+  footer ul{list-style:none; margin:16px 0;}
+  footer li{padding:4px 0;}
+  footer li::before{content:"• ";}
+  .footer-quote{
+    margin-top:16px;
+    font-weight:700;
+    color:var(--yellow);
+    font-family:'Fredoka',sans-serif;
+    font-size:1.1rem;
+  }
+
+  /* floating zzz animation */
+  .zzz{
+    position:absolute;
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    color:var(--yellow);
+    opacity:0.8;
+    animation:float 5s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(-4deg);}
+    50%{transform:translateY(-16px) rotate(4deg);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .zzz{animation:none;}
+  }
+
+  h2 .num{
+    font-family:'Fredoka',sans-serif;
+    -webkit-text-stroke:2px currentColor;
+    color:transparent;
+    margin-right:10px;
+  }
+
+  @media(max-width:640px){
+    section{padding:60px 0;}
+    .sub-card.mid{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="stars" viewBox="0 0 1100 500" preserveAspectRatio="none">
+    <circle cx="80" cy="60" r="3" fill="#FFF7E8"/>
+    <circle cx="200" cy="140" r="2" fill="#FFF7E8"/>
+    <circle cx="960" cy="80" r="3" fill="#FFF7E8"/>
+    <circle cx="1020" cy="200" r="2" fill="#FFF7E8"/>
+    <circle cx="500" cy="40" r="2" fill="#FFF7E8"/>
+    <circle cx="700" cy="120" r="2.5" fill="#FFF7E8"/>
+    <circle cx="120" cy="300" r="2" fill="#FFF7E8"/>
+    <circle cx="900" cy="350" r="2.5" fill="#FFF7E8"/>
+  </svg>
+  <span class="zzz" style="top:14%; left:12%; font-size:1.6rem;">z</span>
+  <span class="zzz" style="top:20%; left:16%; font-size:1.1rem; animation-delay:1s;">z</span>
+  <span class="zzz" style="top:10%; right:14%; font-size:1.8rem; animation-delay:2s;">Z</span>
+  <div class="wrap">
+    <div class="moonwrap">
+      <svg width="86" height="86" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="#FFD531" stroke="#181229" stroke-width="4"/>
+        <circle cx="66" cy="38" r="8" fill="#181229" opacity="0.15"/>
+        <circle cx="40" cy="58" r="5" fill="#181229" opacity="0.15"/>
+        <circle cx="58" cy="66" r="4" fill="#181229" opacity="0.15"/>
+      </svg>
+    </div>
+    <span class="eyebrow">Overnight Peace of Mind</span>
+    <h1>Can't Stop Worrying?</h1>
+    <div class="sub">We'll Deliver Peace of Mind While You Sleep.</div>
+    <div class="thoughts">
+      Is your brain replaying a conversation from 2018?<br>
+      Still wondering if you locked the front door?<br>
+      Thinking about that email you sent six hours ago?<br>
+      Planning tomorrow's meeting... and next year's vacation...<br>
+      <span class="time">...at 2:43 AM?</span>
+    </div>
+    <p style="font-weight:600; max-width:480px; margin:0 auto;">Relax. We'll deliver fresh peace of mind overnight, so you wake up lighter than you went to bed.</p>
+    <div class="cta-row">
+      <button class="btn">😌 Deliver My Peace of Mind</button>
+      <button class="btn alt">🛏️ I Haven't Slept Properly in Days</button>
+    </div>
+    <div class="trusted">🌙 Trusted by over 72 million overthinkers worldwide.</div>
+  </div>
+</section>
+
+<!-- WHAT IS PEACE OF MIND -->
+<section class="bg-cream">
+  <div class="wrap" style="text-align:center;">
+    <div class="sec-head" style="margin:0 auto 20px;">
+      <h2>What Is Peace of Mind?</h2>
+    </div>
+    <p style="max-width:520px; margin:0 auto 6px; font-weight:500;">It's that magical moment when your brain finally says:</p>
+    <div class="quote-bubble">"You know what... it'll be okay."</div>
+    <p style="max-width:520px; margin:0 auto 30px; font-weight:500;">We simply bottle that feeling and ship it while you sleep. Each delivery contains:</p>
+    <div class="ingredients">
+      <div class="ingredient">🌙 Calm thoughts</div>
+      <div class="ingredient">☁️ Quiet evenings</div>
+      <div class="ingredient">🫖 Warm tea energy</div>
+      <div class="ingredient">💤 Deep exhale technology</div>
+      <div class="ingredient">🧸 Emotional blankets</div>
+      <div class="ingredient">✨ Tiny "not everything is an emergency" reminders</div>
+    </div>
+    <div class="fine">100% free from panic.</div>
+  </div>
+</section>
+
+<!-- SIGNS -->
+<section class="bg-violet">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="background:var(--yellow); color:var(--ink);">Self check</span>
+      <h2>Signs You Need a Delivery</h2>
+      <p>Do you regularly...</p>
+    </div>
+    <ul class="signs-list">
+      <li>Check your alarm three times before bed?</li>
+      <li>Wonder if you offended someone with a text that ended in "Thanks." instead of "Thanks!"?</li>
+      <li>Replay conversations from years ago?</li>
+      <li>Refresh package tracking every 15 minutes?</li>
+      <li>Wake up convinced you forgot something important?</li>
+      <li>Imagine worst-case scenarios before breakfast?</li>
+    </ul>
+    <div class="verdict-wrap">
+      <div class="verdict">If you answered "yes"... your order is already being packed. 📦</div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="bg-cream">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Delivery Packages</h2>
+      <p>Pick the dose of calm that matches tonight's chaos.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-tag">For busy weekdays</div>
+        <h3>🌜 Evening Calm</h3>
+        <ul>
+          <li>Slower heartbeat</li>
+          <li>Relaxed shoulders</li>
+          <li>One peaceful sigh</li>
+        </ul>
+        <div class="price">$12</div>
+      </div>
+      <div class="pkg-card featured">
+        <div class="pkg-tag">Our bestseller</div>
+        <h3>💤 Sleep Deluxe</h3>
+        <ul>
+          <li>Faster sleep</li>
+          <li>Fewer racing thoughts</li>
+          <li>Cozy dreams</li>
+          <li>Morning optimism</li>
+          <li>Reduced midnight Googling</li>
+        </ul>
+        <div class="price">$24</div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-tag">Chronic overthinkers</div>
+        <h3>🧘 Complete Serenity</h3>
+        <ul>
+          <li>Worry reduction</li>
+          <li>"It can wait until tomorrow" mode</li>
+          <li>Better breathing</li>
+          <li>Softer inner dialogue</li>
+          <li>Automatic perspective adjustment</li>
+        </ul>
+        <div class="price">$49</div>
+      </div>
+      <div class="pkg-card urgent">
+        <div class="pkg-tag">15-minute delivery</div>
+        <h3>🚨 Emergency Peace</h3>
+        <ul>
+          <li>Quiet mind mode</li>
+          <li>Emergency reassurance</li>
+          <li>Pause button for intrusive thoughts</li>
+          <li>Complimentary "Everything doesn't need solving tonight."</li>
+        </ul>
+        <div class="price">$99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIZED -->
+<section class="bg-ink">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Specialized peace</span>
+      <h2 style="color:var(--cream);">Built for Specific Spirals</h2>
+    </div>
+    <div class="special-grid">
+      <div class="special-card">
+        <h3>📧 Email Regret Edition</h3>
+        <p style="font-weight:500; margin-bottom:10px;">For people who send an email... and immediately reread it 27 times.</p>
+        <ul>
+          <li>"It sounded fine."</li>
+          <li>"Nobody noticed the typo."</li>
+          <li>"Please stop opening Sent Items."</li>
+        </ul>
+      </div>
+      <div class="special-card">
+        <h3>🚪 Did I Lock the Door?</h3>
+        <ul>
+          <li>Door confidence</li>
+          <li>Stove confidence</li>
+          <li>Car confidence</li>
+          <li>"Yes, you definitely unplugged it."</li>
+        </ul>
+      </div>
+      <div class="special-card">
+        <h3>❤️ Relationship Edition</h3>
+        <ul>
+          <li>Fewer imaginary arguments</li>
+          <li>Less message decoding</li>
+          <li>Reduced "Why haven't they replied?" anxiety</li>
+          <li>Healthy patience</li>
+        </ul>
+      </div>
+      <div class="special-card">
+        <h3>💼 Work Edition</h3>
+        <p style="font-weight:500;">Perfect for presentations tomorrow, difficult meetings, performance reviews, and Monday mornings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURIERS -->
+<section class="bg-mint">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Meet Our Night Couriers</h2>
+      <p>The team delivering calm between dusk and dawn.</p>
+    </div>
+    <div class="courier-grid">
+      <div class="courier-card">
+        <div class="courier-avatar">🌙</div>
+        <h3>Luna</h3>
+        <p>Can fall asleep within 90 seconds. Scientists are studying her.</p>
+      </div>
+      <div class="courier-card">
+        <div class="courier-avatar">🛏️</div>
+        <h3>Ben</h3>
+        <p>Has never checked if the alarm is set twice. Unbelievable.</p>
+      </div>
+      <div class="courier-card">
+        <div class="courier-avatar">☁️</div>
+        <h3>Maya</h3>
+        <p>Specializes in delivering calm between 11 PM and 3 AM. Peak overthinking hours.</p>
+      </div>
+      <div class="courier-card">
+        <div class="courier-avatar">😴</div>
+        <h3>Oliver</h3>
+        <p>Once slept through a thunderstorm and a marching band. Legend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="bg-yellow">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Premium Add-Ons</h2>
+      <p>Top off your delivery with a little extra.</p>
+    </div>
+    <div class="addon-grid">
+      <div class="addon-card">
+        <span class="price-tag">+$6</span>
+        <h3 style="font-family:'Fredoka',sans-serif;">📱 Phone Silence Shield™</h3>
+        <p>Temporarily makes social media seem uninteresting after 10 PM.</p>
+      </div>
+      <div class="addon-card">
+        <span class="price-tag">+$8</span>
+        <h3 style="font-family:'Fredoka',sans-serif;">🧠 Thought Parking Garage™</h3>
+        <p>Stores tomorrow's worries until tomorrow actually arrives.</p>
+      </div>
+      <div class="addon-card">
+        <span class="price-tag">+$4</span>
+        <h3 style="font-family:'Fredoka',sans-serif;">🌧️ Rain-on-the-Roof Soundtrack</h3>
+        <p>Scientifically cozy.</p>
+      </div>
+      <div class="addon-card">
+        <span class="price-tag">+$5</span>
+        <h3 style="font-family:'Fredoka',sans-serif;">☕ Tomorrow Can Wait™</h3>
+        <p>Automatically postpones non-urgent worries until after breakfast.</p>
+      </div>
+      <div class="addon-card">
+        <span class="price-tag">+$3</span>
+        <h3 style="font-family:'Fredoka',sans-serif;">🐑 Luxury Sheep+</h3>
+        <p>Unlimited sheep. Now in HD.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="bg-violet">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Customer Reviews</h2>
+    </div>
+    <div class="review-track">
+      <div class="review-card">
+        <div class="stars-row">★★★★★</div>
+        <p>"For the first time in years, I didn't mentally rehearse an argument that never happened."</p>
+        <span>— Emma</span>
+      </div>
+      <div class="review-card">
+        <div class="stars-row">★★★★★</div>
+        <p>"I slept through the entire night without checking if I'd locked the front door."</p>
+        <span>— Michael</span>
+      </div>
+      <div class="review-card">
+        <div class="stars-row">★★★★★</div>
+        <p>"I stopped refreshing my package tracking page every ten minutes."</p>
+        <span>— Kevin</span>
+      </div>
+      <div class="review-card">
+        <div class="stars-row">★★★★★</div>
+        <p>"My brain finally accepted that replying tomorrow is still replying."</p>
+        <span>— Marketing Manager</span>
+      </div>
+      <div class="review-card">
+        <div class="stars-row">★★★★★</div>
+        <p>"The deluxe package convinced me that not every unread message is bad news."</p>
+        <span>— Sarah</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIPTIONS -->
+<section class="bg-cream">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Subscription Plans</h2>
+      <p>Because one good night shouldn't be a one-time thing.</p>
+    </div>
+    <div class="sub-grid">
+      <div class="sub-card">
+        <h3>🌙 Nightly Calm</h3>
+        <div class="sub-price">FREE</div>
+        <p style="font-weight:500;">One peaceful delivery every evening.</p>
+      </div>
+      <div class="sub-card mid">
+        <h3>😌 Peace+</h3>
+        <div class="sub-price">$14/mo</div>
+        <ul>
+          <li>Unlimited overnight deliveries</li>
+          <li>Daily reassurance</li>
+          <li>Better bedtime routines</li>
+          <li>Quiet mind playlists</li>
+          <li>Sunday night protection</li>
+        </ul>
+      </div>
+      <div class="sub-card top">
+        <h3>👑 Lifetime Serenity</h3>
+        <div class="sub-price">$59/mo</div>
+        <ul>
+          <li>Everything in Peace+</li>
+          <li>Emergency peace deliveries</li>
+          <li>Family sharing</li>
+          <li>Vacation mode</li>
+          <li>Tax season survival</li>
+          <li>Holiday dinner emotional armor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="bg-sky">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Live Peace Dashboard</h2>
+      <p>Tonight we've successfully delivered:</p>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-stat"><span class="num">😴 418,000</span><span class="label">uninterrupted nights of sleep</span></div>
+      <div class="dash-stat"><span class="num">📱 2.7M</span><span class="label">phones untouched after bedtime</span></div>
+      <div class="dash-stat"><span class="num">📧 893,000</span><span class="label">emails not reread</span></div>
+      <div class="dash-stat"><span class="num">🐑 91M</span><span class="label">imaginary sheep</span></div>
+      <div class="dash-stat"><span class="num">🫖 312,000</span><span class="label">calming cups of tea</span></div>
+      <div class="dash-stat"><span class="num">🧠 1</span><span class="label">brain that agreed to "deal with it tomorrow"</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-ink">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Questions</span>
+      <h2 style="color:var(--cream);">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-item">
+      <h3>Is the peace organic?</h3>
+      <p>Absolutely. Free-range and ethically harvested from quiet Sunday mornings.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does it work immediately?</h3>
+      <p>Usually within one deep breath. Unless your brain remembers something embarrassing from middle school.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I order it for someone else?</h3>
+      <p>Yes. Parents, students, entrepreneurs, and anyone awaiting medical test results seem especially grateful.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is it safe to combine with tea?</h3>
+      <p>Highly recommended. It pairs beautifully with blankets.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I use it every night?</h3>
+      <p>Please do. Tomorrow isn't going anywhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section class="bg-pink">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Enterprise Peace™</h2>
+      <p>For companies where employees wake up thinking about unread emails.</p>
+    </div>
+    <div class="ingredients">
+      <div class="ingredient">📥 Inbox anxiety reduction</div>
+      <div class="ingredient">🎤 Presentation calm</div>
+      <div class="ingredient">⏳ Deadline perspective</div>
+      <div class="ingredient">🤝 Meeting acceptance</div>
+      <div class="ingredient">🖨️ Printer forgiveness</div>
+      <div class="ingredient">🌙 "We'll figure it out tomorrow" mode</div>
+    </div>
+    <p class="fine" style="opacity:0.9;">Trusted by organizations that finally realized not every email needs to be answered at 11:47 PM.</p>
+  </div>
+</section>
+
+<!-- HALL OF FAME -->
+<section class="bg-yellow">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Hall of Fame</h2>
+    </div>
+    <div class="fame-grid">
+      <div class="fame-card">
+        <h3>🏆 Fastest Sleep</h3>
+        <p>Customer asleep 41 seconds after delivery.</p>
+      </div>
+      <div class="fame-card">
+        <h3>🏆 Most Improved Night</h3>
+        <p>One customer stopped checking the weather for next month's vacation.</p>
+      </div>
+      <div class="fame-card">
+        <h3>🏆 Biggest Breakthrough</h3>
+        <p>A subscriber finally accepted that the typo in last week's email had gone completely unnoticed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="bg-violet" style="text-align:center;">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--yellow); color:var(--ink);">Our promise</span>
+    <h2>Peace Promise™</h2>
+    <p style="max-width:480px; margin:14px auto 0; font-weight:500;">If your mind is still racing after delivery, we'll send another shipment — along with a handwritten note that reads:</p>
+    <div class="promise-note">"Nothing good has ever come from solving your entire life at 2:17 AM."</div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="bg-mint final-cta">
+  <div class="wrap">
+    <h2>The World Can Wait Until Morning.</h2>
+    <div class="sub2">Your Mind Can Too.</div>
+    <p style="font-weight:500; max-width:440px; margin:0 auto 30px;">Some problems need solutions. Most just need sleep. Order peace tonight, and let tomorrow meet a better-rested version of you.</p>
+    <button class="btn">🌙 Deliver My Peace of Mind Tonight</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <strong style="font-family:'Fredoka',sans-serif; font-size:1.1rem;">Tiny Disclaimer</strong>
+    <p style="margin-top:10px;">Overnight Peace of Mind is not responsible for:</p>
+    <ul>
+      <li>waking up and realizing yesterday's "catastrophe" was actually quite manageable</li>
+      <li>sleeping through the night without checking your phone</li>
+      <li>discovering that the email was perfectly fine</li>
+      <li>laughing at the things that kept you awake</li>
+      <li>or finally believing the most underrated bedtime phrase in history</li>
+    </ul>
+    <div class="footer-quote">"I'll deal with it tomorrow." 🌙📦😴</div>
+  </div>
+</footer>
+
+</body>
+</html>

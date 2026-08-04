@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Common Sense Express — Delivering the World's Rarest Resource Since Yesterday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#FF3D81;
+    --yellow:#FFD400;
+    --blue:#2F6FF0;
+    --green:#00C853;
+    --cream:#FFF6E5;
+    --ink:#1A1A1A;
+    --white:#ffffff;
+    --purple:#7B3FE4;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Space Grotesk', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Bungee', sans-serif;
+    font-weight:400;
+    line-height:1.05;
+    margin:0;
+    text-transform:uppercase;
+  }
+
+  .mono{ font-family:'Space Mono', monospace; }
+
+  a, button{ font-family:inherit; }
+
+  /* ---------- shared section shell ---------- */
+  section{
+    position:relative;
+    padding:90px 24px 110px;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 14px;
+    border:2px solid currentColor;
+    border-radius:999px;
+    margin-bottom:22px;
+  }
+
+  /* ---------- zigzag / perforated divider (signature element) ---------- */
+  .perf{
+    position:relative;
+    height:34px;
+    width:100%;
+    display:block;
+    z-index:2;
+  }
+  .perf svg{ display:block; width:100%; height:100%; }
+
+  /* ---------- shipping-label stamp badge (signature element) ---------- */
+  .stamp{
+    position:absolute;
+    border:3px solid currentColor;
+    border-radius:50%;
+    width:118px;
+    height:118px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    line-height:1.35;
+    transform:rotate(-11deg);
+    opacity:.9;
+    pointer-events:none;
+    mix-blend-mode:multiply;
+  }
+  .stamp::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:1.5px dashed currentColor;
+    border-radius:50%;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--pink);
+    color:var(--white);
+    padding-top:60px;
+    text-align:center;
+  }
+  .hero .barcode-strip{
+    display:flex;
+    justify-content:center;
+    gap:3px;
+    margin-bottom:30px;
+    opacity:.85;
+  }
+  .hero .barcode-strip span{
+    display:block;
+    width:3px;
+    background:var(--ink);
+    background:#1a1a1a;
+  }
+  .hero .brand{
+    font-size:15px;
+    letter-spacing:.2em;
+    font-family:'Space Mono',monospace;
+    margin-bottom:26px;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:clamp(38px, 8vw, 84px);
+    color:var(--yellow);
+    -webkit-text-stroke:2px var(--ink);
+    text-stroke:2px var(--ink);
+    text-shadow:5px 5px 0 var(--ink);
+    margin-bottom:18px;
+  }
+  .hero h2.sub{
+    font-size:clamp(20px, 3.4vw, 32px);
+    color:var(--white);
+    margin-bottom:34px;
+  }
+  .hero-lines{
+    max-width:620px;
+    margin:0 auto 30px;
+    font-size:17px;
+    line-height:1.9;
+  }
+  .hero-lines .strong-line{
+    font-weight:700;
+    font-size:19px;
+  }
+  .counter-pill{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--yellow);
+    font-family:'Space Mono',monospace;
+    font-size:14px;
+    padding:10px 22px;
+    border-radius:999px;
+    margin:18px 0 40px;
+  }
+  .cta-row{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    border:3px solid var(--ink);
+    padding:16px 30px;
+    border-radius:10px;
+    font-family:'Bungee', sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:6px 6px 0 var(--ink);
+    text-decoration:none;
+    display:inline-block;
+  }
+  .btn:hover{ transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink); }
+  .btn:active{ transform:translate(0,0); box-shadow:2px 2px 0 var(--ink); }
+  .btn-primary{ background:var(--yellow); color:var(--ink); }
+  .btn-outline{ background:transparent; color:var(--white); }
+
+  /* ---------- WHAT IS ---------- */
+  .whatis{ background:var(--cream); color:var(--ink); }
+  .whatis .wrap{ text-align:center; }
+  .whatis h2{ font-size:clamp(28px,5vw,46px); color:var(--pink); margin-bottom:8px;}
+  .lede-lines{ font-size:18px; max-width:640px; margin:26px auto 40px; line-height:1.9; color:#444; }
+  .contents-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:16px;
+    text-align:left;
+    margin-top:10px;
+  }
+  .contents-grid div{
+    background:var(--white);
+    border:2.5px solid var(--ink);
+    border-radius:12px;
+    padding:18px 20px;
+    font-size:15.5px;
+    font-weight:500;
+  }
+  .quote-block{
+    margin-top:34px;
+    font-family:'Space Mono',monospace;
+    font-size:16px;
+    font-style:italic;
+    color:var(--purple);
+  }
+
+  /* ---------- QUALIFY LIST ---------- */
+  .qualify{ background:var(--blue); color:var(--white); }
+  .qualify h2{ font-size:clamp(26px,5vw,44px); color:var(--yellow); margin-bottom:30px; text-align:center;}
+  .qualify-list{
+    list-style:none;
+    padding:0;
+    margin:0 auto;
+    max-width:680px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .qualify-list li{
+    background:rgba(255,255,255,.08);
+    border:2px solid rgba(255,255,255,.4);
+    border-radius:10px;
+    padding:14px 20px;
+    font-size:16.5px;
+    display:flex;
+    gap:12px;
+  }
+  .qualify-list li::before{ content:"☑"; color:var(--yellow); font-weight:700; }
+  .qualify-outro{
+    text-align:center;
+    margin-top:34px;
+    font-family:'Space Mono',monospace;
+    font-size:15px;
+    color:var(--yellow);
+  }
+
+  /* ---------- PACKAGES ---------- */
+  .packages{ background:var(--cream); }
+  .packages h2{ text-align:center; font-size:clamp(28px,5vw,46px); color:var(--blue); margin-bottom:44px;}
+  .pkg-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:24px;
+  }
+  .pkg-card{
+    position:relative;
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:16px;
+    padding:28px 24px 26px;
+    box-shadow:7px 7px 0 var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .pkg-card .tag{
+    position:absolute;
+    top:-14px; left:20px;
+    background:var(--pink);
+    color:var(--white);
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    padding:5px 12px;
+    border-radius:999px;
+    border:2px solid var(--ink);
+    text-transform:uppercase;
+  }
+  .pkg-card h3{ font-size:19px; margin-top:6px; }
+  .pkg-card ul{ margin:0; padding-left:20px; font-size:14.5px; line-height:1.8; color:#333; flex:1;}
+  .pkg-price{
+    font-family:'Space Mono',monospace;
+    font-size:26px;
+    font-weight:700;
+    color:var(--green);
+  }
+  .pkg-card.emergency{ border-color:var(--pink); }
+  .pkg-card.emergency .pkg-price{ color:var(--pink); }
+  .pkg-card.emergency .tag{ background:var(--ink); }
+
+  /* ---------- KITS marquee style ---------- */
+  .kits{ background:var(--purple); color:var(--white); }
+  .kits h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--yellow); margin-bottom:40px;}
+  .kits-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+  }
+  .kit-card{
+    background:rgba(255,255,255,.07);
+    border:2px dashed rgba(255,255,255,.5);
+    border-radius:14px;
+    padding:22px;
+  }
+  .kit-card h3{ font-size:16px; color:var(--yellow); margin-bottom:10px; }
+  .kit-card p, .kit-card ul{ font-size:14.5px; margin:0; padding-left:18px; line-height:1.75; color:#eee; }
+
+  /* ---------- COURIERS ---------- */
+  .couriers{ background:var(--yellow); }
+  .couriers h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--ink); margin-bottom:40px; }
+  .courier-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:22px;
+  }
+  .courier-card{
+    background:var(--ink);
+    color:var(--yellow);
+    border-radius:14px;
+    padding:24px 20px;
+    text-align:center;
+  }
+  .courier-card .avatar{
+    font-size:38px;
+    margin-bottom:10px;
+  }
+  .courier-card h3{ font-size:17px; color:var(--white); margin-bottom:6px; }
+  .courier-card p{ font-size:14px; color:var(--yellow); margin:0; }
+
+  /* ---------- ADD-ONS ---------- */
+  .addons{ background:var(--green); color:var(--ink); }
+  .addons h2{ text-align:center; font-size:clamp(26px,5vw,44px); margin-bottom:40px; color:var(--ink);}
+  .addon-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
+  .addon-item{
+    background:var(--white);
+    border:2.5px solid var(--ink);
+    border-radius:12px;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .addon-item .name{ font-weight:600; font-size:15.5px; }
+  .addon-item .price{ font-family:'Space Mono',monospace; font-weight:700; color:var(--pink); white-space:nowrap; }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews{ background:var(--cream); }
+  .reviews h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--pink); margin-bottom:44px;}
+  .review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+  }
+  .review-card{
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:4px;
+    padding:22px 20px;
+    position:relative;
+    box-shadow:5px 5px 0 rgba(0,0,0,.12);
+  }
+  .review-card::before{
+    content:"";
+    position:absolute; top:10px; right:10px;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:repeating-conic-gradient(var(--ink) 0 10deg, transparent 10deg 20deg);
+    opacity:.5;
+  }
+  .stars{ color:var(--yellow); -webkit-text-stroke:.6px var(--ink); font-size:16px; margin-bottom:10px; }
+  .review-card p.quote{ font-size:15px; font-style:italic; margin:0 0 14px; }
+  .review-card .who{ font-family:'Space Mono',monospace; font-size:12.5px; color:#666; }
+
+  /* ---------- SUBSCRIPTIONS ---------- */
+  .plans{ background:var(--blue); color:var(--white); }
+  .plans h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--yellow); margin-bottom:44px;}
+  .plans-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:24px;
+  }
+  .plan-card{
+    background:var(--white);
+    color:var(--ink);
+    border-radius:16px;
+    padding:30px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    position:relative;
+  }
+  .plan-card.featured{
+    background:var(--yellow);
+    transform:scale(1.04);
+    border:3px solid var(--ink);
+  }
+  .plan-card h3{ font-size:19px; }
+  .plan-card .price{ font-family:'Space Mono',monospace; font-size:28px; font-weight:700; color:var(--blue); }
+  .plan-card.featured .price{ color:var(--pink); }
+  .plan-card ul{ margin:0; padding-left:20px; font-size:14.5px; line-height:1.8; flex:1; }
+  .ribbon{
+    position:absolute; top:-12px; right:16px;
+    background:var(--pink); color:var(--white);
+    font-family:'Space Mono',monospace; font-size:11px;
+    padding:5px 10px; border-radius:999px;
+    border:2px solid var(--ink);
+    text-transform:uppercase;
+  }
+
+  /* ---------- LIVE DASHBOARD ---------- */
+  .dashboard{ background:var(--ink); color:var(--white); }
+  .dashboard h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--green); margin-bottom:14px; }
+  .dashboard .sub{ text-align:center; font-family:'Space Mono',monospace; color:#aaa; margin-bottom:44px; font-size:14px;}
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+  }
+  .stat-card{
+    background:#262626;
+    border-radius:14px;
+    padding:24px 20px;
+    text-align:center;
+  }
+  .stat-card .num{
+    font-family:'Space Mono',monospace;
+    font-size:clamp(24px,3.6vw,32px);
+    font-weight:700;
+    color:var(--yellow);
+    display:block;
+    margin-bottom:8px;
+  }
+  .stat-card .label{ font-size:13.5px; color:#ccc; line-height:1.5; }
+
+  /* ---------- FAQ ---------- */
+  .faq{ background:var(--cream); }
+  .faq h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--purple); margin-bottom:40px; }
+  .faq-list{ max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+  .faq-item{
+    background:var(--white);
+    border:2.5px solid var(--ink);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .faq-q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:18px 20px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .faq-q .plus{ font-size:20px; color:var(--pink); transition:transform .2s ease; }
+  .faq-item.open .faq-q .plus{ transform:rotate(45deg); }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease, padding .25s ease;
+    padding:0 20px;
+    font-size:14.5px;
+    color:#444;
+    line-height:1.7;
+  }
+  .faq-item.open .faq-a{ padding:0 20px 20px; }
+
+  /* ---------- ENTERPRISE ---------- */
+  .enterprise{ background:var(--pink); color:var(--white); text-align:center; }
+  .enterprise h2{ font-size:clamp(26px,5vw,44px); color:var(--yellow); margin-bottom:22px; }
+  .enterprise p.intro{ max-width:600px; margin:0 auto 34px; font-size:16px; line-height:1.8; }
+  .ent-list{
+    list-style:none; padding:0; margin:0 auto 30px; max-width:560px;
+    text-align:left; display:flex; flex-direction:column; gap:12px;
+  }
+  .ent-list li{ font-size:15.5px; display:flex; gap:10px; }
+  .ent-list li::before{ content:"▸"; color:var(--yellow); font-weight:700; }
+  .enterprise .snark{ font-family:'Space Mono',monospace; font-size:14px; color:var(--yellow); }
+
+  /* ---------- HALL OF FAME ---------- */
+  .hof{ background:var(--yellow); }
+  .hof h2{ text-align:center; font-size:clamp(26px,5vw,44px); color:var(--ink); margin-bottom:40px; }
+  .hof-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .hof-card{
+    background:var(--ink); color:var(--yellow);
+    border-radius:14px; padding:24px 22px;
+  }
+  .hof-card .medal{ font-size:26px; margin-bottom:8px; display:block; }
+  .hof-card h3{ font-size:15px; color:var(--white); margin-bottom:8px; }
+  .hof-card p{ font-size:14px; margin:0; line-height:1.6; }
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{ background:var(--green); color:var(--ink); text-align:center; }
+  .guarantee h2{ font-size:clamp(26px,5vw,42px); margin-bottom:20px; }
+  .guarantee p{ max-width:560px; margin:0 auto 18px; font-size:16px; line-height:1.8; }
+  .sticky-note{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--ink);
+    font-family:'Space Mono',monospace;
+    padding:18px 26px;
+    border-radius:2px;
+    transform:rotate(-3deg);
+    box-shadow:4px 4px 0 rgba(0,0,0,.2);
+    margin-top:14px;
+    font-size:15px;
+  }
+
+  /* ---------- FINAL CTA ---------- */
+  .final{ background:var(--purple); color:var(--white); text-align:center; }
+  .final h2{ font-size:clamp(30px,6vw,54px); color:var(--yellow); margin-bottom:14px; }
+  .final h3.sub{ font-size:clamp(17px,3vw,22px); margin-bottom:30px; color:var(--white); font-family:'Space Grotesk',sans-serif; font-weight:700; text-transform:none; }
+  .final p{ max-width:560px; margin:0 auto 30px; font-size:16px; line-height:1.85; color:#eee; }
+  .final .quote{ font-family:'Space Mono',monospace; font-style:italic; color:var(--yellow); margin-bottom:36px; }
+
+  footer{
+    background:var(--ink);
+    color:#999;
+    text-align:center;
+    padding:50px 24px 40px;
+    font-size:13px;
+    line-height:1.9;
+  }
+  footer .disclaimer-title{
+    font-family:'Space Mono',monospace;
+    color:var(--yellow);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:12px;
+    margin-bottom:14px;
+    display:block;
+  }
+  footer .tagline{
+    margin-top:24px;
+    font-size:16px;
+    color:var(--white);
+    font-family:'Bungee', sans-serif;
+    text-transform:uppercase;
+  }
+
+  @media (max-width:640px){
+    section{ padding:64px 18px 80px; }
+    .stamp{ width:92px; height:92px; font-size:9px; }
+    .plan-card.featured{ transform:scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="barcode-strip" aria-hidden="true" id="barcode"></div>
+    <div class="brand">📦 Common&nbsp;Sense&nbsp;Express — Tracking&nbsp;#CSE-0001</div>
+    <h1>Running Low on<br>Common Sense?</h1>
+    <h2 class="sub">You're Not Alone.</h2>
+    <div class="hero-lines">
+      Ever replied to an email before reading it?<br>
+      Pressed "Print" 17 times because nothing happened…<br>
+      …then watched 17 copies come out five minutes later?<br>
+      Bought a gym membership on January 1st?<br>
+      Forgot your glasses while wearing them?
+      <br><br>
+      <span class="strong-line">Congratulations. You're exactly why we exist.</span>
+    </div>
+    <div class="counter-pill mono">🚚 Over 314,000,000 common sense deliveries completed</div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#packages">🧠 Deliver My Common Sense</a>
+      <a class="btn btn-outline" href="#emergency">⚡ Express Delivery, Please</a>
+    </div>
+  </div>
+</section>
+<div class="perf" style="color:#FF3D81;background:#FFF6E5;"></div>
+
+<!-- ============ WHAT IS COMMON SENSE ============ -->
+<section class="whatis">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--blue);">What's In The Box</span>
+    <h2>What Is Common Sense?</h2>
+    <p class="lede-lines">Scientists have searched for years. Philosophers have debated it for centuries. The internet still can't find it. Fortunately — we package it.</p>
+    <div class="contents-grid">
+      <div>💡 Practical thinking</div>
+      <div>🤔 Better decisions</div>
+      <div>🚦 Pause-before-you-act technology</div>
+      <div>📖 Reading instructions first</div>
+      <div>☕ Coffee-independent judgment</div>
+      <div>🚫 The ability to stop and think</div>
+    </div>
+    <p class="quote-block">"Maybe this isn't a great idea."</p>
+  </div>
+</section>
+
+<!-- ============ QUALIFY ============ -->
+<section class="qualify">
+  <div class="wrap">
+    <h2>You Might Need a Delivery If You Have Ever…</h2>
+    <ul class="qualify-list">
+      <li>Googled "How to boil water."</li>
+      <li>Looked for your phone… while talking on it.</li>
+      <li>Read the comments section hoping to find peace.</li>
+      <li>Clicked "Reply All."</li>
+      <li>Forgotten why you walked into the room.</li>
+      <li>Bought something because it was 80% off.</li>
+      <li>Tried to charge your phone with the charger that wasn't plugged in.</li>
+      <li>Opened the refrigerator… and forgot what you wanted.</li>
+    </ul>
+    <p class="qualify-outro">If you smiled at any of these, your shipment qualifies for priority processing.</p>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section class="packages" id="packages">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--pink);">Choose Your Shipment</span>
+    <h2>Delivery Packages</h2>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <span class="tag">Ground Shipping</span>
+        <h3>🧩 Everyday Common Sense</h3>
+        <p style="font-size:14px;color:#555;margin:0;">Perfect for grocery shopping, cooking, driving, online shopping, and reading the assembly instructions.</p>
+        <ul><li>Better decisions</li><li>One less regret</li><li>Mild wisdom upgrade</li></ul>
+        <div class="pkg-price">$9.99</div>
+      </div>
+      <div class="pkg-card">
+        <span class="tag">2-Day Delivery</span>
+        <h3>💼 Workplace Edition</h3>
+        <p style="font-size:14px;color:#555;margin:0;">Designed for professionals who mean well.</p>
+        <ul><li>Reading the whole email</li><li>Not replying all</li><li>Remembering to unmute</li><li>Saving before closing</li><li>Backing up your files</li></ul>
+        <div class="pkg-price">$24</div>
+      </div>
+      <div class="pkg-card">
+        <span class="tag">Standard</span>
+        <h3>🛒 Shopping Edition</h3>
+        <p style="font-size:14px;color:#555;margin:0;">Helps you distinguish between "Need" and "70% OFF!"</p>
+        <ul><li>Cart restraint</li><li>Budget awareness</li><li>Impulse purchase filter</li></ul>
+        <div class="pkg-price">$19</div>
+      </div>
+      <div class="pkg-card emergency" id="emergency">
+        <span class="tag">Under 10 Min</span>
+        <h3>🚨 Emergency Common Sense</h3>
+        <p style="font-size:14px;color:#555;margin:0;">For critical situations only.</p>
+        <ul>
+          <li>Sending money to "Prince Steve of Antarctica"</li>
+          <li>Clicking suspicious links</li>
+          <li>Putting metal in the microwave</li>
+          <li>Trusting "Only 3 left!" countdown timers</li>
+          <li>Thinking "How hard can it be?"</li>
+        </ul>
+        <div class="pkg-price">$99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECIALIZED KITS ============ -->
+<section class="kits">
+  <div class="wrap">
+    <h2>Specialized Common Sense Kits</h2>
+    <div class="kits-grid">
+      <div class="kit-card">
+        <h3>📧 Email Edition</h3>
+        <ul>
+          <li>Stops replying too quickly</li>
+          <li>Forgetting attachments</li>
+          <li>CC'ing the wrong person</li>
+          <li>Starting emails with "Per my last email…"</li>
+        </ul>
+      </div>
+      <div class="kit-card">
+        <h3>🛠️ IKEA Edition</h3>
+        <ul>
+          <li>Reading the instructions</li>
+          <li>Finding all the screws</li>
+          <li>Accepting that one extra screw is probably intentional. Mostly.</li>
+        </ul>
+      </div>
+      <div class="kit-card">
+        <h3>📱 Social Media Edition</h3>
+        <p>Before posting, asks: "Are you absolutely sure?" Twice.</p>
+      </div>
+      <div class="kit-card">
+        <h3>💳 Online Shopping Edition</h3>
+        <p>Adds a magical button: "Maybe sleep on it."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COURIERS ============ -->
+<section class="couriers">
+  <div class="wrap">
+    <h2>Meet Our Couriers</h2>
+    <div class="courier-grid">
+      <div class="courier-card"><span class="avatar">🧠</span><h3>Albert</h3><p>Actually reads terms and conditions.</p></div>
+      <div class="courier-card"><span class="avatar">☕</span><h3>Maria</h3><p>Never microwaves fish at work. Office legend.</p></div>
+      <div class="courier-card"><span class="avatar">📚</span><h3>Kevin</h3><p>Reads the instruction manual before calling customer support. Strange but admirable.</p></div>
+      <div class="courier-card"><span class="avatar">🚦</span><h3>Sophia</h3><p>Uses turn signals. Even in empty parking lots.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADD-ONS ============ -->
+<section class="addons">
+  <div class="wrap">
+    <h2>Premium Add-Ons</h2>
+    <div class="addon-list">
+      <div class="addon-item"><span class="name">⏸️ Think Before Clicking™ — two-second delay before every questionable decision</span><span class="price">+$5</span></div>
+      <div class="addon-item"><span class="name">🛒 Impulse Purchase Blocker — banana slicers, neck fans, 14 water bottles</span><span class="price">+$8</span></div>
+      <div class="addon-item"><span class="name">📖 Instruction Reader AI — reads the manual so you don't pretend to</span><span class="price">+$4</span></div>
+      <div class="addon-item"><span class="name">💬 "Maybe Don't Say That" — live conversation assistant, best seller</span><span class="price">+$7</span></div>
+      <div class="addon-item"><span class="name">🚩 Red Flag Detector — emails, products, investments, first dates</span><span class="price">+$9</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="reviews">
+  <div class="wrap">
+    <h2>Customer Reviews</h2>
+    <div class="review-grid">
+      <div class="review-card"><div class="stars">★★★★★</div><p class="quote">I almost replied all… then Common Sense Express kicked in.</p><div class="who">— HR Manager</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="quote">I finally stopped opening the fridge every seven minutes.</p><div class="who">— College Student</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="quote">Saved me from buying a $400 juicer I'd use twice.</p><div class="who">— Emma</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="quote">I actually read the instructions before assembling furniture. Took half the time.</p><div class="who">— New Homeowner</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="quote">I realized the printer wasn't broken. It just wasn't plugged in.</p><div class="who">— IT Intern</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUBSCRIPTION PLANS ============ -->
+<section class="plans">
+  <div class="wrap">
+    <h2>Subscription Plans</h2>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <h3>🧠 Starter Wisdom</h3>
+        <ul><li>One delivery each month</li><li>Basic decision support</li><li>Common mistake alerts</li></ul>
+        <div class="price">FREE</div>
+      </div>
+      <div class="plan-card featured">
+        <span class="ribbon">Most Popular</span>
+        <h3>💡 Common Sense+</h3>
+        <ul><li>Unlimited deliveries</li><li>Shopping protection</li><li>Email review mode</li><li>Reminder notifications</li><li>Daily reality checks</li></ul>
+        <div class="price">$11/mo</div>
+      </div>
+      <div class="plan-card">
+        <h3>👑 Genius Premium</h3>
+        <ul><li>Family sharing</li><li>In-law holiday mode</li><li>Investment skepticism</li><li>Scam detection</li><li>Lifetime "Are You Sure?" protection</li></ul>
+        <div class="price">$49/mo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE DASHBOARD ============ -->
+<section class="dashboard">
+  <div class="wrap">
+    <h2>Live Dashboard</h2>
+    <p class="sub">Today we've prevented…</p>
+    <div class="stat-grid">
+      <div class="stat-card"><span class="num" data-target="482000">0</span><span class="label">📧 Reply-All disasters</span></div>
+      <div class="stat-card"><span class="num" data-target="219000">0</span><span class="label">🛒 Impulse purchases</span></div>
+      <div class="stat-card"><span class="num" data-target="94000">0</span><span class="label">🖨️ Unnecessary printer restarts</span></div>
+      <div class="stat-card"><span class="num" data-target="17000000">0</span><span class="label">🔗 Suspicious link clicks</span></div>
+      <div class="stat-card"><span class="num" data-target="31000">0</span><span class="label">🛠️ Upside-down IKEA shelves</span></div>
+      <div class="stat-card"><span class="num" data-target="1">0</span><span class="label">☕ Employee microwaving fish in the office. Again.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="wrap">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">Is common sense really that rare? <span class="plus">+</span></button>
+        <div class="faq-a">Have you read the comments section online? Next question.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is it permanent? <span class="plus">+</span></button>
+        <div class="faq-a">Some customers require weekly refills. Especially during holiday shopping season.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I send it as a gift? <span class="plus">+</span></button>
+        <div class="faq-a">Absolutely. It's our most popular gift for family group chats.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Does it work on teenagers? <span class="plus">+</span></button>
+        <div class="faq-a">Research is ongoing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can it prevent all bad decisions? <span class="plus">+</span></button>
+        <div class="faq-a">No. But it can dramatically reduce the number that begin with "Watch this…"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENTERPRISE ============ -->
+<section class="enterprise">
+  <div class="wrap">
+    <h2>Enterprise Common Sense™</h2>
+    <p class="intro">Built for modern workplaces.</p>
+    <ul class="ent-list">
+      <li>Meeting etiquette</li>
+      <li>Email sanity checks</li>
+      <li>Password reminder: "No, 'password123' isn't secure."</li>
+      <li>Conference room booking awareness</li>
+      <li>Coffee machine diplomacy</li>
+      <li>Printer acceptance training</li>
+    </ul>
+    <p class="snark">Trusted by organizations where someone still asks "Can everyone see my screen?" …while sharing the wrong screen.</p>
+  </div>
+</section>
+
+<!-- ============ HALL OF FAME ============ -->
+<section class="hof">
+  <div class="wrap">
+    <h2>Hall of Fame</h2>
+    <div class="hof-grid">
+      <div class="hof-card"><span class="medal">🏆</span><h3>Biggest Disaster Prevented</h3><p>Stopped a customer from hitting "Reply All" to 12,487 employees.</p></div>
+      <div class="hof-card"><span class="medal">🏆</span><h3>Smartest Purchase Avoided</h3><p>A "smart" refrigerator that could tweet but couldn't make ice.</p></div>
+      <div class="hof-card"><span class="medal">🏆</span><h3>Longest Streak</h3><p>One customer went 387 consecutive days without saying "Well… that was a mistake."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUARANTEE ============ -->
+<section class="guarantee">
+  <div class="wrap">
+    <h2>Common Sense Guarantee™</h2>
+    <p>If you make a questionable decision within 24 hours, we'll send another shipment.</p>
+    <div class="sticky-note">📌 "Maybe think about it for another minute."</div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap">
+    <h2>Life Doesn't Come With Instructions…</h2>
+    <h3 class="sub">But It Could Come With Better Decisions.</h3>
+    <p>Whether you're about to send an email, make a purchase, start a DIY project, or trust a random stranger on the internet…</p>
+    <p class="quote">"It seemed like a good idea at the time."</p>
+    <a class="btn btn-primary" href="#packages">🧠 Deliver My Common Sense Today</a>
+  </div>
+</section>
+
+<footer>
+  <span class="disclaimer-title">Tiny Disclaimer</span>
+  Common Sense Express is not responsible for reading recipes before cooking, checking both pockets before declaring your keys lost, realizing the Wi-Fi router works better when plugged in, avoiding online scams that begin with "Congratulations!", finally measuring twice before cutting once, or becoming the person in your family everyone calls before making important decisions.
+  <div class="tagline">Good judgment isn't born… it's delivered. 🧠📦🚚</div>
+</footer>
+
+<script>
+  // barcode strip generator
+  const barcode = document.getElementById('barcode');
+  for(let i=0;i<40;i++){
+    const bar = document.createElement('span');
+    const w = Math.random() > .7 ? 4 : 2;
+    bar.style.width = w+'px';
+    bar.style.height = (26 + Math.random()*14)+'px';
+    barcode.appendChild(bar);
+  }
+
+  // zigzag perforation svg generator between hero & next section
+  function zigzagPath(width, height, teeth){
+    const step = width/teeth;
+    let d = `M0,${height/2}`;
+    for(let i=0;i<teeth;i++){
+      const x1 = step*i + step/2;
+      const x2 = step*(i+1);
+      d += ` L${x1},${i%2===0?0:height} L${x2},${height/2}`;
+    }
+    return d;
+  }
+  document.querySelectorAll('.perf').forEach(el=>{
+    const w = 1000, h = 34, teeth = 40;
+    el.innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <path d="${zigzagPath(w,h,teeth)}" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
+    </svg>`;
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>{
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 20 + 'px';
+      }
+    });
+  });
+
+  // animated counters on scroll into view
+  const counters = document.querySelectorAll('.stat-card .num');
+  const formatNum = n => n.toLocaleString('en-US');
+  const animate = (el) => {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now){
+      const progress = Math.min((now-start)/duration, 1);
+      const eased = 1 - Math.pow(1-progress, 3);
+      el.textContent = formatNum(Math.floor(eased*target));
+      if(progress < 1) requestAnimationFrame(tick);
+      else el.textContent = formatNum(target);
+    }
+    requestAnimationFrame(tick);
+  };
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        animate(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.4});
+  counters.forEach(c=>obs.observe(c));
+</script>
+
+</body>
+</html>
