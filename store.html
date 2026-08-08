@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Store of Things You Already Own™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFDE00;
+    --pink:#FF4D6D;
+    --blue:#3772FF;
+    --green:#06D6A0;
+    --ink:#0B0B0B;
+    --paper:#FFF9EC;
+    --white:#FFFFFF;
+    --border:4px solid var(--ink);
+    --shadow:8px 8px 0 var(--ink);
+    --shadow-sm:5px 5px 0 var(--ink);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Space Grotesk',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-size:17px;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Archivo Black','Space Grotesk',sans-serif;
+    text-transform:uppercase;
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+  img,svg{display:block;}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background:var(--ink);
+    color:var(--yellow);
+    overflow:hidden;
+    white-space:nowrap;
+    border-bottom:var(--border);
+    padding:10px 0;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:0.04em;
+  }
+  .marquee-track{
+    display:inline-block;
+    padding-left:100%;
+    animation:scroll 28s linear infinite;
+  }
+  .marquee-track span{margin:0 28px;}
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    background:var(--white);
+    border-bottom:var(--border);
+    position:sticky;top:0;z-index:50;
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;}
+  .logo{
+    font-family:'Archivo Black',sans-serif;
+    font-size:19px;
+    text-transform:uppercase;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .cart{
+    background:var(--pink);
+    border:3px solid var(--ink);
+    padding:2px 8px;
+    font-size:16px;
+  }
+  .nav-links{display:flex;gap:26px;font-weight:600;font-size:14px;text-transform:uppercase;}
+  .nav-links a{text-decoration:none;position:relative;}
+  .nav-links a:hover{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:var(--pink);}
+  .btn{
+    display:inline-block;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    text-decoration:none;
+    background:var(--yellow);
+    color:var(--ink);
+    border:var(--border);
+    padding:12px 22px;
+    box-shadow:var(--shadow-sm);
+    cursor:pointer;
+    transition:transform .12s, box-shadow .12s;
+    font-size:14px;
+    letter-spacing:0.02em;
+  }
+  .btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .btn-lg{padding:18px 34px;font-size:16px;box-shadow:var(--shadow);}
+  .btn-lg:hover{transform:translate(4px,4px);box-shadow:4px 4px 0 var(--ink);}
+  .btn-pink{background:var(--pink);color:var(--white);}
+  .btn-blue{background:var(--blue);color:var(--white);}
+  .btn-outline{background:var(--white);}
+
+  section{padding:88px 0;border-bottom:var(--border);}
+  .eyebrow{
+    display:inline-block;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--white);
+    padding:6px 14px;
+    margin-bottom:22px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--yellow);}
+  .hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center;}
+  .hero h1{font-size:clamp(40px,6.2vw,74px);}
+  .hero .sub{font-size:22px;font-weight:600;margin-top:22px;max-width:520px;}
+  .hero .cta-row{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;}
+  .hero-badge{
+    background:var(--white);
+    border:var(--border);
+    box-shadow:var(--shadow);
+    padding:28px;
+    transform:rotate(2deg);
+  }
+  .hero-badge .num{font-family:'Archivo Black';font-size:64px;color:var(--pink);}
+  .hero-badge .label{font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.03em;}
+  .hero-badge ul{margin:16px 0 0;padding-left:20px;font-weight:600;font-size:15px;}
+
+  /* ---------- MISSION ---------- */
+  .mission{background:var(--blue);color:var(--white);}
+  .mission .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .quote-block{font-family:'Archivo Black';font-size:clamp(26px,3.4vw,38px);line-height:1.15;}
+  .quote-block .old{opacity:.55;text-decoration:line-through;text-decoration-thickness:4px;}
+  .quote-block .new{color:var(--yellow);display:block;margin-top:18px;}
+  .mission p.tag{margin-top:26px;font-size:17px;font-weight:600;max-width:420px;}
+
+  /* ---------- BESTSELLERS ---------- */
+  .best{background:var(--paper);}
+  .best h2{font-size:clamp(30px,4.4vw,46px);}
+  .grid-products{
+    margin-top:44px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .p-card{
+    background:var(--white);
+    border:var(--border);
+    box-shadow:var(--shadow-sm);
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    transition:transform .12s;
+  }
+  .p-card:hover{transform:translateY(-4px);}
+  .p-card .icon{font-size:34px;}
+  .p-card h3{font-size:19px;}
+  .stat-row{display:flex;justify-content:space-between;font-weight:600;font-size:14px;border-top:2px dashed var(--ink);padding-top:8px;margin-top:6px;}
+  .stat-row b{font-family:'Archivo Black';font-size:16px;}
+  .p-card .verdict{
+    margin-top:auto;
+    font-family:'Archivo Black';
+    font-size:15px;
+    background:var(--yellow);
+    border:3px solid var(--ink);
+    padding:8px 10px;
+  }
+  .p-card .price{font-weight:700;font-size:18px;margin-top:4px;}
+
+  /* ---------- PACKS ---------- */
+  .packs{background:var(--pink);color:var(--white);}
+  .packs h2{font-size:clamp(30px,4.4vw,46px);}
+  .pack-grid{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .pack-card{
+    background:var(--ink);
+    border:4px solid var(--white);
+    padding:24px;
+  }
+  .pack-card .medal{font-size:30px;}
+  .pack-card h3{font-size:18px;margin-top:8px;color:var(--yellow);}
+  .pack-card ul{margin:14px 0;padding-left:18px;font-size:14px;font-weight:500;}
+  .pack-card .price{font-family:'Archivo Black';font-size:22px;margin-top:8px;}
+
+  /* ---------- DETECTION DEMO ---------- */
+  .detect{background:var(--white);}
+  .detect .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .detect h2{font-size:clamp(28px,4vw,42px);}
+  .search-demo{
+    background:var(--paper);
+    border:var(--border);
+    box-shadow:var(--shadow);
+    padding:26px;
+  }
+  .search-bar{
+    display:flex;
+    border:3px solid var(--ink);
+    background:var(--white);
+  }
+  .search-bar input{
+    border:none;background:transparent;padding:14px;flex:1;font-family:inherit;font-size:15px;outline:none;
+  }
+  .search-bar button{border:none;border-left:3px solid var(--ink);background:var(--yellow);padding:0 18px;font-weight:700;cursor:pointer;}
+  .search-result{
+    margin-top:18px;
+    background:var(--ink);
+    color:var(--yellow);
+    padding:16px;
+    font-weight:700;
+    display:none;
+  }
+  .search-result.show{display:block;}
+  .search-result .yes-btn{margin-top:12px;}
+
+  /* ---------- DUPLICATION SCORE (signature) ---------- */
+  .score-section{background:var(--ink);color:var(--white);}
+  .score-section .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .score-section h2{font-size:clamp(28px,4vw,42px);color:var(--yellow);}
+  .gauge-wrap{display:flex;flex-direction:column;align-items:center;}
+  .gauge-num{
+    font-family:'Archivo Black';
+    font-size:56px;
+    margin-top:14px;
+    color:var(--green);
+  }
+  .gauge-label{font-weight:700;text-transform:uppercase;letter-spacing:0.05em;font-size:13px;color:var(--paper);}
+  .inv-list{list-style:none;margin:26px 0 0;padding:0;font-weight:600;font-size:15px;}
+  .inv-list li{display:flex;justify-content:space-between;border-bottom:2px dashed rgba(255,255,255,.3);padding:9px 0;}
+  .inv-list b{font-family:'Archivo Black';color:var(--yellow);}
+
+  /* ---------- LEVELS ---------- */
+  .levels{background:var(--green);}
+  .levels h2{font-size:clamp(30px,4.4vw,46px);}
+  .level-row{margin-top:40px;display:flex;flex-direction:column;gap:14px;}
+  .level-item{
+    background:var(--white);
+    border:var(--border);
+    padding:16px 22px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .level-item .dot{width:22px;height:22px;border:3px solid var(--ink);flex:none;}
+  .level-item .name{font-family:'Archivo Black';font-size:16px;min-width:230px;}
+  .level-item .desc{font-weight:600;font-size:14px;}
+  .dot.d1{background:var(--green);}
+  .dot.d2{background:var(--yellow);}
+  .dot.d3{background:#FF9F1C;}
+  .dot.d4{background:var(--pink);}
+  .dot.d5{background:var(--blue);}
+
+  /* ---------- RECOMMEND ---------- */
+  .rec{background:var(--blue);color:var(--white);}
+  .rec h2{font-size:clamp(28px,4vw,42px);}
+  .rec-grid{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .rec-card{background:var(--white);color:var(--ink);border:var(--border);padding:20px;box-shadow:var(--shadow-sm);}
+  .rec-card .you-buy{font-weight:600;font-size:14px;text-transform:uppercase;color:#555;}
+  .rec-card .item{font-family:'Archivo Black';font-size:20px;margin:6px 0 12px;}
+  .rec-card .arrow{font-size:20px;}
+  .rec-card .we-say{background:var(--yellow);border:3px solid var(--ink);padding:10px;font-weight:700;margin-top:10px;}
+
+  /* ---------- MYSTERY / DELIVERY ---------- */
+  .mystery{background:var(--pink);color:var(--white);}
+  .mystery .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .mystery h2{font-size:clamp(28px,4vw,42px);}
+  .box-visual{
+    background:var(--ink);
+    border:4px solid var(--white);
+    padding:34px;
+    text-align:center;
+  }
+  .box-visual .emoji{font-size:70px;}
+  .box-visual .price{font-family:'Archivo Black';font-size:34px;color:var(--yellow);margin-top:10px;}
+  .box-visual .fine{font-size:13px;font-weight:600;margin-top:6px;opacity:.85;}
+
+  .delivery{background:var(--yellow);}
+  .delivery h2{font-size:clamp(28px,4vw,42px);}
+  .del-grid{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .del-card{background:var(--white);border:var(--border);box-shadow:var(--shadow-sm);padding:24px;text-align:center;}
+  .del-card .ic{font-size:34px;}
+  .del-card h3{margin-top:10px;font-size:17px;}
+  .del-card .time{font-family:'Archivo Black';font-size:15px;color:var(--pink);margin-top:8px;}
+
+  /* ---------- SUBSCRIPTIONS ---------- */
+  .subs{background:var(--paper);}
+  .subs h2{font-size:clamp(30px,4.4vw,46px);}
+  .sub-grid{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .sub-card{background:var(--white);border:var(--border);padding:22px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);}
+  .sub-card.featured{background:var(--ink);color:var(--white);border-color:var(--ink);transform:translateY(-10px);box-shadow:var(--shadow);}
+  .sub-card h3{font-size:16px;}
+  .sub-card .price{font-family:'Archivo Black';font-size:26px;margin:14px 0;}
+  .sub-card p{font-size:13px;font-weight:600;flex:1;}
+  .sub-card .btn{margin-top:14px;width:100%;text-align:center;}
+
+  /* ---------- REVIEWS ---------- */
+  .reviews{background:var(--green);}
+  .reviews h2{font-size:clamp(30px,4.4vw,46px);}
+  .review-grid{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .review-card{background:var(--white);border:var(--border);padding:22px;box-shadow:var(--shadow-sm);}
+  .stars{color:var(--pink);font-size:18px;letter-spacing:2px;}
+  .review-card p{font-weight:600;font-size:16px;margin:12px 0 8px;}
+  .review-card .who{font-family:'Archivo Black';font-size:13px;text-transform:uppercase;}
+
+  /* ---------- STORAGE BOX ---------- */
+  .storage{background:var(--white);text-align:center;}
+  .storage .badge{
+    display:inline-block;
+    background:var(--yellow);
+    border:var(--border);
+    box-shadow:var(--shadow);
+    padding:44px 60px;
+  }
+  .storage .badge .emoji{font-size:60px;}
+  .storage h2{font-size:clamp(28px,4vw,42px);margin-top:14px;}
+  .storage .price{font-family:'Archivo Black';font-size:30px;color:var(--pink);margin-top:12px;}
+
+  /* ---------- APP FEATURES ---------- */
+  .app{background:var(--blue);color:var(--white);}
+  .app h2{font-size:clamp(30px,4.4vw,46px);}
+  .app-grid{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .app-card{background:rgba(255,255,255,.08);border:3px solid var(--white);padding:20px;}
+  .app-card .ic{font-size:28px;}
+  .app-card h3{font-size:17px;margin-top:8px;}
+  .app-card p{font-size:14px;font-weight:500;margin-top:6px;}
+  .alert-box{
+    grid-column:1/-1;
+    background:var(--pink);
+    border:3px solid var(--white);
+    padding:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .alert-box .msg{font-weight:700;font-size:15px;}
+  .alert-box .msg b{font-family:'Archivo Black';display:block;font-size:13px;letter-spacing:.06em;color:var(--yellow);margin-bottom:4px;}
+
+  /* ---------- DASHBOARD ---------- */
+  .dash{background:var(--ink);color:var(--white);}
+  .dash h2{font-size:clamp(28px,4vw,42px);color:var(--yellow);}
+  .dash-grid{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .dash-item{border:3px solid var(--paper);padding:18px;text-align:center;}
+  .dash-item .n{font-family:'Archivo Black';font-size:26px;color:var(--green);}
+  .dash-item .l{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:6px;}
+  .dash-need{margin-top:26px;text-align:center;font-family:'Archivo Black';font-size:22px;}
+  .dash-need span{color:var(--pink);}
+
+  /* ---------- CATEGORIES ---------- */
+  .cats{background:var(--yellow);}
+  .cats h2{font-size:clamp(30px,4.4vw,46px);}
+  .cat-grid{margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .cat-chip{background:var(--white);border:var(--border);padding:18px 14px;font-weight:700;font-size:14px;text-align:center;box-shadow:5px 5px 0 var(--ink);transition:transform .12s;}
+  .cat-chip:hover{transform:translate(-2px,-2px);}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--paper);}
+  .faq h2{font-size:clamp(30px,4.4vw,46px);}
+  .faq-list{margin-top:34px;display:flex;flex-direction:column;gap:14px;}
+  .faq-item{background:var(--white);border:var(--border);}
+  .faq-item summary{
+    cursor:pointer;
+    list-style:none;
+    padding:18px 22px;
+    font-weight:700;
+    font-size:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";font-family:'Archivo Black';font-size:22px;color:var(--pink);}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item .a{padding:0 22px 20px;font-weight:600;font-size:15px;color:#333;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final{background:var(--pink);color:var(--white);text-align:center;}
+  .final h2{font-size:clamp(32px,5.4vw,58px);}
+  .final .lines{margin-top:26px;font-weight:700;font-size:17px;}
+  .final .lines div{opacity:.9;}
+  .final .lines div:last-child{color:var(--yellow);font-family:'Archivo Black';margin-top:10px;opacity:1;}
+  .final .btn-lg{margin-top:34px;background:var(--yellow);}
+
+  footer{background:var(--ink);color:var(--paper);padding:50px 0 30px;}
+  footer .wrap{display:flex;flex-direction:column;gap:10px;font-size:13px;font-weight:500;}
+  footer .slogan{font-family:'Archivo Black';font-size:20px;color:var(--yellow);text-transform:uppercase;margin-bottom:10px;}
+  footer .fine{opacity:.6;line-height:1.7;max-width:640px;}
+
+  @media(max-width:920px){
+    .hero .wrap,.mission .wrap,.detect .wrap,.score-section .wrap,.mystery .wrap{grid-template-columns:1fr;}
+    .grid-products,.pack-grid,.rec-grid,.del-grid{grid-template-columns:repeat(2,1fr);}
+    .sub-grid,.dash-grid,.cat-grid{grid-template-columns:repeat(2,1fr);}
+    .app-grid{grid-template-columns:1fr;}
+    .review-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .sub-card.featured{transform:none;}
+  }
+  @media(max-width:560px){
+    .grid-products,.pack-grid,.rec-grid,.del-grid,.sub-grid,.dash-grid,.cat-grid{grid-template-columns:1fr;}
+    section{padding:60px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>⚠ LIVE INVENTORY — 8,291 BLACK T-SHIRTS AVAILABLE</span>
+    <span>☕ 14,882 COFFEE MUGS IN STOCK</span>
+    <span>🔌 27,491 PHONE CHARGERS YOU ALREADY OWN</span>
+    <span>🖊 91,402 PENS, TWO OF WHICH WORK</span>
+    <span>📦 CUSTOMER NEED: 0 — CUSTOMER PURCHASES: EXTREMELY HIGH</span>
+    <span>⚠ LIVE INVENTORY — 8,291 BLACK T-SHIRTS AVAILABLE</span>
+    <span>☕ 14,882 COFFEE MUGS IN STOCK</span>
+    <span>🔌 27,491 PHONE CHARGERS YOU ALREADY OWN</span>
+    <span>🖊 91,402 PENS, TWO OF WHICH WORK</span>
+    <span>📦 CUSTOMER NEED: 0 — CUSTOMER PURCHASES: EXTREMELY HIGH</span>
+  </div>
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="cart">🛒</span> Store of Things You Already Own™</div>
+    <div class="nav-links">
+      <a href="#best">Bestsellers</a>
+      <a href="#score">Duplication Score</a>
+      <a href="#subs">Plans</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#best" class="btn">Start Shopping</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Congratulations</span>
+      <h1>You Already Own<br>Everything We Sell.</h1>
+      <p class="sub">Welcome to the world's most unnecessary online store. We don't sell you new things — we sell you another black T‑shirt, another phone charger, another coffee mug. That's not a problem. That's our business model.</p>
+      <div class="cta-row">
+        <a href="#best" class="btn btn-lg">🛒 Start Shopping</a>
+        <a href="#score" class="btn btn-lg btn-outline">Check My Duplication Score</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="label">Most stores ask</div>
+      <div style="font-family:'Archivo Black';font-size:22px;margin:6px 0 18px;">"What do you need?"</div>
+      <div class="label">We ask</div>
+      <div class="num">"What do<br>you have?"</div>
+      <ul>
+        <li>Then we sell it to you again.</li>
+        <li>Ownership shouldn't stop you from shopping.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="wrap">
+    <div class="quote-block">
+      <span class="old">"What do you need?"</span>
+      <span class="new">"What do you<br>already have?"</span>
+    </div>
+    <div>
+      <p class="tag">Because ownership shouldn't stop you from shopping. Every question we ask is designed to find something you already own — so we can sell it to you again, slightly nicer, slightly more expensive.</p>
+      <p class="tag">This is not a flaw in our business model. This <em>is</em> our business model.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BESTSELLERS -->
+<section class="best" id="best">
+  <div class="wrap">
+    <span class="eyebrow">Our Bestsellers</span>
+    <h2>Buy It Again.</h2>
+    <div class="grid-products">
+
+      <div class="p-card">
+        <div class="icon">👕</div>
+        <h3>The Black T-Shirt</h3>
+        <div class="stat-row"><span>You own</span><b>7</b></div>
+        <div class="stat-row"><span>You need</span><b>0</b></div>
+        <div class="verdict">You should probably buy 1 more.</div>
+        <div class="price">€29.99</div>
+      </div>
+
+      <div class="p-card">
+        <div class="icon">☕</div>
+        <h3>The Coffee Mug</h3>
+        <div class="stat-row"><span>You already have</span><b>14</b></div>
+        <div class="stat-row"><span>Cupboard holds</span><b>12</b></div>
+        <div class="verdict">Two are in the dishwasher. You need another.</div>
+        <div class="price">€19.99</div>
+      </div>
+
+      <div class="p-card">
+        <div class="icon">🔌</div>
+        <h3>The Phone Charger</h3>
+        <div class="stat-row"><span>You own</span><b>4</b></div>
+        <div class="stat-row"><span>You know where</span><b>1</b></div>
+        <div class="verdict">You should buy another one.</div>
+        <div class="price">€24.99</div>
+      </div>
+
+      <div class="p-card">
+        <div class="icon">📓</div>
+        <h3>The Notebook</h3>
+        <div class="stat-row"><span>Unused notebooks</span><b>11</b></div>
+        <div class="stat-row"><span>Written in</span><b>0</b></div>
+        <div class="verdict">But this one feels different.</div>
+        <div class="price">€14.99</div>
+      </div>
+
+      <div class="p-card">
+        <div class="icon">🖊️</div>
+        <h3>The Pen</h3>
+        <div class="stat-row"><span>You own</span><b>~37</b></div>
+        <div class="stat-row"><span>That work</span><b>2</b></div>
+        <div class="verdict">We recommend purchasing another.</div>
+        <div class="price">€3.99</div>
+      </div>
+
+      <div class="p-card">
+        <div class="icon">🧦</div>
+        <h3>Socks (single, unpaired)</h3>
+        <div class="stat-row"><span>Pairs owned</span><b>23</b></div>
+        <div class="stat-row"><span>Actually matching</span><b>4</b></div>
+        <div class="verdict">Statistically, one more can only help.</div>
+        <div class="price">€9.99</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PACKS -->
+<section class="packs">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--white);color:var(--ink);">The "I Already Have That" Collection</span>
+    <h2>Bundle Your Redundancy.</h2>
+    <div class="pack-grid">
+      <div class="pack-card">
+        <div class="medal">🥇</div>
+        <h3>Basic Household Starter Pack</h3>
+        <ul><li>Scissors</li><li>Tape</li><li>Batteries</li><li>Screwdriver</li><li>Measuring tape</li></ul>
+        <div class="price">€89</div>
+      </div>
+      <div class="pack-card">
+        <div class="medal">🥈</div>
+        <h3>Kitchen Duplicate Pack</h3>
+        <ul><li>Mug</li><li>Plate</li><li>Bowl</li><li>Spoon</li><li>Fork</li></ul>
+        <div class="price">€49</div>
+      </div>
+      <div class="pack-card">
+        <div class="medal">🥉</div>
+        <h3>Executive Desk Pack</h3>
+        <ul><li>Notebook</li><li>Pen</li><li>Sticky notes</li><li>Paper clips</li><li>Unnecessary desk organizer</li></ul>
+        <div class="price">€79</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETECTION DEMO -->
+<section class="detect">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Personalized Shopping</span>
+      <h2>We Know What You Already Own.</h2>
+      <p style="font-weight:600;margin-top:16px;max-width:440px;">Our patented Duplicate Detection Technology™ analyzes your shopping history and identifies products you already own — then asks if you'd like one anyway. Try it.</p>
+    </div>
+    <div class="search-demo">
+      <div class="search-bar">
+        <input id="searchInput" type="text" placeholder="Search for a product, e.g. 'water bottle'" value="water bottle">
+        <button onclick="runDetect()">Search</button>
+      </div>
+      <div class="search-result show" id="searchResult">
+        ⚠️ YOU ALREADY OWN 4 WATER BOTTLES<br>
+        Would you still like to buy one?
+        <div class="yes-btn"><a class="btn btn-pink" href="#best">Yes, obviously</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUPLICATION SCORE (signature) -->
+<section class="score-section" id="score">
+  <div class="wrap">
+    <div class="gauge-wrap">
+      <svg id="gaugeSvg" width="260" height="260" viewBox="0 0 260 260">
+        <circle cx="130" cy="130" r="108" fill="none" stroke="#2a2a2a" stroke-width="22"/>
+        <circle id="gaugeArc" cx="130" cy="130" r="108" fill="none" stroke="#06D6A0" stroke-width="22"
+          stroke-linecap="butt" stroke-dasharray="678.6" stroke-dashoffset="678.6"
+          transform="rotate(-90 130 130)"/>
+        <text x="130" y="120" text-anchor="middle" fill="#FFF9EC" font-family="Space Grotesk" font-size="13" font-weight="700" letter-spacing="1">DUPLICATION</text>
+        <text x="130" y="140" text-anchor="middle" fill="#FFF9EC" font-family="Space Grotesk" font-size="13" font-weight="700" letter-spacing="1">SCORE</text>
+      </svg>
+      <div class="gauge-num" id="gaugeNum">0%</div>
+      <div class="gauge-label">You're one of our best customers</div>
+    </div>
+    <div>
+      <span class="eyebrow" style="background:var(--pink);">The Duplication Score™</span>
+      <h2>Congratulations. You're Family.</h2>
+      <ul class="inv-list">
+        <li><span>🥤 Water bottles</span><b>6</b></li>
+        <li><span>☕ Mugs</span><b>14</b></li>
+        <li><span>🔌 Chargers</span><b>8</b></li>
+        <li><span>🖊️ Pens</span><b>37</b></li>
+        <li><span>📓 Notebooks</span><b>11</b></li>
+        <li><span>🧦 Pairs of socks</span><b>23</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- LEVELS -->
+<section class="levels">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--white);color:var(--ink);">Duplicate Levels</span>
+    <h2>Find Your Rank.</h2>
+    <div class="level-row">
+      <div class="level-item"><span class="dot d1"></span><span class="name">🟢 Level 1 — Beginner</span><span class="desc">You own two of something. Amateur.</span></div>
+      <div class="level-item"><span class="dot d2"></span><span class="name">🟡 Level 2 — Collector</span><span class="desc">You own 3–5 duplicates. You're learning.</span></div>
+      <div class="level-item"><span class="dot d3"></span><span class="name">🟠 Level 3 — Professional</span><span class="desc">You own 6–10. Respectable.</span></div>
+      <div class="level-item"><span class="dot d4"></span><span class="name">🔴 Level 4 — Master</span><span class="desc">You own more than 10. You belong here.</span></div>
+      <div class="level-item"><span class="dot d5"></span><span class="name">💎 Level 5 — The Unnecessary</span><span class="desc">You don't know how many you own. You're family.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMEND -->
+<section class="rec">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--yellow);color:var(--ink);">"You May Also Already Own..."</span>
+    <h2>Our Recommendation Engine.</h2>
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="you-buy">You buy</div>
+        <div class="item">A phone case</div>
+        <div class="arrow">↓</div>
+        <div class="we-say">We recommend: another phone case.</div>
+      </div>
+      <div class="rec-card">
+        <div class="you-buy">You buy</div>
+        <div class="item">A backpack</div>
+        <div class="arrow">↓</div>
+        <div class="we-say">We recommend: a second backpack.</div>
+      </div>
+      <div class="rec-card">
+        <div class="you-buy">You buy</div>
+        <div class="item">A candle</div>
+        <div class="arrow">↓</div>
+        <div class="we-say">We recommend: a different candle that smells almost exactly the same.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MYSTERY -->
+<section class="mystery">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" style="background:var(--ink);">Limited Edition</span>
+      <h2>The Thing You Forgot You Owned.</h2>
+      <p style="font-weight:600;margin-top:16px;max-width:440px;">We ship you something you already own but forgot about. Mystery box contents may include old cables, batteries, notebooks, kitchen equipment, random adapters, and one extremely specific object.</p>
+    </div>
+    <div class="box-visual">
+      <div class="emoji">📦</div>
+      <div class="price">€39.99</div>
+      <div class="fine">No refunds. You already own it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section class="delivery">
+  <div class="wrap">
+    <span class="eyebrow">Our Delivery Service</span>
+    <h2>Delivering It To You Again™</h2>
+    <p style="font-weight:600;max-width:520px;margin-top:14px;">Why walk into the room where your existing version is located? We'll send you another one.</p>
+    <div class="del-grid">
+      <div class="del-card"><div class="ic">🚚</div><h3>Standard</h3><div class="time">3–5 business days</div></div>
+      <div class="del-card"><div class="ic">🚀</div><h3>Express</h3><div class="time">Tomorrow</div></div>
+      <div class="del-card"><div class="ic">⚡</div><h3>Immediate</h3><div class="time">Check your cupboard</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIPTIONS -->
+<section class="subs" id="subs">
+  <div class="wrap">
+    <span class="eyebrow">Subscriptions</span>
+    <h2>Pick Your Duplication Plan.</h2>
+    <div class="sub-grid">
+      <div class="sub-card">
+        <h3>Already Have Basic</h3>
+        <div class="price">€9.99<span style="font-size:13px;">/mo</span></div>
+        <p>One duplicate per month, delivered whether you need it or not.</p>
+        <a class="btn" href="#">Subscribe</a>
+      </div>
+      <div class="sub-card featured">
+        <h3>Already Have Plus</h3>
+        <div class="price">€29.99<span style="font-size:13px;">/mo</span></div>
+        <p>Three duplicates per month. Our most popular level of unnecessary.</p>
+        <a class="btn btn-pink" href="#">Subscribe</a>
+      </div>
+      <div class="sub-card">
+        <h3>Already Have Premium</h3>
+        <div class="price">€99<span style="font-size:13px;">/mo</span></div>
+        <p>Unlimited duplication. Your cupboards will simply have to adjust.</p>
+        <a class="btn" href="#">Subscribe</a>
+      </div>
+      <div class="sub-card">
+        <h3>👑 I Definitely Don't Need This™</h3>
+        <div class="price">€199<span style="font-size:13px;">/mo</span></div>
+        <p>We send you something you already own, without telling you what it is.</p>
+        <a class="btn" href="#">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--white);color:var(--ink);">Customer Reviews</span>
+    <h2>They Already Own It. They Bought It Anyway.</h2>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>I bought another notebook. I already had 14. This one is nicer.</p>
+        <div class="who">— Laura</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>I ordered a phone charger. When it arrived, I found the charger I already owned.</p>
+        <div class="who">— David</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>I have 19 coffee mugs now. I don't regret anything.</p>
+        <div class="who">— Michael</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>I bought a storage box to store the things I already owned.</p>
+        <div class="who">— Sarah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORAGE BOX -->
+<section class="storage">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--pink);">Most Popular Product</span>
+    <div class="badge">
+      <div class="emoji">📦</div>
+      <h2>The Storage Box</h2>
+      <div class="price">€34.99</div>
+    </div>
+    <p style="font-weight:600;max-width:460px;margin:20px auto 0;">Because what do you do when you have too many things you already own? Buy a box. And what do you put inside? More things you already own.</p>
+  </div>
+</section>
+
+<!-- APP -->
+<section class="app">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--yellow);color:var(--ink);">The App</span>
+    <h2>Own It. Track It. Buy It Again.</h2>
+    <div class="app-grid">
+      <div class="app-card"><div class="ic">🔍</div><h3>Duplicate Finder</h3><p>Find things you already own.</p></div>
+      <div class="app-card"><div class="ic">📦</div><h3>Ownership Scanner</h3><p>Scan your house. Discover things you forgot about.</p></div>
+      <div class="app-card"><div class="ic">🛒</div><h3>Buy Again</h3><p>Purchase another one, in one tap.</p></div>
+      <div class="app-card"><div class="ic">📊</div><h3>Duplicate Dashboard</h3><p>Track your unnecessary inventory over time.</p></div>
+      <div class="alert-box">
+        <div class="msg"><b>🚨 Ownership Alert</b>You currently own 8 black T‑shirts. Would you like to buy a ninth?</div>
+        <a class="btn btn-pink" href="#best">Yes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="dash">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--green);color:var(--ink);">Live Store Dashboard</span>
+    <h2>Items Currently Available</h2>
+    <div class="dash-grid">
+      <div class="dash-item"><div class="n">8,291</div><div class="l">👕 Black T-shirts</div></div>
+      <div class="dash-item"><div class="n">14,882</div><div class="l">☕ Mugs</div></div>
+      <div class="dash-item"><div class="n">27,491</div><div class="l">🔌 Chargers</div></div>
+      <div class="dash-item"><div class="n">8,102</div><div class="l">📓 Notebooks</div></div>
+      <div class="dash-item"><div class="n">91,402</div><div class="l">🖊️ Pens</div></div>
+      <div class="dash-item"><div class="n">64,201</div><div class="l">🧦 Socks</div></div>
+      <div class="dash-item"><div class="n">12,882</div><div class="l">📦 Storage boxes</div></div>
+      <div class="dash-item"><div class="n" style="color:var(--pink);">∞</div><div class="l">🛒 Purchases</div></div>
+    </div>
+    <div class="dash-need">Customer need: <span>0</span> &nbsp;·&nbsp; Customer purchases: extremely high</div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats">
+  <div class="wrap">
+    <span class="eyebrow">Store Categories</span>
+    <h2>Browse By Denial.</h2>
+    <div class="cat-grid">
+      <div class="cat-chip">🏠 Things You Own at Home</div>
+      <div class="cat-chip">🧳 Things You Forgot About</div>
+      <div class="cat-chip">🛒 Things You Bought Last Week</div>
+      <div class="cat-chip">📦 Still in Original Packaging</div>
+      <div class="cat-chip">🔌 Things You Don't Know the Use Of</div>
+      <div class="cat-chip">👕 Things You Have Too Many Of</div>
+      <div class="cat-chip">🧦 Things You Can't Find</div>
+      <div class="cat-chip">🤷 Things You Probably Own</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Frequently Asked, Rarely Answered.</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Why would I buy something I already own?</summary>
+        <div class="a">Because you can't find the one you have.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you sell things I don't own?</summary>
+        <div class="a">No. That would be unnecessary.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I return something?</summary>
+        <div class="a">Of course. You'll receive store credit — for something you already own.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do you know what I already own?</summary>
+        <div class="a">We don't. But we're confident.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What if I accidentally buy something I don't own?</summary>
+        <div class="a">That's a serious compliance issue. We'll immediately refund you and investigate how this happened.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you sell unique products?</summary>
+        <div class="a">Absolutely. We have 17 versions of the same black T‑shirt.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--ink);">Final Word</span>
+    <h2>You Don't Need More Stuff.<br>You Just Need More<br>Of The Stuff You Have.</h2>
+    <div class="lines">
+      <div>Your cupboards are full. Your drawers are full.</div>
+      <div>Your closet is full. Your garage is full.</div>
+      <div>Your phone charger drawer is becoming a public safety concern.</div>
+      <div>"You already have one. Buy another."</div>
+    </div>
+    <a class="btn btn-lg" href="#best">🛒 Shop Something You Already Own</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="slogan">"You already have one. Buy another."</div>
+    <div class="fine">The Store of Things You Already Own™ cannot guarantee that you actually own the item you purchase. If you don't already own it, please notify customer service immediately — we will investigate how this happened. Our sustainability promise: we will never sell you something you actually need. Our return policy: returns accepted only if you discover you already own two of them.</div>
+  </div>
+</footer>
+
+<script>
+  // Search demo toggle
+  function runDetect(){
+    const val = document.getElementById('searchInput').value.trim() || 'this item';
+    const box = document.getElementById('searchResult');
+    const counts = {'water bottle': 4, 'mug': 14, 'phone charger': 4, 'pen': 37, 'notebook': 11, 'socks': 23};
+    const key = Object.keys(counts).find(k => val.toLowerCase().includes(k));
+    const n = key ? counts[key] : Math.floor(Math.random()*8)+2;
+    box.innerHTML = '⚠️ YOU ALREADY OWN ' + n + ' ' + val.toUpperCase() + (n>1?'S':'') +
+      '<br>Would you still like to buy one?<div class="yes-btn"><a class="btn btn-pink" href="#best">Yes, obviously</a></div>';
+    box.classList.add('show');
+  }
+
+  // Animate duplication score gauge on scroll into view
+  const gaugeArc = document.getElementById('gaugeArc');
+  const gaugeNum = document.getElementById('gaugeNum');
+  const circumference = 2 * Math.PI * 108;
+  let animated = false;
+
+  function animateGauge(){
+    if (animated) return;
+    animated = true;
+    const target = 87;
+    let current = 0;
+    const duration = 1400;
+    const start = performance.now();
+    function step(ts){
+      const p = Math.min((ts - start) / duration, 1);
+      current = Math.floor(p * target);
+      const offset = circumference - (current/100) * circumference;
+      gaugeArc.style.strokeDashoffset = offset;
+      gaugeNum.textContent = current + '%';
+      if (p < 1) requestAnimationFrame(step);
+      else { gaugeNum.textContent = target + '%'; gaugeArc.style.strokeDashoffset = circumference - (target/100)*circumference; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  const scoreSection = document.getElementById('score');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) animateGauge(); });
+  }, {threshold: 0.4});
+  observer.observe(scoreSection);
+</script>
+
+</body>
+</html>
