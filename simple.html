@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Unnecessary Company™ — We Make Things More Complicated Than Necessary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFD400;
+    --blue:#1B3BFF;
+    --red:#FF3B2F;
+    --green:#00C853;
+    --purple:#8B5CF6;
+    --ink:#0A0A0A;
+    --paper:#FFFDF7;
+    --border:6px;
+    --display:'Archivo Black', sans-serif;
+    --body:'Space Grotesk', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  h1,h2,h3{font-family:var(--display); text-transform:uppercase; line-height:1.05; margin:0;}
+  p{margin:0;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  .block{border-bottom:var(--border) solid var(--ink); padding:88px 0;}
+  .block:last-of-type{border-bottom:none;}
+  .bg-ink{background:var(--ink); color:var(--paper);}
+  .bg-yellow{background:var(--yellow);}
+  .bg-blue{background:var(--blue); color:var(--paper);}
+  .bg-red{background:var(--red); color:var(--paper);}
+  .bg-green{background:var(--green);}
+  .bg-purple{background:var(--purple); color:var(--paper);}
+  .bg-paper{background:var(--paper);}
+
+  .eyebrow{
+    display:inline-block;
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    border:2px solid currentColor;
+    padding:5px 12px;
+    margin-bottom:22px;
+    transform:rotate(-1.5deg);
+  }
+
+  /* NAV */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink); color:var(--paper);
+    border-bottom:var(--border) solid var(--ink);
+  }
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px;}
+  .nav-logo{font-family:var(--display); font-size:18px; letter-spacing:.02em;}
+  .nav-logo span{color:var(--yellow);}
+  .nav-cta{
+    font-family:var(--mono); font-weight:600; font-size:13px;
+    background:var(--yellow); color:var(--ink);
+    border:2px solid var(--ink); padding:9px 16px;
+    text-decoration:none; text-transform:uppercase;
+  }
+
+  /* HERO */
+  .hero{padding-top:110px; padding-bottom:110px;}
+  .hero h1{font-size:clamp(40px,7vw,84px); letter-spacing:-.01em;}
+  .hero h1 .accent{color:var(--yellow);}
+  .hero-sub{font-family:var(--display); text-transform:uppercase; font-size:clamp(22px,3vw,32px); color:var(--yellow); margin-top:6px;}
+  .hero-lede{max-width:640px; margin-top:26px; font-size:19px;}
+  .why-list{margin-top:26px; padding:0; list-style:none; max-width:620px;}
+  .why-list li{
+    font-family:var(--mono); font-size:15px; padding:10px 0;
+    border-top:1px solid rgba(255,253,247,.25);
+  }
+  .why-list li:last-child{border-bottom:1px solid rgba(255,253,247,.25);}
+  .why-list li::before{content:"→ "; color:var(--yellow);}
+  .hero-final{font-family:var(--display); text-transform:uppercase; font-size:clamp(24px,3vw,34px); margin-top:34px;}
+  .hero-final b{color:var(--yellow);}
+
+  .btn{
+    font-family:var(--mono); font-weight:700; font-size:14px;
+    text-transform:uppercase; letter-spacing:.04em;
+    display:inline-block; padding:16px 26px;
+    border:3px solid var(--ink); text-decoration:none;
+    margin-top:34px; cursor:pointer;
+  }
+  .btn-yellow{background:var(--yellow); color:var(--ink);}
+  .btn-ink{background:var(--ink); color:var(--paper); border-color:var(--paper);}
+
+  /* MISSION */
+  .mission-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:36px;}
+  .mission-card{border:3px solid var(--ink); padding:26px;}
+  .mission-card p.label{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.1em; opacity:.6; margin-bottom:10px;}
+  .mission-card p.line{font-family:var(--body); font-weight:600; font-size:20px;}
+  h2.big{font-size:clamp(30px,5vw,50px);}
+
+  /* SERVICES GRID */
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:50px; border:3px solid var(--ink);}
+  .service{
+    padding:30px 26px; border-right:3px solid var(--ink); border-bottom:3px solid var(--ink);
+    background:var(--paper); position:relative; min-height:230px;
+  }
+  .services-grid .service:nth-child(3n){border-right:none;}
+  .service .icon{font-size:30px; display:block; margin-bottom:14px;}
+  .service h3{font-size:19px; margin-bottom:10px;}
+  .service p{font-size:14.5px; opacity:.85;}
+  .service .price{
+    font-family:var(--mono); font-weight:700; font-size:14px;
+    margin-top:16px; display:inline-block; background:var(--yellow);
+    padding:3px 8px; border:2px solid var(--ink);
+  }
+  .service .steps{list-style:none; padding:0; margin:10px 0 0;}
+  .service .steps li{font-family:var(--mono); font-size:13px; padding:2px 0;}
+
+  /* STAMP */
+  .stamp{
+    position:absolute; top:16px; right:16px;
+    font-family:var(--mono); font-size:10px; font-weight:700;
+    color:var(--red); border:2px solid var(--red);
+    padding:2px 6px; transform:rotate(8deg); text-transform:uppercase;
+  }
+
+  /* DEPARTMENTS */
+  .dept-list{margin-top:40px; border-top:3px solid var(--paper);}
+  .dept{
+    display:grid; grid-template-columns:60px 1fr; gap:18px;
+    padding:24px 0; border-bottom:3px solid var(--paper); align-items:baseline;
+  }
+  .dept .mark{font-family:var(--display); font-size:26px; color:var(--yellow);}
+  .dept h3{font-size:20px; color:var(--yellow);}
+  .dept p{margin-top:6px; opacity:.85; font-size:15px;}
+
+  /* ASSESSMENT / TRANSFORM DEMO */
+  .assess-box{
+    margin-top:40px; border:3px solid var(--ink); background:var(--paper);
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .assess-side{padding:34px;}
+  .assess-side.input{border-right:3px solid var(--ink); background:var(--ink); color:var(--paper);}
+  .assess-side .tag{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.1em; opacity:.6;}
+  .assess-side .value{font-family:var(--display); font-size:26px; margin-top:10px;}
+  .assess-side ol{font-family:var(--mono); font-size:13.5px; margin:14px 0 0; padding-left:18px;}
+  .assess-side ol li{padding:3px 0;}
+  .assess-side .eta{margin-top:16px; font-family:var(--mono); font-size:13px; background:var(--yellow); color:var(--ink); display:inline-block; padding:4px 10px;}
+
+  /* PRICING */
+  .price-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:44px;}
+  .price-card{background:var(--paper); color:var(--ink); border:3px solid var(--ink); padding:26px; display:flex; flex-direction:column;}
+  .price-card .tier{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.1em; opacity:.65;}
+  .price-card h3{font-size:17px; margin-top:8px; min-height:44px;}
+  .price-card .amt{font-family:var(--display); font-size:26px; margin-top:auto; padding-top:18px;}
+  .price-card.hi{background:var(--ink); color:var(--paper);}
+
+  /* PRODUCTS */
+  .prod-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px; margin-top:44px;}
+  .prod-card{border:3px solid var(--ink); padding:24px; background:var(--paper);}
+  .prod-card .icon{font-size:26px;}
+  .prod-card h3{font-size:16.5px; margin:10px 0 8px;}
+  .prod-card p{font-size:14px; opacity:.8;}
+  .prod-card .price{font-family:var(--mono); font-weight:700; margin-top:14px; display:block;}
+
+  /* METHODOLOGY */
+  .method-list{margin-top:44px; display:flex; flex-direction:column; gap:0;}
+  .method-row{
+    display:grid; grid-template-columns:56px 1fr; gap:18px; align-items:center;
+    padding:14px 0; border-bottom:2px dashed rgba(10,10,10,.25);
+  }
+  .method-row .letter{
+    font-family:var(--display); font-size:30px; background:var(--ink); color:var(--yellow);
+    width:56px; height:56px; display:flex; align-items:center; justify-content:center;
+  }
+  .method-row .txt{font-family:var(--mono); font-size:15px;}
+  .method-row .txt b{font-family:var(--body); font-weight:700; text-transform:uppercase; font-size:16px;}
+
+  /* DASHBOARD */
+  .dash-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px; margin-top:44px; text-align:center;}
+  .dash-item{border:3px solid var(--paper); padding:26px 14px;}
+  .dash-num{font-family:var(--display); font-size:clamp(26px,4vw,38px); color:var(--yellow);}
+  .dash-label{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.06em; margin-top:8px; opacity:.85;}
+  .dash-footer{margin-top:40px; text-align:center;}
+  .dash-footer .pct{font-family:var(--display); font-size:clamp(50px,9vw,90px); color:var(--yellow);}
+
+  /* REVIEWS */
+  .review-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:44px;}
+  .review{border:3px solid var(--ink); background:var(--paper); padding:24px;}
+  .review .stars{color:var(--red); font-size:15px; letter-spacing:2px;}
+  .review p.quote{font-size:16px; margin-top:12px; font-weight:500;}
+  .review p.by{margin-top:14px; font-family:var(--mono); font-size:12.5px; opacity:.6; text-transform:uppercase;}
+
+  /* BEFORE AFTER */
+  .ba-flow{margin-top:44px; display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .ba-tag{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; opacity:.65;}
+  .ba-big{font-family:var(--display); font-size:clamp(24px,4vw,36px); text-align:center;}
+  .ba-arrow{font-size:22px; opacity:.5;}
+  .ba-step{font-family:var(--mono); font-size:14px; background:var(--paper); color:var(--ink); border:2px solid var(--ink); padding:8px 16px;}
+
+  /* FAQ */
+  .faq{margin-top:44px; border-top:3px solid var(--ink);}
+  .faq-item{border-bottom:3px solid var(--ink);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    font-family:var(--body); font-weight:700; font-size:18px; padding:22px 4px;
+    display:flex; justify-content:space-between; align-items:center; color:var(--ink);
+  }
+  .faq-q .plus{font-family:var(--display); font-size:22px; color:var(--red); transition:transform .2s;}
+  .faq-item[open] .plus{transform:rotate(45deg);}
+  .faq-a{padding:0 4px 24px; font-size:15.5px; opacity:.85; max-width:640px;}
+
+  /* SIGNATURE: SIX BUTTON BUTTON */
+  .sig{
+    margin-top:50px; border:3px solid var(--ink); background:var(--paper); color:var(--ink);
+    padding:40px; text-align:center;
+  }
+  .sig h3{font-size:20px; margin-bottom:6px;}
+  .sig p.instr{font-family:var(--mono); font-size:13px; opacity:.65; margin-bottom:26px;}
+  .six-btn-wrap{position:relative; width:260px; height:220px; margin:0 auto;}
+  .decoy, .real{
+    position:absolute; font-family:var(--mono); font-weight:700; font-size:13px;
+    padding:12px 18px; border:3px solid var(--ink); background:var(--yellow);
+    cursor:pointer; text-transform:uppercase; user-select:none;
+  }
+  .real{background:var(--green);}
+  .d1{top:0; left:20px;}
+  .d2{top:10px; right:0;}
+  .d3{top:80px; left:0;}
+  .d4{top:90px; right:10px;}
+  .d5{bottom:0; left:40px;}
+  .real{bottom:6px; right:20px;}
+  .sig-feedback{margin-top:26px; font-family:var(--mono); font-size:14px; min-height:24px;}
+  .sig-count{font-family:var(--mono); font-size:12px; opacity:.6; margin-top:6px;}
+
+  /* FOOTER */
+  .footer{padding:70px 0 40px; text-align:center;}
+  .footer .final-logo{font-size:clamp(30px,6vw,60px);}
+  .footer .btn{margin-top:30px;}
+  .fine{
+    margin-top:70px; text-align:left; max-width:640px; margin-left:auto; margin-right:auto;
+    font-family:var(--mono); font-size:11.5px; opacity:.55; line-height:1.7;
+  }
+  .fine b{opacity:.85;}
+
+  @media (max-width:860px){
+    .mission-grid, .services-grid, .price-grid, .review-grid, .dash-grid{grid-template-columns:1fr 1fr;}
+    .services-grid .service{border-right:none !important;}
+  }
+  @media (max-width:600px){
+    .block{padding:60px 0;}
+    .mission-grid, .services-grid, .price-grid, .review-grid, .dash-grid, .assess-box{grid-template-columns:1fr;}
+    .assess-side.input{border-right:none; border-bottom:3px solid var(--ink);}
+    .six-btn-wrap{width:100%; height:280px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-logo">🏢 THE UNNECESSARY <span>COMPANY™</span></div>
+    <a class="nav-cta" href="#complicate">Complicate Something</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="block bg-ink hero">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--yellow)">Est. never · Approved by nobody</span>
+    <h1>Life Is Too <span class="accent">Simple.</span></h1>
+    <div class="hero-sub">We Can Fix That.</div>
+    <p class="hero-lede">At The Unnecessary Company™, we believe simplicity has gone too far. We add unnecessary complexity to everyday life — professionally, systematically, and, most importantly, completely unnecessarily.</p>
+    <ul class="why-list">
+      <li>Click once when you can click six times</li>
+      <li>Sign one document when you can sign four</li>
+      <li>Make one decision when you can form a committee</li>
+      <li>Send one email when you can schedule a meeting about sending it</li>
+      <li>Walk directly somewhere when you can take a more complicated route</li>
+    </ul>
+    <div class="hero-final">That's <b>progress.</b></div>
+    <a class="btn btn-yellow" href="#complicate">Make My Life More Complicated</a>
+  </div>
+</header>
+
+<!-- MISSION -->
+<section class="block bg-yellow">
+  <div class="wrap">
+    <span class="eyebrow">Our Mission</span>
+    <h2 class="big">To eliminate unnecessary simplicity<br>from the modern world.</h2>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <p class="label">Our competitors ask</p>
+        <p class="line">"How can we make this easier?"</p>
+      </div>
+      <div class="mission-card">
+        <p class="label">We ask</p>
+        <p class="line">"How many additional steps can we reasonably introduce?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE SERVICES -->
+<section class="block bg-paper">
+  <div class="wrap">
+    <span class="eyebrow">Core Services</span>
+    <h2 class="big">Nine ways to make it worse.</h2>
+    <div class="services-grid">
+
+      <div class="service">
+        <span class="stamp">Optimized</span>
+        <span class="icon">🔘</span>
+        <h3>Button Optimization™</h3>
+        <p>Confirmation screen, secondary confirmation, loading animation, terms agreement, verification code, final confirmation. One click becomes seven clicks.</p>
+        <span class="price">7 clicks minimum</span>
+      </div>
+
+      <div class="service">
+        <span class="icon">📧</span>
+        <h3>Email Complication Services™</h3>
+        <p>"Can we meet tomorrow?" becomes a single 60-word sentence exploring the theoretical possibility of a conversational exchange.</p>
+        <span class="price">€19 per email</span>
+      </div>
+
+      <div class="service">
+        <span class="icon">🗓️</span>
+        <h3>Meeting Expansion™</h3>
+        <ul class="steps">
+          <li>Pre-Meeting Meeting</li>
+          <li>Meeting Preparation Meeting</li>
+          <li>Meeting</li>
+          <li>Post-Meeting Debrief</li>
+          <li>Debrief Alignment Session</li>
+        </ul>
+        <span class="price">€99 / question</span>
+      </div>
+
+      <div class="service">
+        <span class="icon">📝</span>
+        <h3>Form Creation Department</h3>
+        <p>"What's your name?" becomes a 14-field form covering name pronunciation, name category, and name confidence level. Because names are complicated.</p>
+        <span class="price">14 fields, minimum</span>
+      </div>
+
+      <div class="service">
+        <span class="stamp">47 sec</span>
+        <span class="icon">🚪</span>
+        <h3>Door Access Management™</h3>
+        <p>Scan QR → enter password → confirm identity → email → click email → return to door → confirm you're still you → press button → wait → door opens.</p>
+        <span class="price">Industry-leading</span>
+      </div>
+
+      <div class="service">
+        <span class="icon">☕</span>
+        <h3>Coffee Decision Services™</h3>
+        <p>We evaluate time of day, caffeine tolerance, weather, workload, emotional state, and moon phase — then schedule a Coffee Decision Meeting.</p>
+        <span class="price">€12</span>
+      </div>
+
+      <div class="service">
+        <span class="icon">📦</span>
+        <h3>Unnecessary Packaging™</h3>
+        <p>Box 1, inside Box 2, inside Box 3, inside Box 4, inside a much smaller box. Environmental impact: don't ask.</p>
+        <span class="price">4 boxes deep</span>
+      </div>
+
+      <div class="service">
+        <span class="icon">🔐</span>
+        <h3>Security for Things That Don't Need Security</h3>
+        <p>Your shopping list, birthday reminder, and sock inventory, protected by Military-Grade Unnecessary Encryption™. Good luck.</p>
+        <span class="price">XJ7-92A-••••-44</span>
+      </div>
+
+      <div class="service">
+        <span class="stamp">3–5 days</span>
+        <span class="icon">🧠</span>
+        <h3>Decision Complication</h3>
+        <p>Pizza or pasta? Our Decision Escalation Protocol™ runs through reflection, spreadsheet, committee, board meeting, and referendum.</p>
+        <span class="price">8 levels</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section class="block bg-blue">
+  <div class="wrap">
+    <span class="eyebrow">Org Chart</span>
+    <h2 class="big">Our Departments</h2>
+    <div class="dept-list">
+      <div class="dept">
+        <span class="mark">01</span>
+        <div><h3>Department of Additional Steps™</h3><p>We specialize in adding steps.</p></div>
+      </div>
+      <div class="dept">
+        <span class="mark">02</span>
+        <div><h3>Bureau of Needless Approvals™</h3><p>Nothing happens without approval. Including requesting approval.</p></div>
+      </div>
+      <div class="dept">
+        <span class="mark">03</span>
+        <div><h3>Office of Redundant Communication™</h3><p>We send an email confirming that we're going to send an email.</p></div>
+      </div>
+      <div class="dept">
+        <span class="mark">04</span>
+        <div><h3>Strategic Complexity Division™</h3><p>We make simple things sound strategic.</p></div>
+      </div>
+      <div class="dept">
+        <span class="mark">05</span>
+        <div><h3>Committee Formation Department™</h3><p>Every problem deserves a committee. Every committee deserves another committee.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLEXITY ASSESSMENT -->
+<section class="block bg-paper">
+  <div class="wrap">
+    <span class="eyebrow">The Complexity Assessment™</span>
+    <h2 class="big">Upload any simple task. We'll make it complicated.</h2>
+    <div class="assess-box">
+      <div class="assess-side input">
+        <p class="tag">Input</p>
+        <p class="value">"Buy milk."</p>
+      </div>
+      <div class="assess-side">
+        <p class="tag">Output</p>
+        <p class="value" style="font-size:19px;">Milk Procurement Strategic Initiative™</p>
+        <ol>
+          <li>Requirements gathering</li>
+          <li>Supplier analysis</li>
+          <li>Market research</li>
+          <li>Procurement committee</li>
+          <li>Milk evaluation</li>
+          <li>Purchase authorization</li>
+          <li>Milk acquisition</li>
+          <li>Milk implementation</li>
+        </ol>
+        <span class="eta">Estimated completion: Thursday</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="block bg-red">
+  <div class="wrap">
+    <span class="eyebrow">Complexity Levels</span>
+    <h2 class="big">Choose your inconvenience.</h2>
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="tier">🟢 Basic</span>
+        <h3>We add 2 unnecessary steps.</h3>
+        <span class="amt">€9</span>
+      </div>
+      <div class="price-card">
+        <span class="tier">🟡 Professional</span>
+        <h3>We add 5–10 steps.</h3>
+        <span class="amt">€29</span>
+      </div>
+      <div class="price-card">
+        <span class="tier">🟠 Enterprise</span>
+        <h3>We add whole departments.</h3>
+        <span class="amt">€199</span>
+      </div>
+      <div class="price-card hi">
+        <span class="tier" style="opacity:.7">🔴 Global Enterprise</span>
+        <h3>Committees, consultants, dashboards, KPIs, frameworks, workshops.</h3>
+        <span class="amt">€4,999/mo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="block bg-green">
+  <div class="wrap">
+    <span class="eyebrow">Our Products</span>
+    <h2 class="big">Merchandise you didn't need.</h2>
+    <div class="prod-grid">
+      <div class="prod-card"><span class="icon">📋</span><h3>The 47-Step Checklist™</h3><p>A checklist for completing a one-step task.</p><span class="price">€14.99</span></div>
+      <div class="prod-card"><span class="icon">🖊️</span><h3>The Approval Pen™</h3><p>A pen that requires authorization before writing.</p><span class="price">€39</span></div>
+      <div class="prod-card"><span class="icon">🔘</span><h3>The Six-Button Button™</h3><p>One button. Six buttons around it. Only one actually works.</p><span class="price">€29</span></div>
+      <div class="prod-card"><span class="icon">📊</span><h3>The Unnecessary Spreadsheet™</h3><p>47 columns, 18 tabs, 3 pivot tables, no useful information.</p><span class="price">€79</span></div>
+      <div class="prod-card"><span class="icon">🧾</span><h3>The Receipt for Your Receipt™</h3><p>Proof that you received your receipt.</p><span class="price">€4.99</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE SOLUTIONS -->
+<section class="block bg-ink">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--yellow)">Corporate Solutions</span>
+    <h2 class="big">Enterprise Complexity™</h2>
+    <p class="hero-lede" style="margin-top:16px;">Already have a complicated organization? We can make it worse. We'll introduce 14 new approval layers, 6 new meetings, 3 new dashboards, 11 new KPIs, 4 strategic frameworks, and 2 transformation initiatives. Plus one Chief Complexity Officer.</p>
+
+    <div class="sig">
+      <h3>Try the Six-Button Button™</h3>
+      <p class="instr">One of these six buttons works. Find it.</p>
+      <div class="six-btn-wrap">
+        <button class="decoy d1" data-fake>Click</button>
+        <button class="decoy d2" data-fake>Click</button>
+        <button class="decoy d3" data-fake>Click</button>
+        <button class="decoy d4" data-fake>Click</button>
+        <button class="decoy d5" data-fake>Click</button>
+        <button class="real" id="realBtn">Click</button>
+      </div>
+      <p class="sig-feedback" id="sigFeedback">Awaiting unnecessary input.</p>
+      <p class="sig-count" id="sigCount">Wrong clicks: 0</p>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="block bg-yellow">
+  <div class="wrap">
+    <span class="eyebrow">Our Signature Framework</span>
+    <h2 class="big">The UNNECESSARY™ Methodology</h2>
+    <div class="method-list">
+      <div class="method-row"><span class="letter">U</span><span class="txt"><b>Understand</b> the simple thing</span></div>
+      <div class="method-row"><span class="letter">N</span><span class="txt"><b>Notice</b> it is too simple</span></div>
+      <div class="method-row"><span class="letter">N</span><span class="txt"><b>Needlessly</b> expand it</span></div>
+      <div class="method-row"><span class="letter">E</span><span class="txt"><b>Establish</b> a committee</span></div>
+      <div class="method-row"><span class="letter">C</span><span class="txt"><b>Create</b> documentation</span></div>
+      <div class="method-row"><span class="letter">E</span><span class="txt"><b>Escalate</b></span></div>
+      <div class="method-row"><span class="letter">S</span><span class="txt"><b>Schedule</b> a meeting</span></div>
+      <div class="method-row"><span class="letter">S</span><span class="txt"><b>Schedule</b> another meeting</span></div>
+      <div class="method-row"><span class="letter">A</span><span class="txt"><b>Add</b> an approval</span></div>
+      <div class="method-row"><span class="letter">R</span><span class="txt"><b>Reassess</b></span></div>
+      <div class="method-row"><span class="letter">Y</span><span class="txt"><b>Eventually</b> do the original thing</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DASHBOARD -->
+<section class="block bg-purple">
+  <div class="wrap">
+    <span class="eyebrow">Live Complexity Dashboard</span>
+    <h2 class="big">Current Company Activity</h2>
+    <div class="dash-grid">
+      <div class="dash-item"><div class="dash-num" data-target="14822">0</div><div class="dash-label">📋 Unnecessary forms</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="82491">0</div><div class="dash-label">📧 Unnecessary emails</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="7281">0</div><div class="dash-label">📅 Unnecessary meetings</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="493">0</div><div class="dash-label">👥 Unnecessary committees</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="12884">0</div><div class="dash-label">🔐 Unnecessary passwords</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="2193">0</div><div class="dash-label">📊 Unnecessary dashboards</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="7441">0</div><div class="dash-label">🔘 Unnecessary clicks</div></div>
+      <div class="dash-item"><div class="dash-num" data-target="99.8" data-decimal="1">0</div><div class="dash-label">Simple things complicated (%)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="block bg-paper">
+  <div class="wrap">
+    <span class="eyebrow">Customer Reviews</span>
+    <h2 class="big">They asked for less. We gave them more.</h2>
+    <div class="review-grid">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="quote">I asked them to make my two-step process more efficient. They turned it into 19 steps. Outstanding.</p>
+        <p class="by">David, Operations</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="quote">I needed a yes or no answer. They organized a 45-minute meeting.</p>
+        <p class="by">Sarah, HR</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="quote">My team used to make decisions in five minutes. Now we have a six-week framework.</p>
+        <p class="by">Anonymous Executive</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="quote">I hired them to organize my files. I now have 37 folders containing 4 files.</p>
+        <p class="by">Michael</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE AFTER -->
+<section class="block bg-blue">
+  <div class="wrap" style="text-align:center;">
+    <span class="eyebrow">Before &amp; After</span>
+    <h2 class="big">Buy shoes.</h2>
+    <div class="ba-flow">
+      <div class="ba-tag">Before</div>
+      <div class="ba-big">Buy shoes.</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-tag">After</div>
+      <div class="ba-big">Global Footwear Acquisition Transformation Program™</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Requirements analysis</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Stakeholder alignment</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Supplier evaluation</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Strategic footwear committee</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Budget approval</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Procurement meeting</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-step">Executive sign-off</div>
+      <div class="ba-arrow">↓</div>
+      <div class="ba-tag">Finally</div>
+      <div class="ba-big">Buy shoes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block bg-paper">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="big">Questions, unnecessarily answered.</h2>
+    <div class="faq">
+      <details class="faq-item">
+        <summary class="faq-q">Why do you make things more complicated? <span class="plus">+</span></summary>
+        <p class="faq-a">Because somebody has to.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can you make things simpler? <span class="plus">+</span></summary>
+        <p class="faq-a">Yes. But that's not our business model.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How many steps does your onboarding have? <span class="plus">+</span></summary>
+        <p class="faq-a">We're not sure. The team responsible for counting them is currently waiting for approval.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Do I need a meeting? <span class="plus">+</span></summary>
+        <p class="faq-a">Probably.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can I cancel my subscription? <span class="plus">+</span></summary>
+        <p class="faq-a">Yes. Please complete our 14-page Cancellation Complexity Assessment Form™.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What happens if something is already complicated? <span class="plus">+</span></summary>
+        <p class="faq-a">Congratulations. You're one of our ideal customers.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<footer class="block bg-ink footer" id="complicate">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--yellow)">Final Notice</span>
+    <h2 class="big">Simple Is Overrated.</h2>
+    <h2 class="big" style="color:var(--yellow)">Complication Is Our Business.</h2>
+    <p class="hero-lede" style="margin:26px auto 0;">Why solve a problem in one step, when you can create a workflow, a committee, a dashboard, a framework, a strategic initiative?</p>
+    <a class="btn btn-yellow" href="#top">Complicate Something Now</a>
+
+    <div class="final-logo nav-logo" style="margin-top:80px; justify-content:center; display:flex; gap:10px;">🏢 THE UNNECESSARY <span style="color:var(--yellow)">COMPANY™</span></div>
+
+    <div class="fine">
+      <b>Fine print.</b> The Unnecessary Company™ is not responsible for unnecessary meetings, unnecessary paperwork, unnecessary passwords, unnecessary committees, unnecessary delays, unnecessary stress, or accidentally making something so complicated that nobody remembers what the original objective was.
+      <br><br>
+      <b>Our simplicity guarantee:</b> if anything we do accidentally makes your life simpler, we will immediately add three additional steps.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Six-Button Button interaction
+  (function(){
+    const feedback = document.getElementById('sigFeedback');
+    const countEl = document.getElementById('sigCount');
+    const fakes = document.querySelectorAll('[data-fake]');
+    const real = document.getElementById('realBtn');
+    let wrong = 0;
+    const wrongMsgs = [
+      "Not this one. Try again.",
+      "Close. Statistically.",
+      "That button files a report about itself.",
+      "Incorrect. Please schedule a retry meeting.",
+      "This button requires separate approval."
+    ];
+    fakes.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        wrong++;
+        feedback.textContent = wrongMsgs[Math.floor(Math.random()*wrongMsgs.length)];
+        countEl.textContent = "Wrong clicks: " + wrong;
+        btn.style.transform = "translateY(-2px)";
+        setTimeout(()=>btn.style.transform="",150);
+      });
+    });
+    real.addEventListener('click', ()=>{
+      feedback.textContent = "Step complete. That took " + (wrong+1) + " click" + (wrong===0?"":"s") + ". Unnecessary, but complete.";
+    });
+  })();
+
+  // Dashboard counters
+  (function(){
+    const nums = document.querySelectorAll('.dash-num');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.4});
+    nums.forEach(n=>observer.observe(n));
+
+    function animateCount(el){
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimal || "0");
+      if(reduceMotion){
+        el.textContent = target.toLocaleString(undefined,{minimumFractionDigits:decimals, maximumFractionDigits:decimals});
+        return;
+      }
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min((now-start)/duration, 1);
+        const eased = 1 - Math.pow(1-p, 3);
+        const val = target * eased;
+        el.textContent = val.toLocaleString(undefined,{minimumFractionDigits:decimals, maximumFractionDigits:decimals});
+        if(p<1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  })();
+</script>
+
+</body>
+</html>

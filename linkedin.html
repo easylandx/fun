@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Emergency Services™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --alert-red:#E8291C;
+    --siren-yellow:#FFD200;
+    --navy:#0B1730;
+    --navy-2:#122048;
+    --paper:#FFF8EC;
+    --safety-orange:#FF6A13;
+    --go-green:#00C853;
+    --ink:#0B1730;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  .display{font-family:'Archivo Black',sans-serif; text-transform:uppercase; line-height:0.95;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* ===== Hazard stripe divider ===== */
+  .hazard{
+    height:22px;
+    background:repeating-linear-gradient(135deg, var(--siren-yellow) 0 22px, var(--navy) 22px 44px);
+  }
+
+  /* ===== Top ticker bar ===== */
+  .ticker-bar{
+    background:var(--alert-red);
+    color:var(--white);
+    overflow:hidden;
+    white-space:nowrap;
+    border-bottom:4px solid var(--navy);
+  }
+  .ticker-track{
+    display:inline-block;
+    padding:10px 0;
+    animation:scroll-ticker 22s linear infinite;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.04em;
+  }
+  .ticker-track span{margin:0 2.5em;}
+  @keyframes scroll-ticker{
+    0%{transform:translateX(0%);}
+    100%{transform:translateX(-50%);}
+  }
+
+  /* ===== Nav ===== */
+  nav{
+    background:var(--navy);
+    color:var(--white);
+    padding:18px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    border-bottom:5px solid var(--siren-yellow);
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-badge{
+    width:40px;height:40px;
+    background:var(--alert-red);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;
+    box-shadow:0 0 0 4px var(--siren-yellow);
+    flex-shrink:0;
+  }
+  .brand-text{font-family:'Archivo Black',sans-serif; font-size:18px; letter-spacing:0.02em;}
+  .brand-text small{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--siren-yellow); font-weight:600; letter-spacing:0.1em; text-transform:uppercase;}
+  .nav-cta{
+    background:var(--siren-yellow);
+    color:var(--navy);
+    font-weight:800;
+    padding:10px 20px;
+    border-radius:4px;
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    cursor:pointer;
+    border:none;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--navy);
+    color:var(--white);
+    padding:80px 6% 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(232,41,28,0.35), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(255,210,0,0.18), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; max-width:900px; margin:0 auto; text-align:center;}
+  .siren-dot{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--alert-red);
+    padding:8px 18px;
+    border-radius:999px;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .siren-dot .pulse{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--white);
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0.15; } }
+  .hero h1{
+    font-size:clamp(38px, 7vw, 78px);
+    color:var(--white);
+    text-shadow:4px 4px 0 var(--alert-red);
+  }
+  .hero h1 .yellow{color:var(--siren-yellow); text-shadow:4px 4px 0 var(--navy-2);}
+  .hero p.sub{
+    margin-top:26px;
+    font-size:clamp(16px,2.4vw,20px);
+    font-weight:500;
+    color:#D7DEEE;
+    max-width:640px;
+    margin-left:auto;margin-right:auto;
+  }
+  .hero-cta-row{
+    margin-top:38px;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--alert-red);
+    color:var(--white);
+    font-weight:800;
+    font-size:15px;
+    padding:18px 34px;
+    border-radius:6px;
+    border:3px solid var(--white);
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    cursor:pointer;
+    box-shadow:0 6px 0 var(--navy-2);
+    transition:transform 0.1s;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-primary:active{transform:translateY(4px); box-shadow:0 2px 0 var(--navy-2);}
+  .response-time{
+    margin-top:18px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--siren-yellow);
+    letter-spacing:0.06em;
+  }
+
+  /* ===== Symptom marquee grid ===== */
+  .symptoms{
+    background:var(--paper);
+    padding:70px 6%;
+  }
+  .section-label{
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--alert-red);
+    margin-bottom:10px;
+  }
+  .section-title{
+    text-align:center;
+    font-size:clamp(26px,4vw,42px);
+    margin-bottom:40px;
+    color:var(--navy);
+  }
+  .symptom-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .symptom-card{
+    background:var(--white);
+    border:3px solid var(--navy);
+    border-radius:8px;
+    padding:20px 22px;
+    font-weight:600;
+    font-size:15px;
+    position:relative;
+    box-shadow:5px 5px 0 var(--siren-yellow);
+  }
+  .symptom-card::before{
+    content:"🚨";
+    margin-right:8px;
+  }
+
+  /* ===== Emergency levels ===== */
+  .levels{
+    background:var(--navy);
+    padding:80px 6%;
+    color:var(--white);
+  }
+  .levels .section-title{color:var(--white);}
+  .levels .section-label{color:var(--siren-yellow);}
+  .level-list{max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:18px;}
+  .level-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:24px;
+    background:var(--navy-2);
+    border-radius:10px;
+    padding:26px 28px;
+    align-items:start;
+    border-left:8px solid var(--go-green);
+  }
+  .level-row.l2{border-left-color:var(--siren-yellow);}
+  .level-row.l3{border-left-color:var(--safety-orange);}
+  .level-row.l4{border-left-color:var(--alert-red);}
+  .level-tag{
+    font-family:'Archivo Black',sans-serif;
+    font-size:15px;
+    color:var(--go-green);
+    letter-spacing:0.02em;
+  }
+  .level-row.l2 .level-tag{color:var(--siren-yellow);}
+  .level-row.l3 .level-tag{color:var(--safety-orange);}
+  .level-row.l4 .level-tag{color:var(--alert-red);}
+  .level-body h3{font-size:20px; margin-bottom:8px; font-weight:800;}
+  .level-body p{color:#C6CEE0; font-size:14px; line-height:1.6;}
+  .level-body p strong{color:var(--white);}
+
+  /* ===== Dashboard ===== */
+  .dashboard{
+    background:var(--ink);
+    background-image:linear-gradient(180deg, #0B1730 0%, #050B1A 100%);
+    padding:80px 6%;
+  }
+  .dashboard .section-title{color:var(--white);}
+  .dashboard .section-label{color:var(--go-green);}
+  .dash-panel{
+    max-width:760px;
+    margin:0 auto;
+    background:#050B1A;
+    border:3px solid var(--go-green);
+    border-radius:10px;
+    padding:28px;
+    font-family:'IBM Plex Mono',monospace;
+    box-shadow:0 0 40px rgba(0,200,83,0.15);
+  }
+  .dash-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 4px;
+    border-bottom:1px dashed rgba(255,255,255,0.12);
+    font-size:14px;
+    color:#D7DEEE;
+  }
+  .dash-row:last-child{border-bottom:none;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:10px;}
+  .dot.green{background:var(--go-green); box-shadow:0 0 8px var(--go-green); animation:blink 2s infinite;}
+  .dot.yellow{background:var(--siren-yellow); box-shadow:0 0 8px var(--siren-yellow); animation:blink 1.4s infinite;}
+  .dot.red{background:var(--alert-red); box-shadow:0 0 8px var(--alert-red); animation:blink 0.7s infinite;}
+  .dot.orange{background:var(--safety-orange); box-shadow:0 0 8px var(--safety-orange); animation:blink 1s infinite;}
+
+  /* ===== Packages ===== */
+  .packages{
+    background:var(--paper);
+    padding:80px 6%;
+  }
+  .package-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .package-card{
+    background:var(--white);
+    border-radius:12px;
+    padding:32px 28px;
+    border:4px solid var(--navy);
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .package-card.featured{
+    background:var(--alert-red);
+    color:var(--white);
+    border-color:var(--siren-yellow);
+    transform:scale(1.04);
+  }
+  .package-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--safety-orange);
+  }
+  .package-card.featured .package-eyebrow{color:var(--siren-yellow);}
+  .package-title{font-size:24px; font-weight:900;}
+  .package-price{font-size:34px; font-family:'Archivo Black',sans-serif;}
+  .package-list{list-style:none; display:flex; flex-direction:column; gap:8px; font-size:14px; font-weight:500;}
+  .package-list li::before{content:"✔ "; font-weight:800; color:var(--go-green);}
+  .package-card.featured .package-list li::before{color:var(--siren-yellow);}
+  .package-btn{
+    margin-top:auto;
+    background:var(--navy);
+    color:var(--white);
+    border:none;
+    padding:14px;
+    border-radius:6px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .package-card.featured .package-btn{background:var(--siren-yellow); color:var(--navy);}
+
+  /* ===== Reviews ===== */
+  .reviews{
+    background:var(--siren-yellow);
+    padding:80px 6%;
+  }
+  .reviews .section-label{color:var(--alert-red);}
+  .review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .review-card{
+    background:var(--navy);
+    color:var(--white);
+    border-radius:10px;
+    padding:22px 24px;
+  }
+  .stars{color:var(--siren-yellow); font-size:16px; margin-bottom:10px; letter-spacing:2px;}
+  .review-quote{font-size:14px; line-height:1.6; margin-bottom:14px;}
+  .review-author{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--siren-yellow);}
+
+  /* ===== Final CTA ===== */
+  .final-cta{
+    background:var(--alert-red);
+    color:var(--white);
+    text-align:center;
+    padding:90px 6%;
+    position:relative;
+    overflow:hidden;
+  }
+  .final-cta h2{
+    font-size:clamp(30px,5vw,56px);
+    text-shadow:4px 4px 0 var(--navy);
+  }
+  .final-cta p{
+    margin-top:20px;
+    font-size:17px;
+    font-weight:600;
+    color:#FFE3DD;
+  }
+  .hotline{
+    margin-top:30px;
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(24px,5vw,44px);
+    letter-spacing:0.02em;
+    color:var(--siren-yellow);
+  }
+  .final-cta .btn-primary{
+    background:var(--navy);
+    margin-top:34px;
+    border-color:var(--siren-yellow);
+    box-shadow:0 6px 0 #04070f;
+  }
+
+  /* ===== Disclaimer / footer ===== */
+  footer{
+    background:var(--navy);
+    color:#9AA6C2;
+    padding:40px 6%;
+    text-align:center;
+    font-size:12.5px;
+    line-height:1.8;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  footer strong{color:var(--white);}
+
+  @media (max-width:600px){
+    .level-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span>🚨 LIVE ALERT: A POST RECEIVED 4 IMPRESSIONS IN 37 MINUTES</span>
+    <span>🚨 BOSS PROFILE VIEW DETECTED — SITUATION UNCLEAR</span>
+    <span>🚨 CONNECTION REQUEST FROM UNKNOWN PROFESSIONAL — RESPONDING NOW</span>
+    <span>🚨 "GREAT POST!" COMMENT RECEIVED — REPLY UNIT DISPATCHED</span>
+    <span>🚨 LIVE ALERT: A POST RECEIVED 4 IMPRESSIONS IN 37 MINUTES</span>
+    <span>🚨 BOSS PROFILE VIEW DETECTED — SITUATION UNCLEAR</span>
+    <span>🚨 CONNECTION REQUEST FROM UNKNOWN PROFESSIONAL — RESPONDING NOW</span>
+    <span>🚨 "GREAT POST!" COMMENT RECEIVED — REPLY UNIT DISPATCHED</span>
+  </div>
+</div>
+
+<nav>
+  <div class="brand">
+    <div class="brand-badge">🚑</div>
+    <div class="brand-text">LINKEDIN EMERGENCY SERVICES™
+      <small>24/7 Professional Crisis Response</small>
+    </div>
+  </div>
+  <button class="nav-cta">Report an Emergency</button>
+</nav>
+
+<div class="hazard"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="siren-dot"><span class="pulse"></span> DISPATCH ACTIVE — UNITS ON STANDBY</div>
+    <h1 class="display">IS YOUR <span class="yellow">LINKEDIN</span> HAVING AN EMERGENCY?</h1>
+    <p class="sub">Don't panic. Our certified LinkedIn Emergency Response Team™ is standing by, because your professional life should never be left unattended.</p>
+    <div class="hero-cta-row">
+      <button class="btn-primary">📞 Report an Emergency</button>
+    </div>
+    <div class="response-time">AVG. RESPONSE TIME: 4–7 BUSINESS MINUTES</div>
+  </div>
+</section>
+
+<div class="hazard"></div>
+
+<section class="symptoms">
+  <div class="section-label">Incident Log</div>
+  <h2 class="section-title display">This Is Not A Drill</h2>
+  <div class="symptom-grid">
+    <div class="symptom-card">Nobody liked your post.</div>
+    <div class="symptom-card">Your boss viewed your profile.</div>
+    <div class="symptom-card">Someone said "Let's connect."</div>
+    <div class="symptom-card">You liked a post from 2019.</div>
+    <div class="symptom-card">"Open to Work" for 17 minutes.</div>
+    <div class="symptom-card">Your headline feels inadequate.</div>
+    <div class="symptom-card">Someone asked for a coffee chat.</div>
+    <div class="symptom-card">You must congratulate a stranger.</div>
+    <div class="symptom-card">Your post got 3 impressions.</div>
+    <div class="symptom-card">Someone commented "Great post!"</div>
+  </div>
+</section>
+
+<section class="levels">
+  <div class="section-label">Triage Protocol</div>
+  <h2 class="section-title display">Emergency Levels</h2>
+  <div class="level-list">
+    <div class="level-row l1">
+      <div class="level-tag">LEVEL 1<br>MINOR</div>
+      <div class="level-body">
+        <h3>🟢 "Nobody liked my post."</h3>
+        <p>Symptoms: refreshing every 30 seconds, checking impressions, rewriting the opening sentence, blaming the algorithm.<br><strong>Response:</strong> Algorithm Observation Unit™ — we'll monitor the situation.</p>
+      </div>
+    </div>
+    <div class="level-row l2">
+      <div class="level-tag">LEVEL 2<br>SERIOUS</div>
+      <div class="level-body">
+        <h3>🟡 "My boss viewed my profile."</h3>
+        <p>Potential causes: promotion, curiosity, restructuring, or absolutely nothing.<br><strong>Response:</strong> Executive Profile Response Team™ — immediate headline, About-section, and photo optimization.</p>
+      </div>
+    </div>
+    <div class="level-row l3">
+      <div class="level-tag">LEVEL 3<br>CRITICAL</div>
+      <div class="level-body">
+        <h3>🟠 "I accidentally liked a post from 2017."</h3>
+        <p><strong>Do not panic. Do not unlike. Do not touch the computer.</strong> Our team will guide you through the situation. Estimated containment time: 3 minutes.</p>
+      </div>
+    </div>
+    <div class="level-row l4">
+      <div class="level-tag">LEVEL 4<br>CATASTROPHIC</div>
+      <div class="level-body">
+        <h3>🔴 You posted, and nobody commented.</h3>
+        <p>Current engagement: 0 comments, 0 shares, 4 impressions.<br><strong>Response:</strong> Emergency Engagement Unit™ dispatched immediately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dashboard">
+  <div class="section-label">Situation Room</div>
+  <h2 class="section-title display">Live Emergency Dashboard</h2>
+  <div class="dash-panel">
+    <div class="dash-row"><span><span class="dot green"></span>Platform</span><span>OPERATIONAL</span></div>
+    <div class="dash-row"><span><span class="dot green"></span>Profile</span><span>VISIBLE</span></div>
+    <div class="dash-row"><span><span class="dot yellow"></span>Engagement</span><span>CONCERNING</span></div>
+    <div class="dash-row"><span><span class="dot red"></span>Last post</span><span>7 IMPRESSIONS</span></div>
+    <div class="dash-row"><span><span class="dot orange"></span>Boss profile view</span><span>DETECTED</span></div>
+    <div class="dash-row"><span><span class="dot red"></span>Connection requests</span><span>0</span></div>
+    <div class="dash-row"><span><span class="dot green"></span>Professional anxiety</span><span>INCREASING</span></div>
+  </div>
+</section>
+
+<section class="packages">
+  <div class="section-label">Coverage Plans</div>
+  <h2 class="section-title display">Emergency Packages</h2>
+  <div class="package-grid">
+    <div class="package-card">
+      <div class="package-eyebrow">🩹 Basic</div>
+      <div class="package-title">LinkedIn First Aid™</div>
+      <div class="package-price">€19</div>
+      <ul class="package-list">
+        <li>One emergency consultation</li>
+        <li>One post rescue</li>
+        <li>One comment response</li>
+      </ul>
+      <button class="package-btn">Get Covered</button>
+    </div>
+    <div class="package-card featured">
+      <div class="package-eyebrow">🚑 Professional</div>
+      <div class="package-title">LinkedIn Emergency Response™</div>
+      <div class="package-price">€79</div>
+      <ul class="package-list">
+        <li>Profile analysis</li>
+        <li>Post rescue</li>
+        <li>10 comments</li>
+        <li>5 connection responses</li>
+        <li>Emergency headline replacement</li>
+      </ul>
+      <button class="package-btn">Get Covered</button>
+    </div>
+    <div class="package-card">
+      <div class="package-eyebrow">🚁 Executive</div>
+      <div class="package-title">LinkedIn Executive Crisis Unit™</div>
+      <div class="package-price">€499<span style="font-size:15px;">/mo</span></div>
+      <ul class="package-list">
+        <li>24/7 personal brand management</li>
+        <li>Post & comment emergencies</li>
+        <li>Boss-view analysis</li>
+        <li>Strategic congratulations</li>
+        <li>Executive buzzword deployment</li>
+      </ul>
+      <button class="package-btn">Get Covered</button>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="section-label">Field Reports</div>
+  <h2 class="section-title display" style="color:var(--navy);">Customer Reviews</h2>
+  <div class="review-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-quote">"My post had 3 impressions. They got it to 7. Incredible."</div>
+      <div class="review-author">— Carlos, Marketing</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-quote">"I accidentally liked my CEO's post from 2018. They saved my career."</div>
+      <div class="review-author">— Anonymous</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-quote">"My boss viewed my profile. They convinced me it probably meant nothing."</div>
+      <div class="review-author">— Sarah, Finance</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-quote">"Someone commented 'Interesting.' I didn't know what to say. They responded for me."</div>
+      <div class="review-author">— David, Sales</div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2 class="display">YOUR LINKEDIN NEEDS YOU.<br>AND YOU NEED US.</h2>
+  <p>Low engagement. Awkward comments. Boss profile views. Unnecessary networking. Unexplained algorithm changes. We've seen it all.</p>
+  <div class="hotline">📞 1-800-LINKEDIN</div>
+  <button class="btn-primary">Call The Professionals</button>
+</section>
+
+<footer>
+  <strong>⚠️ Disclaimer</strong><br>
+  LinkedIn Emergency Services™ is not affiliated with LinkedIn. We cannot actually control the algorithm.
+  We cannot guarantee engagement. We cannot determine why your boss viewed your profile.
+  We cannot prevent you from liking a post from 2018. We definitely cannot explain why your post about
+  "5 Lessons I Learned From My Dog" performed better than your actual professional announcement.<br><br>
+  But we can make the situation considerably more professional.
+</footer>
+
+</body>
+</html>
