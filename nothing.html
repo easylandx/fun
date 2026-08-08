@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nothing Important Inc.™ — We Specialize in Things That Don't Matter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E90FF;          /* bright blue (was dark ink) */
+    --ink-deep:#0D6EFD;     /* deeper bright blue */
+    --forest:#00BFFF;       /* bright sky blue (was forest) */
+    --forest-deep:#0099CC;  /* deeper sky blue */
+    --brick:#FFD700;        /* bright yellow/gold (was brick red) */
+    --brick-deep:#FFC107;   /* deeper yellow */
+    --manila:#FFF9E6;       /* soft warm yellow-white */
+    --paper:#FFFFFF;        /* pure white */
+    --slate:#4FC3F7;        /* light bright blue */
+    --line: rgba(30,144,255,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--manila);color:#1a1a1a;overflow-x:hidden;}
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.005em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  section{padding:96px 0;position:relative;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.14em;
+    text-transform:uppercase;font-weight:700;display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
+  }
+  .eyebrow::before{content:"§";font-size:15px;}
+
+  /* redacted bar decoration */
+  .redact{display:inline-block;background:var(--ink);color:transparent;border-radius:2px;padding:1px 6px;user-select:none;}
+
+  /* ===== NAV ===== */
+  header{position:sticky;top:0;z-index:100;background:var(--ink);border-bottom:3px solid var(--brick);}
+  .navbar{max-width:1120px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Oswald',sans-serif;color:var(--paper);font-weight:700;font-size:18px;text-transform:uppercase;display:flex;align-items:center;gap:9px;}
+  .logo .badge{background:var(--brick);color:#1a1a1a;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;padding:3px 6px;border-radius:2px;}
+  nav.links{display:flex;gap:30px;}
+  nav.links a{color:var(--manila);font-size:13.5px;font-weight:600;opacity:0.85;transition:opacity .2s;text-transform:uppercase;letter-spacing:0.03em;}
+  nav.links a:hover{opacity:1;}
+  .nav-cta{background:var(--brick);color:#1a1a1a;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:0.05em;padding:10px 18px;border-radius:2px;}
+
+  /* ===== BUTTONS ===== */
+  .btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:0.04em;padding:15px 26px;border-radius:2px;border:2px solid transparent;cursor:pointer;transition:transform .15s, box-shadow .15s;}
+  .btn-primary{background:var(--brick);color:#1a1a1a;box-shadow:5px 5px 0 var(--ink-deep);}
+  .btn-primary:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink-deep);}
+  .btn-outline-dark{border-color:var(--ink);color:var(--ink);background:transparent;}
+  .btn-outline-dark:hover{background:var(--ink);color:var(--paper);}
+  .btn-outline-light{border-color:var(--paper);color:var(--paper);}
+  .btn-outline-light:hover{background:var(--paper);color:var(--ink);}
+  .btn-forest{background:var(--forest);color:#1a1a1a;box-shadow:5px 5px 0 var(--brick);}
+  .btn-forest:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--brick);}
+
+  /* ===== HERO ===== */
+  .hero{background:var(--ink);color:var(--paper);padding:100px 0 120px;}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+  .hero .eyebrow{color:var(--brick);}
+  .hero h1{font-size:clamp(38px,5.2vw,62px);color:var(--paper);}
+  .hero h1 .no{color:var(--brick);}
+  .hero .sub{font-size:18px;color:var(--manila);opacity:0.9;max-width:480px;margin:18px 0 30px;line-height:1.55;}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;}
+  .hero .est{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate);letter-spacing:0.03em;}
+
+  /* stamp signature */
+  .stamp-card{background:var(--paper);color:#1a1a1a;border-radius:3px;padding:30px;box-shadow:10px 14px 0 rgba(13,110,253,0.35);position:relative;transform:rotate(-1.5deg);}
+  .memo-head{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;border-bottom:2px dashed var(--line);padding-bottom:12px;margin-bottom:16px;display:flex;justify-content:space-between;}
+  .memo-line{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:7px 0;border-top:1px solid var(--line);}
+  .memo-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;margin-bottom:6px;}
+  .stamp-mark{
+    position:absolute;top:18px;right:-14px;border:3px solid var(--brick-deep);color:var(--brick-deep);
+    font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13px;padding:8px 14px;border-radius:4px;
+    transform:rotate(11deg);letter-spacing:0.06em;background:rgba(255,215,0,0.12);
+  }
+
+  /* ===== SECTION HEADS ===== */
+  .sec-head{max-width:640px;margin-bottom:52px;}
+  .sec-head h2{font-size:clamp(27px,3.8vw,42px);}
+  .sec-head p{font-size:16.5px;margin-top:12px;line-height:1.55;opacity:0.85;}
+
+  /* ===== MISSION (manila) ===== */
+  .mission{background:var(--manila);}
+  .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  .compare{display:flex;flex-direction:column;gap:16px;}
+  .compare .row{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:14px;}
+  .compare .them{background:var(--paper);border:2px solid var(--line);}
+  .compare .us{background:var(--forest);color:#1a1a1a;}
+  .mission-note{background:var(--ink);color:var(--paper);padding:30px;border-radius:3px;}
+  .mission-note p{font-size:17px;line-height:1.6;}
+  .mission-note strong{color:var(--brick);}
+
+  /* ===== SERVICES (forest) ===== */
+  .services{background:var(--forest);color:#1a1a1a;}
+  .services .eyebrow{color:#004d66;}
+  .services .sec-head h2{color:#1a1a1a;}
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .svc-card{background:var(--paper);color:#1a1a1a;border-radius:3px;padding:24px 20px;box-shadow:6px 6px 0 var(--ink-deep);}
+  .svc-card h3{font-size:16px;margin-bottom:10px;}
+  .svc-card ul{list-style:none;font-size:13px;line-height:1.9;margin:10px 0;opacity:0.8;}
+  .svc-card ul li::before{content:"– ";}
+  .svc-price{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:19px;color:var(--ink-deep);margin-top:10px;}
+
+  /* ===== PREMIUM (manila / cards) ===== */
+  .premium{background:var(--manila);}
+  .prem-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .prem-card{background:var(--paper);border:3px solid var(--ink);border-radius:3px;padding:32px;}
+  .prem-card.hi{background:var(--brick);border-color:var(--brick);color:#1a1a1a;}
+  .prem-flag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;background:var(--ink);color:var(--paper);display:inline-block;padding:4px 9px;border-radius:2px;margin-bottom:14px;}
+  .prem-card.hi .prem-flag{background:var(--ink-deep);color:var(--paper);}
+  .prem-card h3{font-size:21px;margin-bottom:6px;}
+  .prem-price{font-family:'Oswald',sans-serif;font-weight:700;font-size:32px;margin:8px 0 16px;}
+  .prem-card ul{list-style:none;font-size:14px;line-height:2;opacity:0.85;}
+  .prem-card ul li::before{content:"✓ ";font-weight:700;}
+  .prem-card .btn{margin-top:20px;}
+
+  /* ===== DEPARTMENTS (brick / yellow) ===== */
+  .depts{background:var(--brick);color:#1a1a1a;}
+  .depts .eyebrow{color:var(--ink-deep);}
+  .dept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .dept-card{background:var(--ink);border-radius:3px;padding:26px;color:var(--paper);}
+  .dept-card h3{font-size:17px;margin-bottom:12px;color:var(--brick);}
+  .dept-card .q{font-family:'IBM Plex Mono',monospace;font-size:13px;opacity:0.85;padding:6px 0;border-top:1px solid rgba(255,255,255,0.25);}
+  .dept-card p.desc{font-size:14px;opacity:0.85;line-height:1.5;}
+  .dept-card .rate{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:22px;color:var(--brick);margin-top:8px;}
+
+  /* ===== PRODUCTS (manila) ===== */
+  .products{background:var(--manila);}
+  .prod-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .prod-card{background:var(--paper);border-radius:3px;padding:20px;text-align:center;border:2px solid var(--line);}
+  .prod-card h3{font-size:14px;margin-bottom:8px;line-height:1.3;}
+  .prod-card p{font-size:12px;opacity:0.7;margin-bottom:10px;line-height:1.45;}
+  .prod-price{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:16px;color:var(--ink-deep);}
+
+  /* ===== CLIENTS (ink / blue) ===== */
+  .clients{background:var(--ink);color:var(--paper);text-align:center;}
+  .clients .eyebrow{color:var(--brick);justify-content:center;}
+  .clients h2{color:var(--paper);margin-bottom:40px;}
+  .client-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .client-card{background:var(--ink-deep);border-radius:3px;padding:24px 18px;border-top:3px solid var(--brick);}
+  .client-card h3{font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.02em;}
+  .client-card p{font-size:12.5px;opacity:0.75;}
+
+  /* ===== REVIEWS (manila) ===== */
+  .reviews{background:var(--manila);}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .review-card{background:var(--paper);border-radius:3px;padding:24px;border:1px solid var(--line);}
+  .stars{color:var(--brick-deep);font-size:14px;margin-bottom:12px;letter-spacing:2px;}
+  .review-card p.quote{font-size:14.5px;line-height:1.55;margin-bottom:14px;}
+  .review-card .who{font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:0.55;}
+
+  /* ===== DASHBOARD (forest) ===== */
+  .dashboard{background:var(--forest-deep);color:var(--paper);}
+  .dashboard .eyebrow{color:var(--brick);}
+  .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.2);border-radius:3px;overflow:hidden;margin-bottom:40px;}
+  .dash-cell{background:var(--forest);padding:26px 20px;color:#1a1a1a;}
+  .dash-cell .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:24px;color:#004d66;}
+  .dash-cell .lbl{font-size:12.5px;opacity:0.85;margin-top:6px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .kpi-card{background:var(--ink-deep);padding:24px;border-radius:3px;text-align:center;color:var(--paper);}
+  .kpi-card .n{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:26px;color:var(--brick);}
+  .kpi-card .l{font-size:12.5px;opacity:0.8;margin-top:8px;text-transform:uppercase;letter-spacing:0.03em;}
+
+  /* ===== APP (manila) ===== */
+  .app{background:var(--manila);}
+  .app-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .app-card{background:var(--paper);border-radius:3px;padding:26px;border-left:4px solid var(--brick);}
+  .app-card h3{font-size:16px;margin-bottom:10px;}
+  .app-card p{font-size:13.5px;line-height:1.55;opacity:0.8;}
+
+  /* ===== AI (ink) ===== */
+  .ai{background:var(--ink);color:var(--paper);}
+  .ai .eyebrow{color:var(--brick);}
+  .ai-grid{max-width:640px;}
+  .ai-row{background:var(--ink-deep);border-radius:3px;padding:20px 24px;margin-bottom:12px;}
+  .ai-q{font-family:'IBM Plex Mono',monospace;font-size:13.5px;opacity:0.8;margin-bottom:8px;}
+  .ai-a{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;color:var(--brick);text-transform:uppercase;}
+
+  /* ===== FAQ (brick / yellow) ===== */
+  .faq{background:var(--brick);color:#1a1a1a;}
+  .faq .eyebrow{color:var(--ink-deep);}
+  .faq-list{max-width:760px;}
+  .faq-item{background:var(--paper);color:#1a1a1a;border-radius:3px;margin-bottom:10px;overflow:hidden;}
+  .faq-q{padding:19px 22px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;font-size:15.5px;}
+  .faq-q .plus{font-family:'IBM Plex Mono',monospace;font-size:19px;color:var(--ink-deep);transition:transform .2s;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{padding:0 22px 19px;font-size:14px;line-height:1.5;opacity:0.8;}
+
+  /* ===== CAREERS (manila) ===== */
+  .careers{background:var(--manila);}
+  .job-list{display:flex;flex-direction:column;gap:2px;border-top:2px solid var(--line);}
+  .job-row{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:2px solid var(--line);}
+  .job-row .title{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;}
+  .job-row .req{font-size:13.5px;opacity:0.7;margin-top:4px;}
+  .job-row .apply{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:2px;white-space:nowrap;}
+
+  /* ===== HOF (forest) ===== */
+  .hof{background:var(--forest);color:#1a1a1a;}
+  .hof .eyebrow{color:#004d66;}
+  .hof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .hof-card{background:var(--forest-deep);border-radius:3px;padding:26px;color:var(--paper);}
+  .hof-card .trophy{font-size:24px;margin-bottom:10px;}
+  .hof-card h3{font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;opacity:0.75;margin-bottom:10px;letter-spacing:0.04em;}
+  .hof-card p{font-size:14px;line-height:1.5;opacity:0.95;}
+
+  /* ===== GUARANTEE (ink) ===== */
+  .guarantee{background:var(--ink);color:var(--paper);text-align:center;}
+  .guarantee .eyebrow{color:var(--brick);justify-content:center;}
+  .guarantee h2{font-size:clamp(26px,4.2vw,40px);max-width:680px;margin:0 auto 16px;}
+  .guarantee p{max-width:520px;margin:0 auto;font-size:15.5px;opacity:0.9;}
+
+  /* ===== FINAL (brick / yellow) ===== */
+  .final{background:var(--brick);color:#1a1a1a;text-align:center;}
+  .final .eyebrow{color:var(--ink-deep);justify-content:center;}
+  .final h2{font-size:clamp(30px,5.2vw,54px);margin-bottom:10px;}
+  .final h3.sub2{font-size:clamp(18px,2.6vw,26px);opacity:0.85;margin-bottom:28px;}
+  .final-copy{max-width:540px;margin:0 auto 30px;font-size:15.5px;line-height:1.6;opacity:0.9;}
+  .fine-print{max-width:640px;margin:56px auto 0;font-size:12px;opacity:0.8;line-height:1.7;text-align:left;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--ink-deep);color:var(--manila);padding:40px 0;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  .foot-row .logo{color:var(--paper);}
+  .foot-tag{font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:0.7;}
+
+  /* ===== REVEAL ===== */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease, transform .55s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:980px){
+    nav.links{display:none;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .stamp-card{max-width:380px;justify-self:center;}
+    .mission-grid{grid-template-columns:1fr;}
+    .svc-grid{grid-template-columns:repeat(2,1fr);}
+    .prem-grid{grid-template-columns:1fr;}
+    .dept-grid{grid-template-columns:1fr;}
+    .prod-grid{grid-template-columns:repeat(3,1fr);}
+    .client-grid{grid-template-columns:repeat(2,1fr);}
+    .review-grid{grid-template-columns:1fr;}
+    .dash-grid{grid-template-columns:repeat(2,1fr);}
+    .kpi-row{grid-template-columns:1fr;}
+    .app-grid{grid-template-columns:1fr;}
+    .hof-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    section{padding:64px 0;}
+    .wrap{padding:0 20px;}
+    .svc-grid,.prod-grid{grid-template-columns:repeat(2,1fr);}
+    .hero .cta-row{flex-direction:column;align-items:stretch;}
+    .job-row{flex-direction:column;align-items:flex-start;gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">🏢 NOTHING IMPORTANT INC. <span class="badge">™</span></div>
+    <nav class="links">
+      <a href="#services">Services</a>
+      <a href="#premium">Premium</a>
+      <a href="#faq">FAQ</a>
+      <a href="#careers">Careers</a>
+    </nav>
+    <a href="#hire" class="nav-cta">Hire Us</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="reveal in">
+      <div class="eyebrow">Est. 1987 · Fortune Irrelevant 500</div>
+      <h1>Is it important? <span class="no">Probably not.</span></h1>
+      <p class="sub">There are companies solving climate change, building rockets, curing diseases. And then there's us. We handle spoon selection, missing socks, and the fourth fridge check of the day.</p>
+      <div class="cta-row">
+        <a href="#hire" class="btn btn-primary">😐 Hire Us</a>
+        <a href="#services" class="btn btn-outline-light">📋 View Unnecessary Services</a>
+      </div>
+      <div class="est">SINCE 1987 · ZERO MEANINGFUL DIFFERENCE MADE</div>
+    </div>
+    <div class="reveal in">
+      <div class="stamp-card">
+        <div class="stamp-mark">APPROVED:<br>INSIGNIFICANT</div>
+        <div class="memo-head"><span>MEMO NO. 0847-B</span><span>CONFIDENTIAL*</span></div>
+        <div class="memo-title">Subject: Which Spoon</div>
+        <div class="memo-line"><span>Filed by</span><span>Dept. of Minor Decisions</span></div>
+        <div class="memo-line"><span>Priority</span><span>None Whatsoever</span></div>
+        <div class="memo-line"><span>Status</span><span>Under Review (3 yrs)</span></div>
+        <div class="memo-line"><span>Impact</span><span><span class="redact">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mission">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--ink-deep);">Our Mission</div>
+      <h2>To make unimportant things unnecessarily professional.</h2>
+    </div>
+    <div class="mission-grid">
+      <div class="compare reveal">
+        <div class="row them"><span>Our competitors deal with</span><strong>Important Things™</strong></div>
+        <div class="row us"><span>We deal with</span><strong>Things That Could Easily Wait</strong></div>
+      </div>
+      <div class="mission-note reveal">
+        <p>Our corporate philosophy is simple: <strong>if it doesn't matter, we're interested.</strong> We believe the world already has enough serious businesses — someone has to handle the rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">What We Do</div>
+      <h2 style="color:#1a1a1a;">Four core competencies. Zero net value.</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <h3>🥄 Spoon Selection Services</h3>
+        <ul><li>Soup density analysis</li><li>Emotional state review</li><li>Spoon aesthetics</li><li>Current weather</li></ul>
+        <div class="svc-price">From $4</div>
+      </div>
+      <div class="svc-card reveal">
+        <h3>📱 Text Message Analysis</h3>
+        <ul><li>"ok" vs "ok." vs "OK"</li><li>Anger detection</li><li>Business use only</li></ul>
+        <div class="svc-price">$12 <span style="font-size:11px;opacity:0.6;">/ 2–4 biz days</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <h3>🧦 Missing Sock Investigations</h3>
+        <ul><li>Washing machine sweep</li><li>Dryer forensics</li><li>Parallel universes</li></ul>
+        <div class="svc-price">$9 case fee</div>
+      </div>
+      <div class="svc-card reveal">
+        <h3>🧊 Refrigerator Reinspection</h3>
+        <ul><li>Full second inspection</li><li>Nothing has changed</li><li>Perhaps something happened</li></ul>
+        <div class="svc-price">$3.99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="premium" id="premium">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--ink-deep);">Premium Services</div>
+      <h2>For nothing, done at an executive level.</h2>
+    </div>
+    <div class="prem-grid">
+      <div class="prem-card reveal">
+        <div class="prem-flag">Executive Tier</div>
+        <h3>Executive Nothing™</h3>
+        <div class="prem-price">$49/mo</div>
+        <ul>
+          <li>Premium nothing</li>
+          <li>Priority nothing</li>
+          <li>Nothing concierge</li>
+          <li>Dedicated nothing manager</li>
+        </ul>
+        <a href="#" class="btn btn-outline-dark">Subscribe</a>
+      </div>
+      <div class="prem-card hi reveal">
+        <div class="prem-flag">Most Unnecessary</div>
+        <h3>Nothing Important Platinum</h3>
+        <div class="prem-price">$199/mo</div>
+        <ul>
+          <li>Unlimited trivial questions</li>
+          <li>Priority spoon selection</li>
+          <li>Advanced sock investigations</li>
+          <li>Emergency "What Should I Watch?"</li>
+          <li>Quarterly Nothing Report</li>
+        </ul>
+        <a href="#" class="btn btn-outline-dark">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="depts">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Our Departments</div>
+      <h2 style="color:#1a1a1a;">Five departments. One purpose: none.</h2>
+    </div>
+    <div class="dept-grid">
+      <div class="dept-card reveal">
+        <h3>Dept. of Minor Decisions</h3>
+        <div class="q">"Should I have coffee?"</div>
+        <div class="q">"Should I wear the blue shirt?"</div>
+      </div>
+      <div class="dept-card reveal">
+        <h3>Dept. of Unnecessary Thoughts</h3>
+        <p class="desc">Investigating why birds walk like that, whether fish know they're wet, and why "queue" needs four silent letters.</p>
+      </div>
+      <div class="dept-card reveal">
+        <h3>Entertainment Selection Bureau</h3>
+        <p class="desc">You have 4,812 things available to watch. You will watch nothing. We understand.</p>
+      </div>
+      <div class="dept-card reveal">
+        <h3>Bedtime Negotiation Dept.</h3>
+        <p class="desc">We negotiate with you about "one more episode."</p>
+        <div class="rate">0% success rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--ink-deep);">Unnecessary Products</div>
+      <h2>Merchandise nobody asked for.</h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card reveal"><h3>🧠 The Nothing Box™</h3><p>Open it. There's nothing inside.</p><div class="prod-price">$29.99</div></div>
+      <div class="prod-card reveal"><h3>📦 Premium Empty Package™</h3><p>Beautifully packaged emptiness with tracking number.</p><div class="prod-price">$39</div></div>
+      <div class="prod-card reveal"><h3>📝 Blank To-Do List™</h3><p>Three lines. All blank.</p><div class="prod-price">$7</div></div>
+      <div class="prod-card reveal"><h3>⏰ Five-Minute Reminder™</h3><p>We'll remind you that five minutes passed.</p><div class="prod-price">$2</div></div>
+      <div class="prod-card reveal"><h3>🥔 Emergency Potato™</h3><p>We don't know why. You just might need one.</p><div class="prod-price">$4.99</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="clients">
+  <div class="wrap">
+    <div class="eyebrow reveal">Our Corporate Clients</div>
+    <h2 class="reveal">Proudly serving organizations such as:</h2>
+    <div class="client-grid">
+      <div class="client-card reveal"><h3>Dept. of Redundancy Dept.</h3><p>Our longest-standing client.</p></div>
+      <div class="client-card reveal"><h3>Elevator Button Industries</h3><p>We specialize in unnecessary button pressing.</p></div>
+      <div class="client-card reveal"><h3>Intl. Sock Federation</h3><p>They have questions. We have theories.</p></div>
+      <div class="client-card reveal"><h3>Everyone's Inbox</h3><p>Our largest client.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--ink-deep);">Customer Reviews</div>
+      <h2>Verified purchases. Questionable value.</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card reveal"><div class="stars">★★★★★</div><p class="quote">I hired them to determine whether I should order fries. They recommended fries.</p><div class="who">— Michael</div></div>
+      <div class="review-card reveal"><div class="stars">★★★★★</div><p class="quote">Completely useless. Five stars.</p><div class="who">— Sarah</div></div>
+      <div class="review-card reveal"><div class="stars">★★★★★</div><p class="quote">I asked why I walked into the kitchen. They couldn't answer. Very professional.</p><div class="who">— David</div></div>
+      <div class="review-card reveal"><div class="stars">★★★★★</div><p class="quote">They spent three days investigating whether my plant looked happier on Tuesdays.</p><div class="who">— Anonymous</div></div>
+      <div class="review-card reveal"><div class="stars">★★★★★</div><p class="quote">Finally, a company that understands what I actually need.</p><div class="who">— Nobody</div></div>
+      <div class="review-card reveal"><div class="stars">★★★★★</div><p class="quote">Our 47-minute meeting about a meeting was, frankly, life-changing.</p><div class="who">— Repeat Client</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="dashboard">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Live Corporate Dashboard</div>
+      <h2 style="color:var(--paper);">Today's activity.</h2>
+    </div>
+    <div class="dash-grid reveal">
+      <div class="dash-cell"><div class="num">8,421</div><div class="lbl">📊 Unnecessary meetings</div></div>
+      <div class="dash-cell"><div class="num">14,882</div><div class="lbl">🥄 Spoon decisions</div></div>
+      <div class="dash-cell"><div class="num">27,491</div><div class="lbl">🧦 Socks investigated</div></div>
+      <div class="dash-cell"><div class="num">92,003</div><div class="lbl">📱 Texts overanalyzed</div></div>
+      <div class="dash-cell"><div class="num">318,441</div><div class="lbl">🧊 Fridge reinspections</div></div>
+      <div class="dash-cell"><div class="num">1,204,881</div><div class="lbl">📺 Hours choosing what to watch</div></div>
+    </div>
+    <div class="kpi-row reveal">
+      <div class="kpi-card"><div class="n">14,892,301</div><div class="l">Things That Didn't Matter</div></div>
+      <div class="kpi-card"><div class="n">0.00001%</div><div class="l">Meaningful Impact</div></div>
+      <div class="kpi-card"><div class="n">N/A</div><div class="l">Employee Productivity (unmeasured)</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="app">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--ink-deep);">The Nothing Important App™</div>
+      <h2>Your command center for things that don't matter.</h2>
+    </div>
+    <div class="app-grid">
+      <div class="app-card reveal"><h3>🤔 Should I?</h3><p>Ask whether you should do something. We'll probably say "maybe."</p></div>
+      <div class="app-card reveal"><h3>📱 Text Analyzer</h3><p>Upload any message. We'll tell you what it means, then remind you to just ask the person.</p></div>
+      <div class="app-card reveal"><h3>🧊 Fridge Refresh</h3><p>Reminds you when it's time to check the fridge again.</p></div>
+      <div class="app-card reveal"><h3>🧦 Sock Tracker</h3><p>Tracks socks you've lost. Has never found one.</p></div>
+      <div class="app-card reveal"><h3>📺 Decision Engine</h3><p>We'll choose what you're watching. You'll reject it. Everyone wins.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ai">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Nothing Important™ AI</div>
+      <h2 style="color:var(--paper);">Answers to questions no computer was built for.</h2>
+    </div>
+    <div class="ai-grid reveal">
+      <div class="ai-row"><div class="ai-q">Q: Should I get up?</div><div class="ai-a">No.</div></div>
+      <div class="ai-row"><div class="ai-q">Q: Should I order pizza?</div><div class="ai-a">Yes.</div></div>
+      <div class="ai-row"><div class="ai-q">Q: Why did I come into this room?</div><div class="ai-a">You tell us.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">FAQ</div>
+      <h2 style="color:#1a1a1a;">Questions, answered honestly.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">What exactly does Nothing Important Inc. do? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Nothing important. We thought we'd made that clear.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is your service useful? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Not particularly. But that's not our objective.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why would I pay for this? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Excellent question. Next question.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you solve serious problems? <span class="plus">+</span></div>
+        <div class="faq-a"><p>Absolutely not. We have standards.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens if something becomes important? <span class="plus">+</span></div>
+        <div class="faq-a"><p>We immediately transfer it to someone else.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="careers" id="careers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--ink-deep);">Careers</div>
+      <h2>We're hiring. Barely.</h2>
+    </div>
+    <div class="job-list reveal">
+      <div class="job-row">
+        <div><div class="title">Senior Nothing Manager</div><div class="req">Experience doing nothing, excellent communication, ability to look busy</div></div>
+        <a href="#" class="apply">Apply</a>
+      </div>
+      <div class="job-row">
+        <div><div class="title">Director of Minor Decisions</div><div class="req">Must be able to spend 20 minutes choosing lunch</div></div>
+        <a href="#" class="apply">Apply</a>
+      </div>
+      <div class="job-row">
+        <div><div class="title">Head of Sock Investigations</div><div class="req">Previous laundry experience preferred</div></div>
+        <a href="#" class="apply">Apply</a>
+      </div>
+      <div class="job-row">
+        <div><div class="title">VP of Unnecessary Meetings</div><div class="req">MBA not required, but somehow preferred</div></div>
+        <a href="#" class="apply">Apply</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hof">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Hall of Fame</div>
+      <h2 style="color:#1a1a1a;">Records worth filing.</h2>
+    </div>
+    <div class="hof-grid">
+      <div class="hof-card reveal"><div class="trophy">🏆</div><h3>Most Unnecessary Project</h3><p>A 14-person team spent six months determining which way toilet paper should hang.</p></div>
+      <div class="hof-card reveal"><div class="trophy">🏆</div><h3>Longest Nothing</h3><p>A customer held a Nothing Premium™ subscription for seven years. Remains extremely satisfied.</p></div>
+      <div class="hof-card reveal"><div class="trophy">🏆</div><h3>Most Important Nothing</h3><p>A customer spent 45 minutes deciding whether to nap. They eventually did. Historic result.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="guarantee">
+  <div class="wrap">
+    <div class="eyebrow reveal">Nothing Guarantee™</div>
+    <h2 class="reveal">If our service doesn't improve your life — don't worry.</h2>
+    <p class="reveal">It wasn't supposed to.</p>
+  </div>
+</section>
+
+<section class="final" id="hire">
+  <div class="wrap">
+    <div class="eyebrow reveal">Final Notice</div>
+    <h2 class="reveal">Some things matter.</h2>
+    <h3 class="sub2 reveal">Most things don't.</h3>
+    <p class="final-copy reveal">You don't need another productivity app. You don't need another optimization system. Sometimes you just need to know which spoon to use — and that's where we come in.</p>
+    <div class="reveal"><a href="#" class="btn btn-outline-dark">😐 Hire Us for Something Completely Unimportant</a></div>
+    <p class="fine-print reveal">Nothing Important Inc. is not responsible for wasting your time, making unnecessary decisions, overanalyzing text messages, checking the refrigerator repeatedly, losing socks, choosing the wrong show, or accidentally discovering that doing absolutely nothing might actually be quite important.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="logo">🏢 NOTHING IMPORTANT INC. <span class="badge">™</span></div>
+    <div class="foot-tag">WE SPECIALIZE IN THINGS THAT DON'T MATTER</div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.14});
+  revealEls.forEach(el=>io.observe(el));
+
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>{
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  function playStamp(){
+    try{
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'square';
+      o.frequency.setValueAtTime(160, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.13);
+      g.gain.setValueAtTime(0.1, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); o.stop(ctx.currentTime + 0.17);
+    }catch(e){}
+  }
+  document.querySelectorAll('.btn-primary').forEach(b=>b.addEventListener('click', playStamp));
+</script>
+
+</body>
+</html>
