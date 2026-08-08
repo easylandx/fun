@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Forgetting Service™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFE100;
+    --pink:#FF3E9A;
+    --blue:#2E4CFF;
+    --ink:#0B0B12;
+    --cream:#FFFCF2;
+    --green:#00D98B;
+    --border-w:4px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    line-height:0.95;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  a{color:inherit;}
+  img,svg{display:block;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  section{border-bottom:var(--border-w) solid var(--ink);}
+  .band{padding:88px 0;}
+  .band-tight{padding:56px 0;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--cream);
+    border-bottom:var(--border-w) solid var(--ink);
+    padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Archivo Black', sans-serif;
+    font-size:18px;
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand-dot{width:12px;height:12px;background:var(--pink); border:2px solid var(--ink); border-radius:50%;}
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    background:var(--ink);
+    color:var(--cream);
+    padding:11px 18px;
+    border:2px solid var(--ink);
+  }
+
+  /* ---------- BUTTON ---------- */
+  .btn{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-size:14px;
+    padding:18px 30px;
+    border:3px solid var(--ink);
+    background:var(--ink);
+    color:var(--cream);
+    box-shadow:6px 6px 0 var(--ink);
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover{transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink);}
+  .btn-outline{
+    background:transparent; color:var(--ink); box-shadow:6px 6px 0 var(--ink);
+  }
+  .btn-yellow{background:var(--yellow); color:var(--ink); box-shadow:6px 6px 0 var(--ink);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--yellow);
+    padding:70px 0 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--yellow);
+    padding:6px 12px;
+    margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(40px,7vw,88px); margin-bottom:10px;}
+  .hero .sub{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(22px,3.4vw,38px);
+    color:var(--pink);
+    -webkit-text-stroke:1.5px var(--ink);
+    margin-bottom:28px;
+  }
+  .hero p.lede{
+    font-size:19px; max-width:520px; margin-bottom:14px; font-weight:500;
+  }
+  .hero-list{
+    columns:2; gap:24px; max-width:640px; margin:26px 0 34px;
+    font-size:15px; font-weight:500;
+  }
+  .hero-list li{margin-bottom:8px; list-style:none; position:relative; padding-left:18px;}
+  .hero-list li::before{content:"—"; position:absolute; left:0;}
+  .hero-actions{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+  .hero-actions .tag{font-family:'IBM Plex Mono',monospace; font-size:13px; font-style:italic;}
+
+  /* ---------- MISSION ---------- */
+  .mission{background:var(--cream);}
+  .mission-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
+  .mission h2{font-size:clamp(30px,4vw,46px); margin-bottom:22px;}
+  .mission p{font-size:16px; margin-bottom:16px; max-width:46ch;}
+  .quote-block{
+    border-left:6px solid var(--pink);
+    padding-left:18px;
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    font-size:20px;
+    margin:20px 0;
+  }
+  .keep-list{
+    background:var(--ink); color:var(--cream);
+    padding:28px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .keep-list .label{font-size:12px; letter-spacing:0.08em; color:var(--green); margin-bottom:14px; text-transform:uppercase;}
+  .keep-list ul{list-style:none;}
+  .keep-list li{padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.15); font-size:14px;}
+  .keep-list li:last-child{border-bottom:none;}
+  .delete-stamp{
+    margin-top:22px;
+    display:inline-block;
+    font-family:'Archivo Black', sans-serif;
+    font-size:34px;
+    color:var(--pink);
+    border:4px solid var(--pink);
+    padding:6px 20px;
+    transform:rotate(-4deg);
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{background:var(--blue); color:var(--cream);}
+  .steps h2{color:var(--cream); font-size:clamp(30px,4vw,46px); margin-bottom:48px;}
+  .step-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:3px solid var(--cream); border-left:3px solid var(--cream);}
+  .step{
+    border-right:3px solid var(--cream); border-bottom:3px solid var(--cream);
+    padding:26px 22px; min-height:210px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .step-num{font-family:'Archivo Black',sans-serif; font-size:38px; color:var(--yellow);}
+  .step h3{font-size:16px; color:var(--cream);}
+  .step p{font-size:13.5px; opacity:0.9; line-height:1.5;}
+  .reminder-chip{
+    margin-top:auto;
+    background:var(--cream); color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    padding:8px 10px; font-weight:600;
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--cream);}
+  .services h2{font-size:clamp(30px,4vw,46px); margin-bottom:8px;}
+  .services .sec-sub{font-family:'IBM Plex Mono',monospace; font-size:13px; margin-bottom:44px; opacity:0.7;}
+  .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .service-card{
+    border:3px solid var(--ink);
+    padding:26px;
+    background:var(--cream);
+    display:flex; flex-direction:column; gap:12px;
+    box-shadow:7px 7px 0 var(--ink);
+  }
+  .service-card:nth-child(1){background:#FFD8EC;}
+  .service-card:nth-child(2){background:#D6E0FF;}
+  .service-card:nth-child(3){background:#FFF3A8;}
+  .service-card:nth-child(4){background:#CFFCE8;}
+  .service-card:nth-child(5){background:#FFDDC7;}
+  .service-card:nth-child(6){background:#E3D6FF;}
+  .service-card .icon{font-size:30px;}
+  .service-card h3{font-size:19px;}
+  .service-card ul{font-size:13.5px; padding-left:18px; line-height:1.6;}
+  .service-card .price{
+    margin-top:auto;
+    font-family:'Archivo Black',sans-serif;
+    font-size:26px;
+    padding-top:10px;
+  }
+
+  /* ---------- PRICING ---------- */
+  .pricing{background:var(--ink); color:var(--cream);}
+  .pricing h2{color:var(--cream); font-size:clamp(30px,4vw,46px); margin-bottom:44px;}
+  .tier-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .tier{
+    border:3px solid var(--cream); padding:30px 24px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .tier.featured{background:var(--pink); color:var(--ink); border-color:var(--pink); transform:translateY(-14px);}
+  .tier-name{font-family:'Archivo Black',sans-serif; font-size:22px;}
+  .tier-price{font-family:'Archivo Black',sans-serif; font-size:36px;}
+  .tier ul{list-style:none; font-size:13.5px; line-height:2;}
+  .tier ul li::before{content:"✓ "; font-weight:700;}
+  .tier-badge{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em;
+    background:var(--yellow); color:var(--ink); padding:4px 10px; display:inline-block; width:fit-content;
+  }
+
+  /* ---------- DASHBOARD / METER ---------- */
+  .dash{background:var(--green);}
+  .dash h2{font-size:clamp(30px,4vw,46px); margin-bottom:36px;}
+  .dash-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .meter-box{background:var(--ink); color:var(--cream); padding:30px; font-family:'IBM Plex Mono',monospace;}
+  .meter-row{margin-bottom:20px;}
+  .meter-label{display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.05em;}
+  .meter-track{height:16px; background:rgba(255,255,255,0.15); border:2px solid var(--cream);}
+  .meter-fill{height:100%; background:var(--yellow);}
+  .meter-fill.pink{background:var(--pink);}
+  .meter-fill.green{background:var(--green);}
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .stat-card{
+    background:var(--cream); border:3px solid var(--ink); padding:20px;
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .stat-num{font-family:'Archivo Black',sans-serif; font-size:30px;}
+  .stat-label{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; margin-top:4px; opacity:0.75;}
+
+  /* ---------- CERTIFICATE ---------- */
+  .cert-band{background:var(--yellow);}
+  .cert-band h2{font-size:clamp(30px,4vw,46px); margin-bottom:36px;}
+  .certificate{
+    background:var(--cream);
+    border:4px solid var(--ink);
+    max-width:640px;
+    margin:0 auto;
+    padding:44px 40px;
+    text-align:center;
+    position:relative;
+  }
+  .certificate::before{
+    content:"CERTIFIED";
+    position:absolute; top:26px; right:26px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.1em;
+    color:var(--pink); border:2px solid var(--pink);
+    padding:4px 10px; transform:rotate(8deg);
+  }
+  .certificate .top-label{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em; margin-bottom:18px;}
+  .certificate .name{font-family:'Archivo Black',sans-serif; font-size:30px; margin-bottom:14px; border-bottom:3px solid var(--ink); display:inline-block; padding-bottom:6px;}
+  .certificate .thing{font-family:'Archivo Black',sans-serif; font-size:22px; color:var(--pink); margin:14px 0;}
+  .certificate .pct{font-family:'Archivo Black',sans-serif; font-size:52px; margin:10px 0;}
+  .certificate .status{font-family:'IBM Plex Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em;}
+
+  /* ---------- TEAM ---------- */
+  .team{background:var(--cream);}
+  .team h2{font-size:clamp(30px,4vw,46px); margin-bottom:40px;}
+  .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .team-card{border:3px solid var(--ink); padding:24px; box-shadow:7px 7px 0 var(--ink);}
+  .team-card .avatar{
+    width:56px; height:56px; border:3px solid var(--ink); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    margin-bottom:16px;
+  }
+  .team-card:nth-child(1) .avatar{background:var(--pink);}
+  .team-card:nth-child(2) .avatar{background:var(--blue); color:var(--cream);}
+  .team-card:nth-child(3) .avatar{background:var(--green);}
+  .team-card h3{font-size:17px; margin-bottom:2px;}
+  .team-card .role{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; opacity:0.7; margin-bottom:14px;}
+  .team-card p{font-size:14px; line-height:1.6;}
+
+  /* ---------- REVIEWS ---------- */
+  .reviews{background:var(--blue); color:var(--cream);}
+  .reviews h2{color:var(--cream); font-size:clamp(30px,4vw,46px); margin-bottom:40px;}
+  .review-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .review-card{background:var(--cream); color:var(--ink); border:3px solid var(--ink); padding:22px; box-shadow:7px 7px 0 var(--ink);}
+  .stars{color:var(--yellow); font-size:16px; margin-bottom:12px; -webkit-text-stroke:0.5px var(--ink);}
+  .review-card p{font-size:14px; line-height:1.6; margin-bottom:14px; font-style:italic;}
+  .review-card .who{font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; font-weight:600;}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--cream);}
+  .faq h2{font-size:clamp(30px,4vw,46px); margin-bottom:36px;}
+  details{border:3px solid var(--ink); margin-bottom:14px; background:var(--cream);}
+  details[open]{background:#FFF3A8;}
+  summary{
+    padding:18px 22px; cursor:pointer; font-family:'Archivo Black',sans-serif;
+    font-size:15px; text-transform:uppercase; list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+"; font-size:22px;}
+  details[open] summary::after{content:"–";}
+  .faq-body{padding:0 22px 20px; font-size:14.5px; line-height:1.6; max-width:60ch;}
+
+  /* ---------- ENTERPRISE ---------- */
+  .enterprise{background:var(--ink); color:var(--cream);}
+  .ent-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
+  .enterprise h2{color:var(--cream); font-size:clamp(28px,3.8vw,42px); margin-bottom:20px;}
+  .enterprise ul{list-style:none; font-size:15px; line-height:2.1;}
+  .enterprise ul li::before{content:"— "; color:var(--yellow);}
+  .ent-card{background:var(--pink); color:var(--ink); padding:34px; border:3px solid var(--cream);}
+  .ent-price{font-family:'Archivo Black',sans-serif; font-size:40px; margin-bottom:16px;}
+  .ent-card .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .ent-card .chip{font-family:'IBM Plex Mono',monospace; font-size:11.5px; background:var(--ink); color:var(--cream); padding:6px 10px;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final{background:var(--pink); text-align:center;}
+  .final h2{font-size:clamp(34px,6vw,68px); margin-bottom:18px;}
+  .final .list-fade{font-family:'Space Grotesk',sans-serif; font-size:16px; max-width:520px; margin:0 auto 30px; opacity:0.85; font-weight:500;}
+  .final .btn{margin-top:6px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--cream); padding:44px 0; border-bottom:none;}
+  footer .brand{margin-bottom:18px;}
+  footer .fine-print{font-size:12px; line-height:1.8; max-width:640px; opacity:0.65;}
+  footer .fine-print strong{opacity:1;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .mission-grid{grid-template-columns:1fr;}
+    .step-grid{grid-template-columns:repeat(2,1fr);}
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .tier-grid{grid-template-columns:1fr;}
+    .tier.featured{transform:none;}
+    .dash-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr;}
+    .review-grid{grid-template-columns:1fr;}
+    .ent-grid{grid-template-columns:1fr;}
+    .hero-list{columns:1;}
+  }
+  @media (max-width:560px){
+    .service-grid{grid-template-columns:1fr;}
+    .step-grid{grid-template-columns:1fr;}
+    .band{padding:56px 0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+  }
+
+  :focus-visible{outline:3px solid var(--blue); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="brand-dot"></span>Professional Forgetting Service™</div>
+  <a href="#forget" class="nav-cta">Forget Something</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Certified Memory Reduction™</span>
+    <h1>Still thinking<br>about it?</h1>
+    <div class="sub">You were supposed to forget that.</div>
+    <p class="lede">You forgot to forget. Don't worry — that's what we're here for. We help you successfully forget the things your brain refuses to let go of.</p>
+    <ul class="hero-list">
+      <li>embarrassing moments</li>
+      <li>pointless arguments</li>
+      <li>things you shouldn't have Googled</li>
+      <li>awkward conversations</li>
+      <li>passwords you don't need anymore</li>
+      <li>why you opened that email</li>
+      <li>what you walked in for</li>
+      <li>literally anything else</li>
+    </ul>
+    <div class="hero-actions">
+      <a href="#forget" class="btn" id="forget">🧠 Forget Something</a>
+      <span class="tag">Your memory is valuable. Stop wasting it.</span>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission band">
+  <div class="wrap mission-grid">
+    <div>
+      <h2>Our mission</h2>
+      <p>The human brain has limited storage. Yet you continue keeping that embarrassing thing you said in 2017.</p>
+      <div class="quote-block">Why?</div>
+      <p>At Professional Forgetting Service™, we believe your brain should be reserved for more important things — like where you parked, your PIN, and why you opened the fridge. Everything else gets filed under one instruction.</p>
+      <div class="delete-stamp">Delete.</div>
+    </div>
+    <div class="keep-list">
+      <div class="label">Reserved brain space</div>
+      <ul>
+        <li>📍 Where you parked</li>
+        <li>🔑 Your PIN</li>
+        <li>🧊 Why you opened the fridge</li>
+        <li>🐟 Whether fish get thirsty (unresolved)</li>
+        <li>🚪 That the door is, in fact, locked</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="steps band">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <div class="step-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Tell us what to forget</h3>
+        <p>"That meeting." "That person." "That thing I said." "The fact that I sent that email."</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>We build a forgetting plan</h3>
+        <p>Our Certified Memory Reduction Specialists™ select the strategy: gradual, aggressive, selective, or complete.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>We remind you to forget</h3>
+        <p>Forgetting is difficult. So we send helpful reminders, on schedule, until it sticks.</p>
+        <div class="reminder-chip">🔔 Please forget what happened at the restaurant.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Eventually, you forget everything</h3>
+        <p>Including why you hired us. Mission accomplished.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services band">
+  <div class="wrap">
+    <h2>Our services</h2>
+    <div class="sec-sub">Six ways to un-remember something, priced individually</div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="icon">🧹</div>
+        <h3>Embarrassment Removal™</h3>
+        <ul>
+          <li>Saying "you too" back to "Happy Birthday"</li>
+          <li>Falling in front of strangers</li>
+          <li>Calling your teacher "Mom"</li>
+          <li>Sending a message to the wrong person</li>
+        </ul>
+        <div class="price">€9.99</div>
+      </div>
+      <div class="service-card">
+        <div class="icon">💬</div>
+        <h3>Conversation Eraser™</h3>
+        <ul>
+          <li>"Why did I say that?"</li>
+          <li>"Why didn't I say this?"</li>
+          <li>"Did they think I was weird?"</li>
+          <li>Replayed at 2am, on a loop</li>
+        </ul>
+        <div class="price">€14.99</div>
+      </div>
+      <div class="service-card">
+        <div class="icon">❤️</div>
+        <h3>Ex-Forgetting™</h3>
+        <ul>
+          <li>Name reduction</li>
+          <li>Memory fading</li>
+          <li>Photo avoidance protocols</li>
+          <li>Song reassignment</li>
+        </ul>
+        <div class="price">€29.99</div>
+      </div>
+      <div class="service-card">
+        <div class="icon">📧</div>
+        <h3>Email Forgetting™</h3>
+        <ul>
+          <li>You sent it, you regret it</li>
+          <li>You checked if they read it</li>
+          <li>You checked again</li>
+          <li>We make it stop</li>
+        </ul>
+        <div class="price">€7.99</div>
+      </div>
+      <div class="service-card">
+        <div class="icon">🧠</div>
+        <h3>Random Thought Removal™</h3>
+        <ul>
+          <li>"Do fish get thirsty?"</li>
+          <li>"What was I doing?"</li>
+          <li>"Did I lock the door?"</li>
+          <li>Unsolicited 3am revelations</li>
+        </ul>
+        <div class="price">€4.99</div>
+      </div>
+      <div class="service-card">
+        <div class="icon">🧊</div>
+        <h3>Fridge Memory Reset™</h3>
+        <ul>
+          <li>You opened the fridge</li>
+          <li>Nothing was there</li>
+          <li>You opened it again</li>
+          <li>Why. We'll help you forget.</li>
+        </ul>
+        <div class="price">€2.99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing band">
+  <div class="wrap">
+    <h2>Premium packages</h2>
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tier-name">🥉 Casual Forgetting</div>
+        <div class="tier-price">€9<span style="font-size:16px;">/mo</span></div>
+        <ul>
+          <li>5 forgetting reminders</li>
+          <li>1 memory audit</li>
+          <li>Basic distraction package</li>
+        </ul>
+      </div>
+      <div class="tier featured">
+        <div class="tier-badge">Most forgotten</div>
+        <div class="tier-name">🥈 Selective Memory™</div>
+        <div class="tier-price">€29<span style="font-size:16px;">/mo</span></div>
+        <ul>
+          <li>20 forgetting reminders</li>
+          <li>Memory categorization</li>
+          <li>Strategic distraction</li>
+          <li>"Don't Think About It" alerts</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-name">🥇 Total Memory Mgmt™</div>
+        <div class="tier-price">€99<span style="font-size:16px;">/mo</span></div>
+        <ul>
+          <li>Weekly memory audit</li>
+          <li>Automatic forgetting reminders</li>
+          <li>Embarrassment detection</li>
+          <li>Emergency forgetting included</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="dash band">
+  <div class="wrap">
+    <h2>The forgetting dashboard</h2>
+    <div class="dash-grid">
+      <div class="meter-box">
+        <div class="mono" style="font-size:12px; margin-bottom:22px; opacity:0.7;">Forget-O-Meter™</div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Still remembering</span><span>100%</span></div>
+          <div class="meter-track"><div class="meter-fill" style="width:100%;"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Getting there</span><span>60%</span></div>
+          <div class="meter-track"><div class="meter-fill pink" style="width:60%;"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Mostly forgotten</span><span>20%</span></div>
+          <div class="meter-track"><div class="meter-fill pink" style="width:20%;"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>What were we talking about?</span><span>0%</span></div>
+          <div class="meter-track"><div class="meter-fill green" style="width:0%;"></div></div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num">8,421</div><div class="stat-label">Unnecessary thoughts</div></div>
+        <div class="stat-card"><div class="stat-num">17</div><div class="stat-label">Emails still on your mind</div></div>
+        <div class="stat-card"><div class="stat-num">23</div><div class="stat-label">Embarrassing memories</div></div>
+        <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">People to forget</div></div>
+        <div class="stat-card"><div class="stat-num">319</div><div class="stat-label">Unnecessary questions</div></div>
+        <div class="stat-card"><div class="stat-num">4.7GB</div><div class="stat-label">Memory available</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATE -->
+<section class="cert-band band">
+  <div class="wrap">
+    <h2>Forgetting certificates</h2>
+    <div class="certificate">
+      <div class="top-label">This certifies that</div>
+      <div class="name">[ Your Name ]</div>
+      <div class="mono" style="font-size:12px; margin-top:16px;">has successfully forgotten</div>
+      <div class="thing">[ That Thing ]</div>
+      <div class="pct">100%</div>
+      <div class="status">Memory status: No Longer Relevant™</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team band">
+  <div class="wrap">
+    <h2>Our specialists</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar">🧠</div>
+        <h3>Dr. Nobody Remembers</h3>
+        <div class="role">Chief Forgetting Officer</div>
+        <p>Specializes in one phrase: "It doesn't matter anymore." Applies it liberally.</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar">🫥</div>
+        <h3>Sarah</h3>
+        <div class="role">Senior Memory Reduction Consultant</div>
+        <p>Once forgot why she walked into a room and has no idea what she was going to do. Perfect candidate.</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar">🧹</div>
+        <h3>Kevin</h3>
+        <div class="role">Director, Emotional Memory Disposal</div>
+        <p>Has forgotten why he joined the company. Promoted twice since.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews band">
+  <div class="wrap">
+    <h2>Customer reviews</h2>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"I hired them to forget an embarrassing conversation. I completely forgot what it was about. Unfortunately, I also forgot my appointment."</p>
+        <div class="who">— Michael</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Fantastic service. I genuinely can't remember what I paid for."</p>
+        <div class="who">— Sarah</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"They reminded me every morning to forget my ex. It worked. Now I can't remember why I hated him."</p>
+        <div class="who">— Anonymous</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq band">
+  <div class="wrap">
+    <h2>Frequently asked</h2>
+
+    <details open>
+      <summary>Can you actually erase memories?</summary>
+      <div class="faq-body">No. But we can make you think about them less. Probably.</div>
+    </details>
+
+    <details>
+      <summary>Can I forget a person completely?</summary>
+      <div class="faq-body">We recommend starting with their name. Then their face. Then their Instagram. Then their Spotify playlist.</div>
+    </details>
+
+    <details>
+      <summary>Can I forget something permanently?</summary>
+      <div class="faq-body">We offer Forget Forever™. Results may vary.</div>
+    </details>
+
+    <details>
+      <summary>What if I forget something important?</summary>
+      <div class="faq-body">That's a different department entirely. We recommend our sister service, Professional Remembering Service™ — coming soon.</div>
+    </details>
+
+    <details>
+      <summary>Do you offer refunds?</summary>
+      <div class="faq-body">Unfortunately, we forgot.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ENTERPRISE -->
+<section class="enterprise band">
+  <div class="wrap ent-grid">
+    <div>
+      <h2>Enterprise Memory Management™</h2>
+      <p style="font-size:15px; opacity:0.85; margin-bottom:20px; max-width:44ch;">For organizations that need to forget things collectively — and quickly.</p>
+      <ul>
+        <li>Last year's failed strategy</li>
+        <li>The meeting that never should have happened</li>
+        <li>Who approved the presentation</li>
+        <li>Why the project is six months late</li>
+        <li>The previous version of the logo</li>
+      </ul>
+    </div>
+    <div class="ent-card">
+      <div class="mono" style="font-size:12px;">Enterprise package</div>
+      <div class="ent-price">€4,999<span style="font-size:16px;">/mo</span></div>
+      <p style="font-size:14px;">Corporate memory audit, strategic forgetting, email amnesia, and document disappearance consulting.</p>
+      <div class="chips">
+        <span class="chip">📊 Memory audit</span>
+        <span class="chip">🧹 Strategic forgetting</span>
+        <span class="chip">📧 Email amnesia</span>
+        <span class="chip">🗂️ Document disappearance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final band">
+  <div class="wrap">
+    <h2>Let it go.</h2>
+    <p class="list-fade">The awkward moment. The stupid mistake. The thing you said. The thing you wish you'd said. Your brain has better things to remember.</p>
+    <a href="#forget" class="btn btn-yellow" style="color:var(--ink);">🧠 Forget Something Now</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="brand-dot"></span>Professional Forgetting Service™</div>
+    <p class="fine-print">
+      Professional Forgetting Service™ cannot guarantee that you will actually forget anything. We can only remind you repeatedly that you should.
+      We are not responsible for forgotten passwords, forgotten appointments, forgotten birthdays, forgotten reasons for entering rooms,
+      or forgetting that you hired us. <strong>If you forget this disclaimer, our service has worked.</strong>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
