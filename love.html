@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Delivery Service™ — Affection, Delivered</title>
+<meta name="description" content="The world's first professional affection delivery company. We deliver compliments, hugs, flowers and unrequested love to people who didn't order it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6EC;
+    --cream-2:#FFEFDD;
+    --coral:#FF5A5F;
+    --coral-dark:#E13F44;
+    --tape:#FFC94A;
+    --plum:#4A1942;
+    --plum-soft:#7A4468;
+    --rose:#FFD9DC;
+    --kraft:#D9A066;
+    --kraft-dark:#B87E45;
+    --mint:#CDEFD8;
+    --white:#FFFFFF;
+    --shadow: 0 12px 30px rgba(74,25,66,0.12);
+    --shadow-sm: 0 6px 16px rgba(74,25,66,0.10);
+    --radius: 22px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--plum);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Baloo 2',sans-serif;
+    margin:0;
+    line-height:1.05;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  p{line-height:1.6;}
+  img,svg{display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  section{position:relative;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal-stagger.in > *{opacity:1;transform:translateY(0);}
+  .reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+  .reveal-stagger.in > *:nth-child(2){transition-delay:.12s;}
+  .reveal-stagger.in > *:nth-child(3){transition-delay:.19s;}
+  .reveal-stagger.in > *:nth-child(4){transition-delay:.26s;}
+  .reveal-stagger.in > *:nth-child(5){transition-delay:.33s;}
+  .reveal-stagger.in > *:nth-child(6){transition-delay:.40s;}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal,.reveal-stagger>*{opacity:1!important;transform:none!important;transition:none!important;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,246,236,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:2px dashed rgba(74,25,66,0.15);
+  }
+  .nav-inner{
+    max-width:1180px;margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Baloo 2';font-weight:800;font-size:20px;color:var(--plum);}
+  .brand-mark{
+    width:38px;height:38px;border-radius:10px;
+    background:var(--coral);
+    display:flex;align-items:center;justify-content:center;
+    font-size:19px;color:white;
+    transform:rotate(-6deg);
+    box-shadow:0 4px 0 var(--coral-dark);
+  }
+  .nav-cta{
+    background:var(--plum);color:var(--cream);
+    padding:11px 22px;border-radius:100px;
+    font-weight:700;font-size:14px;
+    box-shadow:0 4px 0 rgba(0,0,0,0.18);
+    transition:transform .15s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:16px 34px;border-radius:100px;
+    font-family:'Baloo 2';font-weight:700;font-size:17px;
+    cursor:pointer;border:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{
+    background:var(--coral);color:white;
+    box-shadow:0 6px 0 var(--coral-dark);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--coral-dark);}
+  .btn-primary:active{transform:translateY(2px);box-shadow:0 3px 0 var(--coral-dark);}
+  .btn-dark{
+    background:var(--plum);color:var(--cream);
+    box-shadow:0 6px 0 #2C0E28;
+  }
+  .btn-dark:hover{transform:translateY(-3px);box-shadow:0 9px 0 #2C0E28;}
+
+  /* ---------- eyebrow / stamp ---------- */
+  .stamp{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--white);
+    border:2.5px dashed var(--coral);
+    padding:8px 18px;border-radius:100px;
+    font-family:'Space Mono';font-weight:700;font-size:12.5px;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--coral-dark);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:76px 0 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;top:-120px;right:-140px;width:420px;height:420px;
+    background:var(--rose);border-radius:50%;opacity:.7;z-index:0;
+  }
+  .hero::after{
+    content:"";position:absolute;bottom:-160px;left:-160px;width:380px;height:380px;
+    background:var(--mint);border-radius:50%;opacity:.55;z-index:0;
+  }
+  .hero-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;
+  }
+  .hero h1{
+    font-size:58px;color:var(--plum);margin:20px 0 18px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{color:var(--coral);position:relative;}
+  .hero p.lead{font-size:19px;color:var(--plum-soft);max-width:480px;margin-bottom:30px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .hero-note{font-family:'Space Mono';font-size:12.5px;color:var(--plum-soft);margin-top:14px;}
+
+  /* parcel illustration */
+  .parcel-stage{position:relative;height:420px;display:flex;align-items:center;justify-content:center;}
+  .parcel{
+    width:270px;height:270px;
+    background:linear-gradient(145deg,var(--kraft),var(--kraft-dark));
+    border-radius:18px;
+    position:relative;
+    box-shadow:0 30px 50px rgba(74,25,66,.22);
+    transform:rotate(-4deg);
+    animation:float 5s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:rotate(-4deg) translateY(0);}50%{transform:rotate(-2deg) translateY(-14px);}}
+  .parcel::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:44px;height:100%;background:var(--tape);opacity:.92;
+  }
+  .parcel::after{
+    content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:100%;height:44px;background:var(--tape);opacity:.92;
+  }
+  .parcel-label{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(4deg);
+    background:var(--white);
+    padding:16px 20px;border-radius:10px;
+    box-shadow:var(--shadow);
+    width:150px;text-align:center;
+    z-index:2;
+  }
+  .parcel-label .heart{font-size:26px;}
+  .parcel-label .to{font-family:'Space Mono';font-size:10px;letter-spacing:.08em;color:var(--plum-soft);margin-top:6px;}
+  .parcel-label .name{font-family:'Baloo 2';font-weight:700;font-size:15px;color:var(--plum);}
+  .parcel-badge{
+    position:absolute;
+    background:var(--coral);color:white;
+    font-family:'Space Mono';font-weight:700;font-size:11px;
+    padding:8px 12px;border-radius:100px;
+    box-shadow:0 6px 14px rgba(255,90,95,.4);
+    display:flex;align-items:center;gap:6px;
+  }
+  .parcel-badge.b1{top:14px;right:-6px;transform:rotate(8deg);animation:bob 4s ease-in-out infinite;}
+  .parcel-badge.b2{bottom:24px;left:-24px;transform:rotate(-8deg);animation:bob 4.5s ease-in-out infinite .3s;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0));}50%{transform:translateY(-10px) rotate(var(--r,0));}}
+  .parcel-badge.b1{--r:8deg;} .parcel-badge.b2{--r:-8deg;}
+
+  /* ---------- sections ---------- */
+  .section{padding:88px 0;}
+  .section-alt{background:var(--white);}
+  .eyebrow-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+  .section-head{max-width:640px;margin-bottom:50px;}
+  .section-head h2{font-size:38px;color:var(--plum);margin-top:14px;}
+  .section-head p{color:var(--plum-soft);font-size:17px;margin-top:12px;}
+
+  /* ---------- how it works ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .step-card{
+    background:var(--cream-2);
+    border-radius:var(--radius);
+    padding:30px 24px;
+    position:relative;
+    border:2px solid transparent;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .step-card:hover{border-color:var(--coral);transform:translateY(-6px);}
+  .step-num{
+    font-family:'Space Mono';font-weight:700;font-size:13px;color:var(--coral-dark);
+    background:white;display:inline-block;padding:4px 10px;border-radius:100px;margin-bottom:16px;
+  }
+  .step-card h3{font-size:19px;color:var(--plum);margin-bottom:10px;}
+  .step-card p{font-size:14.5px;color:var(--plum-soft);}
+
+  /* ---------- catalog ---------- */
+  .catalog-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .pkg{
+    background:var(--white);
+    border-radius:var(--radius);
+    padding:30px 26px 26px;
+    box-shadow:var(--shadow-sm);
+    position:relative;
+    overflow:hidden;
+    border:2px solid var(--rose);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .pkg:hover{transform:translateY(-8px) rotate(-0.4deg);box-shadow:var(--shadow);}
+  .pkg::before{
+    content:"";position:absolute;top:18px;right:-30px;width:110px;height:26px;
+    background:var(--tape);opacity:.85;transform:rotate(45deg);
+  }
+  .pkg .icon{font-size:30px;margin-bottom:14px;}
+  .pkg h3{font-size:19px;color:var(--plum);margin-bottom:10px;}
+  .pkg blockquote{
+    margin:0 0 14px;padding:12px 14px;
+    background:var(--cream-2);border-left:3px solid var(--coral);
+    border-radius:8px;font-size:14px;font-style:italic;color:var(--plum-soft);
+  }
+  .pkg p.desc{font-size:14px;color:var(--plum-soft);margin-bottom:16px;min-height:20px;}
+  .pkg-price{
+    font-family:'Space Mono';font-weight:700;font-size:22px;color:var(--coral-dark);
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px dashed rgba(74,25,66,.2);padding-top:14px;
+  }
+  .pkg-price span.tag{font-family:'Inter';font-size:12px;font-weight:600;color:var(--plum-soft);text-transform:uppercase;letter-spacing:.05em;}
+
+  /* ---------- algorithm stat ---------- */
+  .algo{
+    background:var(--plum);
+    color:var(--cream);
+    border-radius:32px;
+    padding:60px;
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .algo::before{content:"";position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:var(--coral);opacity:.25;border-radius:50%;}
+  .algo h2{font-size:30px;color:var(--tape);margin-bottom:16px;}
+  .algo-factors{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+  .algo-factors span{
+    font-family:'Space Mono';font-size:11.5px;
+    background:rgba(255,246,236,.1);border:1px solid rgba(255,246,236,.25);
+    padding:6px 12px;border-radius:100px;
+  }
+  .algo-number{text-align:center;}
+  .algo-number .big{
+    font-family:'Space Mono';font-weight:700;font-size:56px;color:var(--tape);
+    letter-spacing:-.02em;
+  }
+  .algo-number .label{font-size:14px;color:var(--rose);margin-top:8px;font-weight:600;}
+
+  /* ---------- tracking ---------- */
+  .tracking-card{
+    background:var(--white);border-radius:var(--radius);
+    padding:40px;box-shadow:var(--shadow-sm);border:2px solid var(--cream-2);
+  }
+  .barcode{
+    display:flex;gap:3px;align-items:flex-end;height:44px;margin-bottom:26px;opacity:.85;
+  }
+  .barcode span{background:var(--plum);display:block;}
+  .track-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .track-item{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 16px;border-radius:14px;background:var(--cream-2);
+    font-size:14px;font-weight:600;color:var(--plum-soft);
+    transition:background .3s ease,color .3s ease;
+  }
+  .track-item.active{background:var(--coral);color:white;}
+  .track-item .dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+  /* ---------- delivery speed ---------- */
+  .speed-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .speed-card{
+    background:var(--cream-2);border-radius:18px;padding:26px 22px;text-align:center;
+    border:2px solid transparent;transition:.2s ease;
+  }
+  .speed-card:hover{background:var(--rose);}
+  .speed-card h4{font-size:16px;color:var(--plum);margin-bottom:8px;}
+  .speed-card p{font-size:13px;color:var(--plum-soft);margin-bottom:14px;}
+  .speed-price{font-family:'Space Mono';font-weight:700;font-size:20px;color:var(--coral-dark);}
+
+  /* ---------- international ---------- */
+  .flags{display:flex;flex-wrap:wrap;gap:14px;}
+  .flag-chip{
+    background:var(--white);border:2px solid var(--rose);border-radius:100px;
+    padding:12px 22px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;
+  }
+
+  /* ---------- corporate ---------- */
+  .corp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .corp-card{
+    background:var(--white);border-radius:var(--radius);padding:34px 28px;
+    border:2px solid var(--cream-2);position:relative;
+  }
+  .corp-card.featured{border-color:var(--coral);transform:scale(1.04);box-shadow:var(--shadow);}
+  .corp-card .featured-badge{
+    position:absolute;top:-14px;left:28px;background:var(--coral);color:white;
+    font-family:'Space Mono';font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;
+  }
+  .corp-card h3{font-size:20px;color:var(--plum);margin-bottom:6px;}
+  .corp-card .scope{font-size:13.5px;color:var(--plum-soft);margin-bottom:18px;}
+  .corp-price{font-family:'Space Mono';font-weight:700;font-size:26px;color:var(--coral-dark);margin-bottom:20px;}
+  .corp-card ul li{font-size:14px;color:var(--plum-soft);padding:7px 0;border-top:1px dashed rgba(74,25,66,.15);}
+  .corp-card ul li:first-child{border-top:none;}
+
+  /* ---------- dashboard ---------- */
+  .dash-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .dash-cell{
+    background:var(--cream-2);border-radius:16px;padding:22px 16px;text-align:center;
+  }
+  .dash-cell .n{font-family:'Space Mono';font-weight:700;font-size:24px;color:var(--plum);}
+  .dash-cell .l{font-size:12.5px;color:var(--plum-soft);margin-top:6px;}
+  .dash-total{
+    margin-top:22px;text-align:center;background:var(--plum);color:var(--cream);
+    border-radius:16px;padding:22px;
+  }
+  .dash-total .n{font-family:'Space Mono';font-weight:700;font-size:34px;color:var(--tape);}
+
+  /* ---------- awards ---------- */
+  .awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .award-card{
+    background:var(--white);border-radius:var(--radius);padding:30px;text-align:center;
+    border:2px solid var(--cream-2);
+  }
+  .award-medal{font-size:38px;margin-bottom:12px;}
+  .award-card h4{font-size:16px;color:var(--plum);margin-bottom:10px;}
+  .award-card p{font-size:14px;color:var(--plum-soft);}
+
+  /* ---------- reviews ---------- */
+  .reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .postcard{
+    background:var(--white);
+    border-radius:14px;
+    padding:22px;
+    box-shadow:var(--shadow-sm);
+    border:2px solid var(--cream-2);
+    position:relative;
+  }
+  .postcard:nth-child(odd){transform:rotate(-1.6deg);}
+  .postcard:nth-child(even){transform:rotate(1.6deg);}
+  .postcard .stars{color:var(--tape);letter-spacing:2px;margin-bottom:10px;font-size:15px;}
+  .postcard p{font-size:13.5px;color:var(--plum-soft);font-style:italic;margin-bottom:14px;}
+  .postcard .who{font-family:'Space Mono';font-size:12px;font-weight:700;color:var(--plum);}
+
+  /* ---------- generator + love button ---------- */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .gen-card{
+    background:var(--mint);border-radius:var(--radius);padding:36px;
+  }
+  .gen-card .rec{
+    background:white;border-radius:14px;padding:20px;margin:16px 0;
+  }
+  .gen-card .rec .who{font-family:'Baloo 2';font-weight:700;font-size:17px;color:var(--plum);}
+  .gen-card .rec .why{font-size:13px;color:var(--plum-soft);margin-top:6px;font-style:italic;}
+
+  .love-button-card{
+    background:var(--rose);border-radius:var(--radius);padding:36px;
+    text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .big-heart-btn{
+    width:120px;height:120px;border-radius:50%;
+    background:var(--coral);color:white;font-size:46px;
+    display:flex;align-items:center;justify-content:center;
+    border:none;cursor:pointer;
+    box-shadow:0 10px 0 var(--coral-dark);
+    transition:transform .15s ease;
+    margin:18px 0;
+  }
+  .big-heart-btn:hover{transform:translateY(-4px);}
+  .big-heart-btn:active{transform:translateY(6px);box-shadow:0 4px 0 var(--coral-dark);}
+  #loveMsg{font-family:'Space Mono';font-size:13px;color:var(--coral-dark);min-height:20px;font-weight:700;}
+
+  /* ---------- faq ---------- */
+  .faq-list{max-width:760px;margin:0 auto;}
+  .faq-item{
+    border-bottom:2px dashed rgba(74,25,66,.18);
+    padding:22px 0;
+  }
+  .faq-q{
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;font-family:'Baloo 2';font-weight:700;font-size:18px;color:var(--plum);
+  }
+  .faq-q .plus{font-size:24px;color:var(--coral);transition:transform .25s ease;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;transition:max-height .3s ease, padding .3s ease;
+    font-size:15px;color:var(--plum-soft);
+  }
+  .faq-item.open .faq-a{max-height:200px;padding-top:12px;}
+
+  /* ---------- final CTA ---------- */
+  .final-cta{
+    background:linear-gradient(135deg,var(--coral),#FF8A6B);
+    border-radius:32px;padding:70px 50px;text-align:center;color:white;position:relative;overflow:hidden;
+  }
+  .final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 40%);}
+  .final-cta h2{font-size:38px;margin-bottom:10px;position:relative;}
+  .final-cta p{font-size:17px;opacity:.95;max-width:520px;margin:0 auto 30px;position:relative;}
+  .final-cta .btn-dark{background:white;color:var(--coral-dark);box-shadow:0 6px 0 rgba(0,0,0,.15);position:relative;}
+
+  /* ---------- fine print ---------- */
+  .fine-print{
+    background:var(--cream-2);border-radius:18px;padding:28px 30px;
+    font-size:13px;color:var(--plum-soft);
+  }
+  .fine-print p{margin:6px 0;}
+  .fine-print strong{color:var(--plum);}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--plum);color:var(--cream);padding:54px 0 26px;margin-top:0;}
+  .footer-grid{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px;margin-bottom:36px;}
+  .footer-brand{font-family:'Baloo 2';font-weight:800;font-size:22px;}
+  .footer-links{display:flex;gap:34px;flex-wrap:wrap;}
+  .footer-links a{font-size:14px;color:var(--rose);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,246,236,.15);padding-top:22px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:12.5px;color:rgba(255,246,236,.6);
+  }
+  .credit-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(255,246,236,.1);padding:8px 16px;border-radius:100px;
+    font-weight:700;color:var(--cream);
+  }
+
+  /* ---------- floating contact ---------- */
+  .float-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:12px;z-index:200;}
+  .float-btn{
+    width:56px;height:56px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;color:white;box-shadow:0 8px 20px rgba(0,0,0,.22);
+    transition:transform .2s ease;
+  }
+  .float-btn:hover{transform:scale(1.1);}
+  .float-wa{background:#25D366;}
+  .float-ig{background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .parcel-stage{height:300px;}
+    .hero h1{font-size:42px;}
+    .steps{grid-template-columns:repeat(2,1fr);}
+    .catalog-grid{grid-template-columns:repeat(2,1fr);}
+    .algo{grid-template-columns:1fr;padding:40px;}
+    .track-list{grid-template-columns:repeat(2,1fr);}
+    .speed-grid{grid-template-columns:repeat(2,1fr);}
+    .corp-grid{grid-template-columns:1fr;}
+    .corp-card.featured{transform:none;}
+    .dash-grid{grid-template-columns:repeat(2,1fr);}
+    .awards-grid{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:repeat(2,1fr);}
+    .duo{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px;}
+    .hero{padding:50px 0 40px;}
+    .hero h1{font-size:34px;}
+    .steps{grid-template-columns:1fr;}
+    .catalog-grid{grid-template-columns:1fr;}
+    .speed-grid{grid-template-columns:1fr;}
+    .track-list{grid-template-columns:1fr;}
+    .dash-grid{grid-template-columns:repeat(2,1fr);}
+    .reviews-grid{grid-template-columns:1fr;}
+    .section{padding:60px 0;}
+    .final-cta{padding:50px 24px;}
+    .nav-cta{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-mark">❤️</span> Love Delivery Service™</div>
+    <a href="#catalog" class="nav-cta">Send Some Love</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <span class="stamp">📦 Now Delivering Worldwide</span>
+      <h1>Someone Needs<br>Some Love. <span class="accent">We Know<br>Where To Send It.</span></h1>
+      <p class="lead">The world's first professional affection delivery company. Compliments, hugs, flowers and unrequested love — packaged, tracked, and delivered to people who didn't order it.</p>
+      <div class="hero-actions">
+        <a href="#catalog" class="btn btn-primary">❤️ Send Some Love</a>
+        <a href="#how" class="btn btn-dark">See How It Works</a>
+      </div>
+      <p class="hero-note">NO SUBSCRIPTION REQUIRED · NO ORDER NECESSARY</p>
+    </div>
+    <div class="parcel-stage reveal in">
+      <div class="parcel">
+        <div class="parcel-label">
+          <div class="heart">❤️</div>
+          <div class="to">DELIVER TO</div>
+          <div class="name">Someone,<br>Somewhere</div>
+        </div>
+      </div>
+      <div class="parcel-badge b1">🚚 IN TRANSIT</div>
+      <div class="parcel-badge b2">✓ NO ORDER NEEDED</div>
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">The Process</span>
+      <h2>How It Works</h2>
+      <p>Four steps. Zero explanations required.</p>
+    </div>
+    <div class="steps reveal-stagger">
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <h3>We Find Someone</h3>
+        <p>Maybe they need affection. Maybe they don't. We're not here to judge.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <h3>We Select The Package</h3>
+        <p>Our professional affection specialists choose the appropriate level of love.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <h3>We Deliver It</h3>
+        <p>Via text, email, flowers, parcel, phone call, handwritten note, or in-person hug.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">04</span>
+        <h3>They Receive It</h3>
+        <p>Delighted, confused, emotional, or suspicious — all outcomes are successful.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section class="section section-alt" id="catalog">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">The Catalog</span>
+      <h2>Our Love Catalog</h2>
+      <p>Every package is prepared, sealed and shipped by a trained Love Delivery Specialist.</p>
+    </div>
+    <div class="catalog-grid reveal-stagger">
+      <div class="pkg">
+        <div class="icon">💌</div>
+        <h3>The "Thinking Of You" Delivery</h3>
+        <blockquote>"Someone is thinking about you today."</blockquote>
+        <p class="desc">No explanation. No context. Just affection.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€4.99</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">🌹</div>
+        <h3>The Unexpected Rose</h3>
+        <blockquote>"You deserve something nice today."</blockquote>
+        <p class="desc">One beautiful rose. No name. No explanation.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€19.99</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">🫂</div>
+        <h3>The Professional Hug</h3>
+        <blockquote>"Would you like to receive your hug?"</blockquote>
+        <p class="desc">A trained specialist arrives, knocks, presents credentials.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€29</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">☀️</div>
+        <h3>Good Morning Express™</h3>
+        <blockquote>"Good morning ❤️"</blockquote>
+        <p class="desc">Professionally optimized, delivered before 8:00 AM, every day.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€9.99</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">🌙</div>
+        <h3>Goodnight Delivery™</h3>
+        <blockquote>"Goodnight. Sleep well. You are appreciated."</blockquote>
+        <p class="desc">Delivered nightly at precisely 10:47 PM.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€7.99</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">💐</div>
+        <h3>The "You're Doing Great" Package</h3>
+        <blockquote>One compliment. One motivational message.</blockquote>
+        <p class="desc">Plus one imaginary high-five, included at no extra charge.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€12</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">💖</div>
+        <h3>Affection Emergency</h3>
+        <blockquote>"You've got this."</blockquote>
+        <p class="desc">One virtual flower, one digital hug, optional chocolate. Response under 15 minutes.</p>
+        <div class="pkg-price"><span class="tag">Price</span>Custom</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">🚨</div>
+        <h3>The Unrequested Love Package™</h3>
+        <blockquote>"Send someone some love."</blockquote>
+        <p class="desc">You don't choose who, what, or when. We handle the rest. Our specialty.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€29</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">📦</div>
+        <h3>The Love Box™</h3>
+        <blockquote>Flower, chocolate, handwritten note, certificate of affection.</blockquote>
+        <p class="desc">A premium physical package with one tiny unnecessary object.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€49</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">🎁</div>
+        <h3>The "I Don't Know What To Say" Package</h3>
+        <blockquote>"You're important to me."</blockquote>
+        <p class="desc">We'll write it, so you don't have to find the words.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€14.99</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">💘</div>
+        <h3>The "I Like You" Package</h3>
+        <blockquote>"Someone thinks you're pretty great."</blockquote>
+        <p class="desc">Recipient doesn't know who sent it. Optional reveal: yes, no, maybe later.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€19.99</div>
+      </div>
+      <div class="pkg">
+        <div class="icon">😬</div>
+        <h3>The "We Need To Talk" Delivery</h3>
+        <blockquote>Carefully worded message + emotional preparation.</blockquote>
+        <p class="desc">Includes optional chocolate and emergency follow-up service.</p>
+        <div class="pkg-price"><span class="tag">Price</span>€39</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALGORITHM -->
+<section class="section">
+  <div class="wrap">
+    <div class="algo reveal">
+      <div>
+        <span class="stamp" style="background:transparent;border-color:var(--tape);color:var(--tape);">🧠 Proprietary System</span>
+        <h2>Our Affection Algorithm™</h2>
+        <p style="color:var(--rose);font-size:15px;">We calculate exactly who needs love, and when.</p>
+        <div class="algo-factors">
+          <span>Day of week</span><span>Weather</span><span>Recent life events</span>
+          <span>Unanswered messages</span><span>Estimated loneliness</span><span>Birthday proximity</span>
+          <span>Whether it's Monday</span><span>Recently said "I'm fine"</span>
+        </div>
+      </div>
+      <div class="algo-number">
+        <div class="big" id="deficitCounter">0</div>
+        <div class="label">Current global affection deficit (hugs)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKING -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Live Status</span>
+      <h2>Love Tracking</h2>
+      <p>Every delivery receives a real-time tracking status.</p>
+    </div>
+    <div class="tracking-card reveal">
+      <div class="barcode mono" id="barcode"></div>
+      <div class="track-list" id="trackList">
+        <div class="track-item"><span class="dot"></span>Order Received</div>
+        <div class="track-item"><span class="dot"></span>Affection Prepared</div>
+        <div class="track-item"><span class="dot"></span>Love Packaged</div>
+        <div class="track-item"><span class="dot"></span>Love In Transit</div>
+        <div class="track-item"><span class="dot"></span>Approaching Recipient</div>
+        <div class="track-item"><span class="dot"></span>Love Delivered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY SPEED -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Shipping Speed</span>
+      <h2>Delivery Options</h2>
+    </div>
+    <div class="speed-grid reveal-stagger">
+      <div class="speed-card">
+        <h4>Standard Love</h4>
+        <p>Arrives eventually.</p>
+        <div class="speed-price">€4.99</div>
+      </div>
+      <div class="speed-card">
+        <h4>Express Love</h4>
+        <p>Arrives today.</p>
+        <div class="speed-price">€9.99</div>
+      </div>
+      <div class="speed-card">
+        <h4>Same-Minute Affection™</h4>
+        <p>Immediate. No waiting.</p>
+        <div class="speed-price">€19.99</div>
+      </div>
+      <div class="speed-card">
+        <h4>Emergency Love™</h4>
+        <p>For situations where someone needs affection now.</p>
+        <div class="speed-price">€39.99</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNATIONAL -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Global Reach</span>
+      <h2>International Love</h2>
+      <p>We deliver affection worldwide. International affection surcharge applies.</p>
+    </div>
+    <div class="flags reveal-stagger">
+      <div class="flag-chip">🇪🇸 Madrid</div>
+      <div class="flag-chip">🇫🇷 Paris</div>
+      <div class="flag-chip">🇮🇹 Rome</div>
+      <div class="flag-chip">🇺🇸 New York</div>
+      <div class="flag-chip">🇯🇵 Tokyo</div>
+      <div class="flag-chip">🇦🇺 Sydney</div>
+      <div class="flag-chip">🌎 Wherever someone needs a little love</div>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">For Teams</span>
+      <h2>Corporate Love Delivery</h2>
+      <p>Because employees need affection too. Employee Appreciation Express™, from €99/month.</p>
+    </div>
+    <div class="corp-grid reveal-stagger">
+      <div class="corp-card">
+        <h3>Small Love</h3>
+        <p class="scope">10 employees</p>
+        <div class="corp-price">€49<span style="font-size:14px;">/mo</span></div>
+        <ul>
+          <li>"You're doing great."</li>
+          <li>"We appreciate you."</li>
+          <li>"Take a break."</li>
+        </ul>
+      </div>
+      <div class="corp-card featured">
+        <span class="featured-badge">MOST POPULAR</span>
+        <h3>Medium Love</h3>
+        <p class="scope">50 employees</p>
+        <div class="corp-price">€199<span style="font-size:14px;">/mo</span></div>
+        <ul>
+          <li>Everything in Small Love</li>
+          <li>"Please stop checking email."</li>
+          <li>Monday motivation</li>
+        </ul>
+      </div>
+      <div class="corp-card">
+        <h3>Enterprise Affection</h3>
+        <p class="scope">Unlimited employees</p>
+        <div class="corp-price">€999<span style="font-size:14px;">/mo</span></div>
+        <ul>
+          <li>Custom messages</li>
+          <li>Birthday & anniversary delivery</li>
+          <li>Friday appreciation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Today's Numbers</span>
+      <h2>Your Love Dashboard</h2>
+    </div>
+    <div class="dash-grid reveal-stagger">
+      <div class="dash-cell"><div class="n">8,492</div><div class="l">Messages</div></div>
+      <div class="dash-cell"><div class="n">1,284</div><div class="l">Flowers</div></div>
+      <div class="dash-cell"><div class="n">731</div><div class="l">Hugs</div></div>
+      <div class="dash-cell"><div class="n">3,921</div><div class="l">Compliments</div></div>
+      <div class="dash-cell"><div class="n">492</div><div class="l">Chocolates</div></div>
+    </div>
+    <div class="dash-total reveal">
+      <div class="n">14,920</div>
+      <div style="font-size:14px;color:var(--rose);margin-top:6px;">Total affection units delivered today</div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Annual Recognition</span>
+      <h2>Love Delivery Awards</h2>
+    </div>
+    <div class="awards-grid reveal-stagger">
+      <div class="award-card">
+        <div class="award-medal">🥇</div>
+        <h4>Most Unexpected Recipient</h4>
+        <p>The man who received a compliment from himself.</p>
+      </div>
+      <div class="award-card">
+        <div class="award-medal">🥈</div>
+        <h4>Longest Distance</h4>
+        <p>Madrid → Tokyo</p>
+      </div>
+      <div class="award-card">
+        <div class="award-medal">🥉</div>
+        <h4>Most Confused Recipient</h4>
+        <p>"Who sent me this?" — Nobody knows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Reviews</span>
+      <h2>What People Say</h2>
+    </div>
+    <div class="reviews-grid reveal-stagger">
+      <div class="postcard">
+        <div class="stars">★★★★★</div>
+        <p>"My mother received a flower from me at work. She cried. Then called me asking what I had done."</p>
+        <div class="who">— Daniel</div>
+      </div>
+      <div class="postcard">
+        <div class="stars">★★★★★</div>
+        <p>"I sent my friend an anonymous compliment. She spent three days trying to identify the sender."</p>
+        <div class="who">— Sarah</div>
+      </div>
+      <div class="postcard">
+        <div class="stars">★★★★★</div>
+        <p>"I ordered a hug for myself. Honestly, I needed it."</p>
+        <div class="who">— Michael</div>
+      </div>
+      <div class="postcard">
+        <div class="stars">★★★★★</div>
+        <p>"I received a 'You're doing great' message. I have no idea who ordered it. That's exactly the point."</p>
+        <div class="who">— Laura</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GENERATOR + LOVE BUTTON -->
+<section class="section">
+  <div class="wrap duo reveal-stagger">
+    <div class="gen-card">
+      <span class="stamp">🤖 Automatic</span>
+      <h2 style="font-size:26px;margin-top:14px;">The Automatic Love Generator™</h2>
+      <p style="color:var(--plum-soft);margin-top:10px;">Don't know who needs love? Our system chooses.</p>
+      <div class="rec">
+        <div class="who">💌 Your old school teacher</div>
+        <div class="why">"You haven't spoken to them in 17 years."</div>
+      </div>
+      <a href="#catalog" class="btn btn-primary" style="width:100%;justify-content:center;">Send Love</a>
+    </div>
+    <div class="love-button-card">
+      <span class="stamp">The Simplest Option</span>
+      <h2 style="font-size:24px;margin-top:14px;">The Love Button</h2>
+      <p style="color:var(--plum-soft);margin-top:8px;font-size:14px;">Press it. We'll send affection to someone, anyone, somewhere, right now.</p>
+      <button class="big-heart-btn" id="loveBtn">❤️</button>
+      <div id="loveMsg">&nbsp;</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <span class="stamp">Questions</span>
+      <h2>Frequently Asked</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q"><span>Do recipients know who sent the love?</span><span class="plus">+</span></div>
+        <div class="faq-a">Sometimes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Can I send love anonymously?</span><span class="plus">+</span></div>
+        <div class="faq-a">Absolutely.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Can I send love to myself?</span><span class="plus">+</span></div>
+        <div class="faq-a">Of course. We're not monsters.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Can I cancel a love delivery?</span><span class="plus">+</span></div>
+        <div class="faq-a">Once affection leaves our warehouse, there's no going back.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What if the recipient doesn't want it?</span><span class="plus">+</span></div>
+        <div class="faq-a">We apologize. Then offer them a complimentary apology.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Do you deliver hate?</span><span class="plus">+</span></div>
+        <div class="faq-a">No. We lost the necessary paperwork.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section">
+  <div class="wrap">
+    <div class="final-cta reveal">
+      <h2>Love Shouldn't Need A Reason.</h2>
+      <p>And it definitely doesn't need an order. Someone somewhere could use a compliment, a smile, a flower, a hug — or something completely unexpected.</p>
+      <a href="#catalog" class="btn btn-dark">❤️ Send Someone Love</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINE PRINT -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="fine-print reveal">
+      <p><strong>Fine print:</strong> Love Delivery Service™ cannot guarantee that the recipient will understand why they received affection.</p>
+      <p>Some recipients may become emotional, suspicious, confused, grateful, or all four.</p>
+      <p>No recipient is required to order love. No affection may be returned for store credit. Once delivered, love is considered final.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">💌 Love Delivery Service™</div>
+        <p style="color:rgba(255,246,236,.65);font-size:14px;max-width:280px;margin-top:10px;">We deliver affection to people who didn't order it.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#catalog">Catalog</a>
+        <a href="#how">How It Works</a>
+        <a href="#">Corporate</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Love Delivery Service™. All affection reserved.</span>
+      <a class="credit-btn" href="https://easypagex.github.io" target="_blank" rel="noopener">✨ Built by EasyLandX</a>
+    </div>
+  </div>
+</footer>
+
+<div class="float-stack">
+  <a class="float-btn float-wa" href="https://wa.me/message" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+  <a class="float-btn float-ig" href="https://instagram.com" target="_blank" rel="noopener" title="Instagram">📷</a>
+</div>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el=>io.observe(el));
+
+  // Deficit counter
+  const deficitEl = document.getElementById('deficitCounter');
+  const target = 87492211;
+  let started = false;
+  const counterObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !started){
+        started = true;
+        let cur = 0;
+        const step = Math.ceil(target/80);
+        const t = setInterval(()=>{
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(t); }
+          deficitEl.textContent = cur.toLocaleString('en-US');
+        },20);
+      }
+    });
+  },{threshold:0.4});
+  counterObs.observe(deficitEl);
+
+  // Barcode
+  const barcode = document.getElementById('barcode');
+  for(let i=0;i<48;i++){
+    const bar = document.createElement('span');
+    const w = Math.random()>0.7 ? 4 : 2;
+    const h = 20 + Math.random()*24;
+    bar.style.width = w+'px';
+    bar.style.height = h+'px';
+    barcode.appendChild(bar);
+  }
+
+  // Tracking auto-cycle
+  const trackItems = document.querySelectorAll('#trackList .track-item');
+  let ti = 0;
+  setInterval(()=>{
+    trackItems.forEach(t=>t.classList.remove('active'));
+    trackItems[ti].classList.add('active');
+    ti = (ti+1) % trackItems.length;
+  },1400);
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Love button
+  const loveBtn = document.getElementById('loveBtn');
+  const loveMsg = document.getElementById('loveMsg');
+  const recipients = ['your old roommate','a stranger in Tokyo','your childhood best friend','someone at the office','your neighbor','a person on the bus this morning'];
+  loveBtn.addEventListener('click', ()=>{
+    const r = recipients[Math.floor(Math.random()*recipients.length)];
+    loveMsg.textContent = '❤️ Sent to ' + r + '...';
+    loveBtn.style.transform = 'scale(0.9)';
+    setTimeout(()=> loveBtn.style.transform = '', 150);
+  });
+</script>
+
+</body>
+</html>
